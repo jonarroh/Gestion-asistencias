@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1699743464812,
+      "tag": "0000_bent_the_anarchist",
+      "breakpoints": true
+    }
+  ]
+}

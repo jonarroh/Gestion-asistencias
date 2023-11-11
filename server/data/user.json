@@ -1,0 +1,22 @@
+[
+	{
+		"name": "John",
+		"password": "1234",
+		"id": "1"
+	},
+	{
+		"name": "Jane",
+		"password": "5678",
+		"id": "2"
+	},
+	{
+		"name": "Joe",
+		"password": "9012",
+		"id": "3"
+	},
+	{
+		"name": "liz",
+		"password": "liz",
+		"id": "4"
+	}
+]
