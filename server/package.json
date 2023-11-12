@@ -1,24 +1,25 @@
 {
-  "name": "server",
-  "module": "index.ts",
-  "type": "module",
-  "scripts": {
-    "dev": "bun run --watch index.ts"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.2.2",
-    "bun-types": "latest",
-    "drizzle-kit": "^0.20.1"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "@elysiajs/cookie": "^0.7.0",
-    "@elysiajs/cors": "^0.7.1",
-    "@elysiajs/jwt": "^0.7.0",
-    "@elysiajs/swagger": "^0.7.3",
-    "drizzle-orm": "^0.29.0",
-    "elysia": "^0.7.16"
-  }
+	"name": "server",
+	"module": "index.ts",
+	"type": "module",
+	"scripts": {
+		"dev": "bun run --watch index.ts",
+		"db": "bun run script.ts"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.2.2",
+		"bun-types": "latest",
+		"drizzle-kit": "^0.20.1"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@elysiajs/cookie": "^0.7.0",
+		"@elysiajs/cors": "^0.7.1",
+		"@elysiajs/jwt": "^0.7.0",
+		"@elysiajs/swagger": "^0.7.3",
+		"drizzle-orm": "^0.29.0",
+		"elysia": "^0.7.16"
+	}
 }
