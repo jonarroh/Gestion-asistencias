@@ -4,7 +4,7 @@
 
 - Bun [Mirar docs](https://bun.sh/)
 - Elytra.js [Mirar docs](https://elysiajs.com/)
-- drizzle [Mirar docs](https://drizzle.dev/)
+- drizzle [Mirar docs](https://orm.drizzle.team/docs/quick-sqlite/bun)
 
 ## Stack de tecnologías Frontend
 
