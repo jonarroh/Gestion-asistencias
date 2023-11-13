@@ -1,5 +1,5 @@
 import type { MetaFunction } from '@remix-run/node';
-import '~/globals.css';
+import { Link, useRouteError } from '@remix-run/react';
 
 export const meta: MetaFunction = () => {
 	return [
@@ -36,12 +36,9 @@ export default function Index() {
 					</a>
 				</li>
 				<li>
-					<a
-						target="_blank"
-						href="https://remix.run/docs"
-						rel="noreferrer">
-						Remix Docs
-					</a>
+					<Link to="/about" className="text-blue-500">
+						About Pages
+					</Link>
 				</li>
 			</ul>
 		</div>
