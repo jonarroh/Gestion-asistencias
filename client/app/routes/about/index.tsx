@@ -28,6 +28,10 @@ const users = [
 	{
 		nombre: 'Maria',
 		apellido: 'Perez'
+	},
+	{
+		nombre: 'Diana',
+		apellido: 'Lorena'
 	}
 ];
 
