@@ -45,8 +45,12 @@ module.exports = {
 					foreground: 'hsl(var(--popover-foreground))'
 				},
 				card: {
-					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--card-foreground))'
+					DEFAULT: '#FFF9D9',
+					foreground: '#1C020C'
+				},
+				selected: {
+					DEFAULT: '#FA9D3A',
+					foreground: '#1C020C'
 				}
 			},
 			borderRadius: {
