@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 ---
 
 <Layout title="Welcome to Astro.">
@@ -9,6 +10,13 @@ import { Button } from '@/components/ui/button';
 		<h1>Hola mundo</h1>
 		<Button variant="default" client:idle>Hola</Button>
 		<Button variant="secondary" client:idle>Hola</Button>
+		<Button variant="outline" client:idle>Hola</Button>
+		<Button variant="link" client:idle>Hola</Button>
+		<Button variant="ghost" client:idle>Hola</Button>
+		<Button variant="destructive" client:idle>Hola</Button>
+		<div class="mt-4">
+			<Input placeholder="Hola" />
+		</div>
 	</main>
 </Layout>
 
