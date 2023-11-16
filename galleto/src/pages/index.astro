@@ -3,23 +3,45 @@ import Layout from '../layouts/Layout.astro';
 import SelectGalleta from '@/components/ui/select-galleta';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+
+import {
+	Card,
+	CardHeader,
+	CardFooter,
+	CardTitle,
+	CardDescription,
+	CardContent
+} from '@/components/ui/card';
 ---
 
-<Layout title="Welcome to Astro.">
-	<main>
-		<h1>Hola mundo</h1>
-
-		<Button variant="default" client:idle>Hola</Button>
-		<Button variant="secondary" client:idle>Hola</Button>
-		<Button variant="outline" client:idle>Hola</Button>
-		<Button variant="link" client:idle>Hola</Button>
-		<Button variant="ghost" client:idle>Hola</Button>
-		<Button variant="destructive" client:idle>Hola</Button>
-		<div class="mt-4">
-			<Input placeholder="Hola" />
+<Layout title="Bienvenido a la tienda Don Galleto">
+	<main class="h-screen w-screen flex">
+		<div class="my-auto mx-auto">
+			<Card className="link-card bg-card" title="card-login">
+				<CardHeader>
+					<div class="mt-3 mb-2">
+						<img
+							class="img-logo"
+							src="/logo_dg_text.png"
+							alt="logo-donG"
+						/>
+					</div>
+				</CardHeader>
+				<CardContent className="content">
+					<div>
+						<label>Usuario</label>
+						<Input />
+					</div>
+					<div class="my-5">
+						<label>Contraseña</label>
+						<Input />
+					</div>
+					<Button variant="secondary" size="lg" client:idle>
+						Ingresar
+					</Button>
+				</CardContent>
+			</Card>
 		</div>
-
-		<SelectGalleta client:idle />
 	</main>
 </Layout>
 
@@ -29,7 +51,7 @@ import { Input } from '@/components/ui/input';
 		padding: 1rem;
 		width: 800px;
 		max-width: calc(100% - 2rem);
-		color: white;
+		color: #102c2c;
 		font-size: 20px;
 		line-height: 1.6;
 	}
@@ -82,5 +104,31 @@ import { Input } from '@/components/ui/input';
 		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
 		gap: 2rem;
 		padding: 0;
+	}
+	.bg-card {
+		background-color: #351300;
+	}
+	.link-card {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		text-align: center;
+		padding: 1rem;
+		border-radius: 8px;
+		border: 1px solid rgba(var(--accent-light), 25%);
+		transition: all 0.2s ease;
+	}
+	.img-logo {
+		width: 90%;
+		height: auto;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.content {
+		width: 70%;
+		color: #f0f0f0;
+		margin-top: 0.5 rem;
+		margin-bottom: 1.5rem;
 	}
 </style>
