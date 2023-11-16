@@ -1,23 +1,89 @@
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
-import { type } from 'os';
+import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core";
 
-export const movies = sqliteTable('movies', {
-	id: integer('id').primaryKey(),
-	title: text('name'),
-	releaseYear: integer('release_year')
+type status = "activo" | "inactivo";
+type role = "alumno" | "docente" | "directivo" | "padre" | "escolares";
+
+export const persona = sqliteTable("persona", {
+	clave: integer("clave").primaryKey(),
+	nombre: text("nombre"),
+	apellidoMaterno: text("apellidoMaterno"),
+	apellidoPaterno: text("apellidoPaterno"),
+	estatus: text("estatus")
+		.$default(() => "activo")
+		.$type<status>(),
+	role: text("role")
+		.$default(() => "alumno")
+		.$type<role>(),
 });
 
-export const actors = sqliteTable('actors', {
-	id: integer('id').primaryKey(),
-	name: text('name'),
-	comment: text('comment', { mode: 'json' }).$type<type>(),
-	birthdate: text('birthdate'),
-	movieId: integer('movie_id').references(() => movies.id)
+export const asistencia = sqliteTable("asistencia", {
+	clave: integer("clave").primaryKey(),
+	fecha: text("fecha"),
+	asistencia: text("asistencia", { mode: "json" }),
+	clave_persona: integer("clave_persona").references(() => persona.clave),
 });
 
-// enum roles 'actor' 'director'
-type roles = 'actor' | 'director';
-interface type {
-	type: roles;
-	name: string;
-}
+export const materia = sqliteTable("materia", {
+	clave: integer("clave").primaryKey(),
+	nombre: text("nombre"),
+	periodo: text("periodo"),
+	clave_especialidad: text("clave_especialidad").references(
+		() => especialidad.clave,
+	),
+});
+
+export const alumno = sqliteTable("alumno", {
+	clave: integer("clave").primaryKey(),
+	matricula: text("matricula"),
+	materia: text("materia"),
+	clave_materia: text("clave_materia"),
+	periodo: text("periodo"),
+	grupo: text("grupo"),
+	clave_persona: integer("clave_persona").references(() => persona.clave),
+});
+
+export const padre = sqliteTable("padre", {
+	clave: integer("clave").primaryKey(),
+	clave_persona: integer("clave_persona").references(() => persona.clave),
+	clave_alumno: integer("clave_alumno").references(() => alumno.clave),
+});
+
+export const directivo = sqliteTable("directivo", {
+	clave: integer("clave").primaryKey(),
+	clave_persona: integer("clave_persona").references(() => persona.clave),
+});
+
+export const docente = sqliteTable("docente", {
+	clave: integer("clave").primaryKey(),
+	clave_persona: integer("clave_persona").references(() => persona.clave),
+});
+
+export const especialidad = sqliteTable("especialidad", {
+	clave: integer("clave").primaryKey(),
+	nombre: text("nombre"),
+});
+
+export const periodo = sqliteTable("periodo", {
+	clave: integer("clave").primaryKey(),
+	nombre: text("nombre"),
+	fecha_inicio: text("fecha_inicio").notNull(),
+	fecha_fin: text("fecha_fin").notNull(),
+});
+
+export const grupo = sqliteTable("grupo", {
+	clave: integer("clave").primaryKey(),
+	nombre: text("nombre"),
+	clave_especialidad: text("clave_especialidad").references(
+		() => especialidad.clave,
+	),
+	id_alumno: integer("id_alumno").references(() => alumno.clave),
+	id_maestro: integer("id_maestro").references(() => docente.clave),
+	periodo: text("periodo").references(() => materia.periodo),
+});
+
+export const materias_grupo = sqliteTable("materias_grupo", {
+	clave: integer("clave").primaryKey(),
+	clave_materia: integer("clave_materia").references(() => materia.clave),
+	clave_grupo: integer("clave_grupo").references(() => grupo.clave),
+	horas: real("horas"),
+});

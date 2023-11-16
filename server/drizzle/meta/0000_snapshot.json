@@ -1,42 +1,56 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "776eca3a-091d-49cf-813b-2d996896fbab",
+  "id": "9272cd3e-e6dc-4ed0-bb70-e7dc5c347fad",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "actors": {
-      "name": "actors",
+    "alumno": {
+      "name": "alumno",
       "columns": {
-        "id": {
-          "name": "id",
+        "clave": {
+          "name": "clave",
           "type": "integer",
           "primaryKey": true,
           "notNull": true,
           "autoincrement": false
         },
-        "name": {
-          "name": "name",
+        "matricula": {
+          "name": "matricula",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "comment": {
-          "name": "comment",
+        "materia": {
+          "name": "materia",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "birthdate": {
-          "name": "birthdate",
+        "clave_materia": {
+          "name": "clave_materia",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "movie_id": {
-          "name": "movie_id",
+        "periodo": {
+          "name": "periodo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "grupo": {
+          "name": "grupo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "clave_persona": {
+          "name": "clave_persona",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
@@ -45,15 +59,15 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "actors_movie_id_movies_id_fk": {
-          "name": "actors_movie_id_movies_id_fk",
-          "tableFrom": "actors",
-          "tableTo": "movies",
+        "alumno_clave_persona_persona_clave_fk": {
+          "name": "alumno_clave_persona_persona_clave_fk",
+          "tableFrom": "alumno",
+          "tableTo": "persona",
           "columnsFrom": [
-            "movie_id"
+            "clave_persona"
           ],
           "columnsTo": [
-            "id"
+            "clave"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
@@ -62,26 +76,572 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "movies": {
-      "name": "movies",
+    "asistencia": {
+      "name": "asistencia",
       "columns": {
-        "id": {
-          "name": "id",
+        "clave": {
+          "name": "clave",
           "type": "integer",
           "primaryKey": true,
           "notNull": true,
           "autoincrement": false
         },
-        "name": {
-          "name": "name",
+        "fecha": {
+          "name": "fecha",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "release_year": {
-          "name": "release_year",
+        "asistencia": {
+          "name": "asistencia",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "clave_persona": {
+          "name": "clave_persona",
           "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "asistencia_clave_persona_persona_clave_fk": {
+          "name": "asistencia_clave_persona_persona_clave_fk",
+          "tableFrom": "asistencia",
+          "tableTo": "persona",
+          "columnsFrom": [
+            "clave_persona"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "directivo": {
+      "name": "directivo",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "clave_persona": {
+          "name": "clave_persona",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "directivo_clave_persona_persona_clave_fk": {
+          "name": "directivo_clave_persona_persona_clave_fk",
+          "tableFrom": "directivo",
+          "tableTo": "persona",
+          "columnsFrom": [
+            "clave_persona"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "docente": {
+      "name": "docente",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "clave_persona": {
+          "name": "clave_persona",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "docente_clave_persona_persona_clave_fk": {
+          "name": "docente_clave_persona_persona_clave_fk",
+          "tableFrom": "docente",
+          "tableTo": "persona",
+          "columnsFrom": [
+            "clave_persona"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "especialidad": {
+      "name": "especialidad",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nombre": {
+          "name": "nombre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "grupo": {
+      "name": "grupo",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nombre": {
+          "name": "nombre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "clave_especialidad": {
+          "name": "clave_especialidad",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "id_alumno": {
+          "name": "id_alumno",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "id_maestro": {
+          "name": "id_maestro",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "periodo": {
+          "name": "periodo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "grupo_clave_especialidad_especialidad_clave_fk": {
+          "name": "grupo_clave_especialidad_especialidad_clave_fk",
+          "tableFrom": "grupo",
+          "tableTo": "especialidad",
+          "columnsFrom": [
+            "clave_especialidad"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "grupo_id_alumno_alumno_clave_fk": {
+          "name": "grupo_id_alumno_alumno_clave_fk",
+          "tableFrom": "grupo",
+          "tableTo": "alumno",
+          "columnsFrom": [
+            "id_alumno"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "grupo_id_maestro_docente_clave_fk": {
+          "name": "grupo_id_maestro_docente_clave_fk",
+          "tableFrom": "grupo",
+          "tableTo": "docente",
+          "columnsFrom": [
+            "id_maestro"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "grupo_periodo_materias_periodo_fk": {
+          "name": "grupo_periodo_materias_periodo_fk",
+          "tableFrom": "grupo",
+          "tableTo": "materias",
+          "columnsFrom": [
+            "periodo"
+          ],
+          "columnsTo": [
+            "periodo"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "materia": {
+      "name": "materia",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nombre": {
+          "name": "nombre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "clave_especialidad": {
+          "name": "clave_especialidad",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "clave_periodo": {
+          "name": "clave_periodo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "materia_clave_especialidad_especialidad_clave_fk": {
+          "name": "materia_clave_especialidad_especialidad_clave_fk",
+          "tableFrom": "materia",
+          "tableTo": "especialidad",
+          "columnsFrom": [
+            "clave_especialidad"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "materia_clave_periodo_periodo_clave_fk": {
+          "name": "materia_clave_periodo_periodo_clave_fk",
+          "tableFrom": "materia",
+          "tableTo": "periodo",
+          "columnsFrom": [
+            "clave_periodo"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "materias": {
+      "name": "materias",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nombre": {
+          "name": "nombre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "periodo": {
+          "name": "periodo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "clave_especialidad": {
+          "name": "clave_especialidad",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "materias_clave_especialidad_especialidad_clave_fk": {
+          "name": "materias_clave_especialidad_especialidad_clave_fk",
+          "tableFrom": "materias",
+          "tableTo": "especialidad",
+          "columnsFrom": [
+            "clave_especialidad"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "materias_grupo": {
+      "name": "materias_grupo",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "clave_materia": {
+          "name": "clave_materia",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "clave_grupo": {
+          "name": "clave_grupo",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "horas": {
+          "name": "horas",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "materias_grupo_clave_materia_materias_clave_fk": {
+          "name": "materias_grupo_clave_materia_materias_clave_fk",
+          "tableFrom": "materias_grupo",
+          "tableTo": "materias",
+          "columnsFrom": [
+            "clave_materia"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "materias_grupo_clave_grupo_grupo_clave_fk": {
+          "name": "materias_grupo_clave_grupo_grupo_clave_fk",
+          "tableFrom": "materias_grupo",
+          "tableTo": "grupo",
+          "columnsFrom": [
+            "clave_grupo"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "padre": {
+      "name": "padre",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "clave_persona": {
+          "name": "clave_persona",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "clave_alumno": {
+          "name": "clave_alumno",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "padre_clave_persona_persona_clave_fk": {
+          "name": "padre_clave_persona_persona_clave_fk",
+          "tableFrom": "padre",
+          "tableTo": "persona",
+          "columnsFrom": [
+            "clave_persona"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "padre_clave_alumno_alumno_clave_fk": {
+          "name": "padre_clave_alumno_alumno_clave_fk",
+          "tableFrom": "padre",
+          "tableTo": "alumno",
+          "columnsFrom": [
+            "clave_alumno"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "periodo": {
+      "name": "periodo",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nombre": {
+          "name": "nombre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "fecha_inicio": {
+          "name": "fecha_inicio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "fecha_fin": {
+          "name": "fecha_fin",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "persona": {
+      "name": "persona",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nombre": {
+          "name": "nombre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "apellidoMaterno": {
+          "name": "apellidoMaterno",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "apellidoPaterno": {
+          "name": "apellidoPaterno",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "estatus": {
+          "name": "estatus",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
