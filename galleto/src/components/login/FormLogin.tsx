@@ -2,8 +2,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { useState } from 'react';
 
 function FormLogin() {
+	const [errors, setErrors] = useState({
+		usuario: '',
+		password: ''
+	});
+
 	const handleSubmit = async (
 		e: React.FormEvent<HTMLFormElement>
 	) => {
@@ -20,7 +26,16 @@ function FormLogin() {
 		}
 
 		const data = await response.json();
-		console.log(data);
+		if (data.errorMessages) {
+			setErrors(data.errorMessages);
+
+			setTimeout(() => {
+				setErrors({
+					usuario: '',
+					password: ''
+				});
+			}, 3000);
+		}
 	};
 
 	return (
@@ -40,10 +55,20 @@ function FormLogin() {
 						<div className="text-center">
 							<label>Usuario</label>
 							<Input type="text" name="usuario" />
+							{errors.usuario && (
+								<p className="text-red-500 text-sm">
+									{errors.usuario}
+								</p>
+							)}
 						</div>
 						<div className="my-5 text-center">
 							<label>Contraseña</label>
 							<Input type="password" name="password" />
+							{errors.password && (
+								<p className="text-red-500 text-sm">
+									{errors.password}
+								</p>
+							)}
 						</div>
 						<Button
 							variant="secondary"
