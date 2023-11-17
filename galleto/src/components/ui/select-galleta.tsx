@@ -10,27 +10,29 @@ import {
 	DialogTrigger
 } from './dialog';
 import { Button } from './button';
-import { Label } from './label';
-import { Input } from './input';
 import type { Cookie } from '@/types/Cookie';
+import { CloudCog } from 'lucide-react';
+const cookies: Cookie[] = [
+	'/galleta.png',
+	'/galleta(1).png',
+	'/galleta(2).png',
+	'/galleta(3).png',
+	'/galleta(4).png',
+	'/galleta(5).png',
+	'/galletas.png',
+	'/helado.png',
+	'/oblea.png',
+	'/pepitas-de-chocolate.png'
+];
 
 function SelectGalleta() {
 	const currentCookie = useCookieStore(state => state.currentCookie);
 	const selectedCookie = useCookieStore(
 		state => state.selectedCookie
 	);
-	const cookies: Cookie[] = [
-		'/galleta.png',
-		'/galleta(1).png',
-		'/galleta(2).png',
-		'/galleta(3).png',
-		'/galleta(4).png',
-		'/galleta(5).png',
-		'/galletas.png',
-		'/helado.png',
-		'/oblea.png',
-		'/pepitas-de-chocolate.png'
-	];
+
+	console.log(currentCookie);
+	console.log(selectedCookie);
 
 	return (
 		<>

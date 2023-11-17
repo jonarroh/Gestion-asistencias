@@ -7,7 +7,6 @@ export const useCookieStore = create(
 		(set, get) => ({
 			currentCookie: '/galleta.png',
 			selectedCookie: '/galleta.png',
-
 			setCurrentCookie: (cookie: Cookie) =>
 				set({ currentCookie: cookie }),
 			setSelectedCookie: (cookie: Cookie) =>

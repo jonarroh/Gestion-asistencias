@@ -1,14 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-import {
-	Card,
-	CardHeader,
-	CardFooter,
-	CardTitle,
-	CardDescription,
-	CardContent
-} from '@/components/ui/card';
+import { Card, CardHeader, CardContent } from '@/components/ui/card';
 
 function FormLogin() {
 	const handleSubmit = async (
@@ -19,8 +12,13 @@ function FormLogin() {
 		const formData = new FormData(e.target as HTMLFormElement);
 		const response = await fetch('/api/login', {
 			method: 'POST',
-			body: formData
+			body: formData,
+			redirect: 'follow'
 		});
+		if (response.redirected) {
+			window.location.replace(response.url);
+		}
+
 		const data = await response.json();
 		console.log(data);
 	};
