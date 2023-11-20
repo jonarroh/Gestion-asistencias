@@ -35,11 +35,28 @@ export const materia = sqliteTable("materia", {
 export const alumno = sqliteTable("alumno", {
 	clave: integer("clave").primaryKey(),
 	matricula: text("matricula"),
-	materia: text("materia"),
-	clave_materia: text("clave_materia"),
-	clave_periodo: integer("clave_periodo").references(() => periodo.clave),
 	grupo: text("grupo"),
 	clave_persona: integer("clave_persona").references(() => persona.clave),
+});
+
+export const detalle_materia_alumno = sqliteTable("detalle_materia_alumno", {
+	clave: integer("clave").primaryKey(),
+	clave_materia: integer("clave_materia").references(() => materia.clave),
+	clave_alumno: integer("clave_alumno").references(() => alumno.clave),
+});
+type falta = "A" | "F" | "J" | "R";
+
+export const falta = sqliteTable("falta", {
+	clave: integer("clave").primaryKey(),
+	fecha: text("fecha"),
+	hora: text("hora"),
+	type: text("type").$type<falta[]>(),
+});
+
+export const detalle_falta_alumno = sqliteTable("detalle_falta_alumno", {
+	clave: integer("clave").primaryKey(),
+	clave_falta: integer("clave_falta").references(() => falta.clave),
+	clave_alumno: integer("clave_alumno").references(() => alumno.clave),
 });
 
 export const padre = sqliteTable("padre", {
@@ -68,7 +85,35 @@ export const periodo = sqliteTable("periodo", {
 	nombre: text("nombre"),
 	fecha_inicio: text("fecha_inicio").notNull(),
 	fecha_fin: text("fecha_fin").notNull(),
+	infoPeriodo: text("infoPeriodo", { mode: "json" }).$type<InfoPeriodo>(),
 });
+
+type fechas = {
+	fechaInicio: string;
+	fechaFin: string;
+};
+
+type infoCuatrimestre = {
+	fechas: fechas[];
+	parciales: {
+		fechas: fechas[];
+		parcial_uno: {
+			fechas: fechas[];
+		};
+		parcial_dos: {
+			fechas: fechas[];
+		};
+		parcial_tres: {
+			fechas: fechas[];
+		};
+	};
+};
+interface InfoPeriodo {
+	fechasAsueto: fechas;
+	fechasVacaciones: fechas;
+	fechas: fechas;
+	infoCuatrimestre: infoCuatrimestre;
+}
 
 export const grupo = sqliteTable("grupo", {
 	clave: integer("clave").primaryKey(),

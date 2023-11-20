@@ -11,7 +11,6 @@ import {
 } from './dialog';
 import { Button } from './button';
 import type { Cookie } from '@/types/Cookie';
-import { CloudCog } from 'lucide-react';
 const cookies: Cookie[] = [
 	'/galleta.png',
 	'/galleta(1).png',
@@ -30,9 +29,6 @@ function SelectGalleta() {
 	const selectedCookie = useCookieStore(
 		state => state.selectedCookie
 	);
-
-	console.log(currentCookie);
-	console.log(selectedCookie);
 
 	return (
 		<>

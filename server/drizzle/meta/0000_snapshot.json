@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "9272cd3e-e6dc-4ed0-bb70-e7dc5c347fad",
+  "id": "ab5235ef-08a5-4b0b-b2d5-1b2a5c40875f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "alumno": {
@@ -16,27 +16,6 @@
         },
         "matricula": {
           "name": "matricula",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "materia": {
-          "name": "materia",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "clave_materia": {
-          "name": "clave_materia",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "periodo": {
-          "name": "periodo",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -116,6 +95,120 @@
           "tableTo": "persona",
           "columnsFrom": [
             "clave_persona"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "detalle_falta_alumno": {
+      "name": "detalle_falta_alumno",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "clave_falta": {
+          "name": "clave_falta",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "clave_alumno": {
+          "name": "clave_alumno",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "detalle_falta_alumno_clave_falta_falta_clave_fk": {
+          "name": "detalle_falta_alumno_clave_falta_falta_clave_fk",
+          "tableFrom": "detalle_falta_alumno",
+          "tableTo": "falta",
+          "columnsFrom": [
+            "clave_falta"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "detalle_falta_alumno_clave_alumno_alumno_clave_fk": {
+          "name": "detalle_falta_alumno_clave_alumno_alumno_clave_fk",
+          "tableFrom": "detalle_falta_alumno",
+          "tableTo": "alumno",
+          "columnsFrom": [
+            "clave_alumno"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "detalle_materia_alumno": {
+      "name": "detalle_materia_alumno",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "clave_materia": {
+          "name": "clave_materia",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "clave_alumno": {
+          "name": "clave_alumno",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "detalle_materia_alumno_clave_materia_materia_clave_fk": {
+          "name": "detalle_materia_alumno_clave_materia_materia_clave_fk",
+          "tableFrom": "detalle_materia_alumno",
+          "tableTo": "materia",
+          "columnsFrom": [
+            "clave_materia"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "detalle_materia_alumno_clave_alumno_alumno_clave_fk": {
+          "name": "detalle_materia_alumno_clave_alumno_alumno_clave_fk",
+          "tableFrom": "detalle_materia_alumno",
+          "tableTo": "alumno",
+          "columnsFrom": [
+            "clave_alumno"
           ],
           "columnsTo": [
             "clave"
@@ -224,6 +317,43 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "falta": {
+      "name": "falta",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "fecha": {
+          "name": "fecha",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "hora": {
+          "name": "hora",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "grupo": {
       "name": "grupo",
       "columns": {
@@ -243,7 +373,7 @@
         },
         "clave_especialidad": {
           "name": "clave_especialidad",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -262,9 +392,9 @@
           "notNull": false,
           "autoincrement": false
         },
-        "periodo": {
-          "name": "periodo",
-          "type": "text",
+        "clave_periodo": {
+          "name": "clave_periodo",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -311,15 +441,15 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "grupo_periodo_materias_periodo_fk": {
-          "name": "grupo_periodo_materias_periodo_fk",
+        "grupo_clave_periodo_periodo_clave_fk": {
+          "name": "grupo_clave_periodo_periodo_clave_fk",
           "tableFrom": "grupo",
-          "tableTo": "materias",
+          "tableTo": "periodo",
           "columnsFrom": [
-            "periodo"
+            "clave_periodo"
           ],
           "columnsTo": [
-            "periodo"
+            "clave"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
@@ -345,16 +475,16 @@
           "notNull": false,
           "autoincrement": false
         },
-        "clave_especialidad": {
-          "name": "clave_especialidad",
-          "type": "text",
+        "clave_periodo": {
+          "name": "clave_periodo",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "clave_periodo": {
-          "name": "clave_periodo",
-          "type": "text",
+        "clave_especialidad": {
+          "name": "clave_especialidad",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -362,19 +492,6 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "materia_clave_especialidad_especialidad_clave_fk": {
-          "name": "materia_clave_especialidad_especialidad_clave_fk",
-          "tableFrom": "materia",
-          "tableTo": "especialidad",
-          "columnsFrom": [
-            "clave_especialidad"
-          ],
-          "columnsTo": [
-            "clave"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
         "materia_clave_periodo_periodo_clave_fk": {
           "name": "materia_clave_periodo_periodo_clave_fk",
           "tableFrom": "materia",
@@ -387,48 +504,10 @@
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "materias": {
-      "name": "materias",
-      "columns": {
-        "clave": {
-          "name": "clave",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true,
-          "autoincrement": false
         },
-        "nombre": {
-          "name": "nombre",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "periodo": {
-          "name": "periodo",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "clave_especialidad": {
-          "name": "clave_especialidad",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "materias_clave_especialidad_especialidad_clave_fk": {
-          "name": "materias_clave_especialidad_especialidad_clave_fk",
-          "tableFrom": "materias",
+        "materia_clave_especialidad_especialidad_clave_fk": {
+          "name": "materia_clave_especialidad_especialidad_clave_fk",
+          "tableFrom": "materia",
           "tableTo": "especialidad",
           "columnsFrom": [
             "clave_especialidad"
@@ -455,7 +534,7 @@
         },
         "clave_materia": {
           "name": "clave_materia",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -477,10 +556,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "materias_grupo_clave_materia_materias_clave_fk": {
-          "name": "materias_grupo_clave_materia_materias_clave_fk",
+        "materias_grupo_clave_materia_materia_clave_fk": {
+          "name": "materias_grupo_clave_materia_materia_clave_fk",
           "tableFrom": "materias_grupo",
-          "tableTo": "materias",
+          "tableTo": "materia",
           "columnsFrom": [
             "clave_materia"
           ],
@@ -593,6 +672,13 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "infoPeriodo": {
+          "name": "infoPeriodo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         }
       },
