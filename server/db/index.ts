@@ -1,6 +1,14 @@
 import { db } from './db';
-import { sql } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
+import * as schema from './schema';
 
-const query = sql`select "hello world" as text`;
-const result = db.get<{ text: string }>(query);
-console.log(result);
+const matricula = '12345';
+const password = '12345';
+
+const user = await db
+	.select()
+	.from(schema.persona)
+	.innerJoin(sql`alumno`, sql`alumno.clave_persona = persona.clave`)
+	.where(sql`matricula = ${matricula}`);
+
+console.log(user);

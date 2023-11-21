@@ -2,41 +2,10 @@ import { Elysia, t } from 'elysia';
 
 import { cookie } from '@elysiajs/cookie';
 import { jwt } from '@elysiajs/jwt';
-import { isModuleBody } from 'typescript';
+import { SignDTO } from '../../dto/Login';
+import { LoginModel } from '../../model/login.model';
 
-interface IUser {
-	id: string;
-	name: string;
-	password: string;
-}
-
-const SignDTO = t.Object({
-	name: t.String(),
-	password: t.String()
-});
-
-const users = [
-	{
-		name: 'Jury',
-		password: '1234',
-		id: '1'
-	},
-	{
-		name: 'Jane',
-		password: '5678',
-		id: '2'
-	},
-	{
-		name: 'Joe',
-		password: '9012',
-		id: '3'
-	},
-	{
-		name: 'liz',
-		password: 'liz',
-		id: '4'
-	}
-];
+const loginModel = new LoginModel();
 
 export const authApp = new Elysia({ prefix: '/auth' })
 	.use(cookie())
@@ -51,31 +20,46 @@ export const authApp = new Elysia({ prefix: '/auth' })
 	.post(
 		'/login',
 		async ({ body, set, setCookie, jwt, cookie }) => {
-			const user = users.find(
-				user =>
-					user.name === body.name && user.password === body.password
-			);
-			if (!user) {
-				set.status = 401;
+			try {
+				const { message, status, user } = await loginModel.Loggin({
+					matricula: body.matricula,
+					password: body.password
+				});
+				if (!user) {
+					set.status = 401;
+					return {
+						message: {
+							message,
+							status
+						}
+					};
+				}
+				const LoggedUser = user[0]!;
+
+				setCookie(
+					'auth',
+					await jwt.sign({
+						user: JSON.stringify(LoggedUser)
+					}),
+					{
+						httpOnly: true,
+						maxAge: 7 * 86400
+					}
+				);
+
 				return {
-					message: 'User not found'
+					message: 'Logged in',
+					cookie: cookie.auth,
+					user: LoggedUser
+				};
+			} catch (err) {
+				console.log(err);
+				set.status = 500;
+				return {
+					message: 'Internal server error',
+					status: 500
 				};
 			}
-			setCookie(
-				'auth',
-				await jwt.sign({
-					name: user.name
-				}),
-				{
-					httpOnly: true,
-					maxAge: 7 * 86400
-				}
-			);
-
-			return {
-				message: 'Logged in',
-				cokie: cookie.auth
-			};
 		},
 		{
 			body: SignDTO
