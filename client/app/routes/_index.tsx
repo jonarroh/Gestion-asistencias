@@ -24,12 +24,12 @@ export const meta: MetaFunction = () => {
 const bodySchema = z.object({
 	matricula: z
 		.string()
-		.min(5, { message: 'Matricula debe tener al menos 6 caracteres' })
+		.min(5, { message: 'Matricula debe tener al menos 5 caracteres' })
 		.refine(data => /^\d+$/.test(data), {
 			message: 'Matricula solo puede contener numeros'
 		}),
 	password: z.string().min(5, {
-		message: 'Contraseña debe tener al menos 6 caracteres'
+		message: 'Contraseña debe tener al menos 5 caracteres'
 	})
 });
 
