@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "76f7ef4c-ab31-4547-a02e-100ea78a239a",
+  "id": "4b694dd7-a4e0-4ca9-9cd0-1647d8ccf182",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "alumno": {
@@ -266,6 +266,43 @@
         "docente_clave_persona_persona_clave_fk": {
           "name": "docente_clave_persona_persona_clave_fk",
           "tableFrom": "docente",
+          "tableTo": "persona",
+          "columnsFrom": [
+            "clave_persona"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "escolares": {
+      "name": "escolares",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "clave_persona": {
+          "name": "clave_persona",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "escolares_clave_persona_persona_clave_fk": {
+          "name": "escolares_clave_persona_persona_clave_fk",
+          "tableFrom": "escolares",
           "tableTo": "persona",
           "columnsFrom": [
             "clave_persona"

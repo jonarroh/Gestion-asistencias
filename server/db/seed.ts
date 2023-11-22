@@ -62,6 +62,12 @@ await db.insert(schema.alumno).values([
 	}
 ]);
 
+await db.insert(schema.escolares).values([
+	{
+		clave_persona: 5
+	}
+]);
+
 // // Insertar en la tabla 'asistencia'
 // await db.insert(schema.asistencia).values({
 // 	fecha: '2023-11-16',

@@ -8,7 +8,7 @@ interface LoginProps {
 }
 interface LoginResponse {
 	persona: typeof schema.persona;
-	alumno: typeof schema.alumno;
+	alumno: typeof schema.alumno | typeof schema.escolares;
 }
 
 export class LoginModel {
@@ -17,17 +17,15 @@ export class LoginModel {
 	}
 
 	Loggin = async ({ matricula, password }: LoginProps) => {
-		const user = await db
-			.select()
-			.from(schema.persona)
-			.innerJoin(
-				schema.alumno,
-				eq(schema.alumno.clave_persona, schema.persona.clave)
-			)
-			.where(sql`matricula = ${matricula}`);
+		const user = await foundUser({ matricula, password });
 
-		console.log(user);
-		console.log('password');
+		if (!user) {
+			return {
+				status: false,
+				message: 'Usuario no encontrado',
+				user: null
+			};
+		}
 
 		//validar si la contraseña es correcta
 		const isValidate = await Bun.password.verify(
@@ -52,4 +50,45 @@ export class LoginModel {
 		}
 		return { status: true, message: 'Usuario encontrado', user };
 	};
+}
+
+async function foundUser({ matricula, password }: LoginProps) {
+	try {
+		const [alumnoResult, escolaresResult] = await Promise.all([
+			db
+				.select()
+				.from(schema.persona)
+				.innerJoin(
+					schema.alumno,
+					eq(schema.alumno.clave_persona, schema.persona.clave)
+				)
+				.where(sql`matricula = ${matricula}`),
+
+			db
+				.select()
+				.from(schema.persona)
+				.innerJoin(
+					schema.escolares,
+					eq(schema.escolares.clave_persona, schema.persona.clave)
+				)
+				.where(sql`matricula = ${matricula}`)
+		]);
+
+		// Verificar si se encontró algún usuario en la primera consulta
+		if (alumnoResult.length > 0) {
+			return alumnoResult;
+		}
+
+		// Verificar si se encontró algún usuario en la segunda consulta
+		if (escolaresResult.length > 0) {
+			return escolaresResult;
+		}
+
+		// Si no se encontró en ninguna de las consultas, puedes manejarlo según tus necesidades
+		return null;
+	} catch (error) {
+		// Manejar errores, por ejemplo, lanzar una excepción o devolver un valor predeterminado
+		console.error('Error encontrando usuario:', error);
+		throw error;
+	}
 }

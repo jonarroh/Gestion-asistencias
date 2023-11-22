@@ -56,6 +56,13 @@ export const alumno = sqliteTable('alumno', {
 	)
 });
 
+export const escolares = sqliteTable('escolares', {
+	clave: integer('clave').primaryKey(),
+	clave_persona: integer('clave_persona').references(
+		() => persona.clave
+	)
+});
+
 export const detalle_materia_alumno = sqliteTable(
 	'detalle_materia_alumno',
 	{

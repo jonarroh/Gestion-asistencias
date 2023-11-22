@@ -15,7 +15,8 @@ export const useCookieStore = create(
 		}),
 
 		{
-			name: 'cookie-store'
+			name: 'cookie-store',
+			skipHydration: true
 		}
 	)
 );

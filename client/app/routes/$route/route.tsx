@@ -1,24 +1,35 @@
-import { LoaderFunctionArgs, json, redirect } from '@remix-run/node';
+import {
+	ActionFunction,
+	LoaderFunctionArgs,
+	json,
+	redirect
+} from '@remix-run/node';
 import {
 	useLoaderData,
 	useRouteError,
 	isRouteErrorResponse,
 	Link
 } from '@remix-run/react';
-import { role, roles } from '~/types';
+import { Usuario, role, roles } from '~/types';
 import Layout from '~/Layout/Login';
 import Footer from '~/components/login/Footer';
 import { Card, CardContent, CardHeader } from '~/components/ui/card';
+import UsuarioLayout from '~/Layout/Usuario';
+import HeaderDatos from '~/components/shared/HeaderDatos';
+import * as jwt from 'jsonwebtoken';
+import PanelCrearLista from '~/components/escolares/PanelCrearLista';
 
 export const loader = async ({
 	params,
 	request
 }: LoaderFunctionArgs) => {
 	const cookiesHeader = request.headers.get('Cookie');
+	if (!cookiesHeader) return redirect('/');
+	let cookies;
 
 	// Parsear las cookies si están presentes
 	if (cookiesHeader) {
-		const cookies = cookiesHeader.split(';').reduce((acc, cookie) => {
+		cookies = cookiesHeader.split(';').reduce((acc, cookie) => {
 			const [name, value] = cookie.trim().split('=');
 			// @ts-ignore-next-line
 			acc[name] = value;
@@ -27,6 +38,7 @@ export const loader = async ({
 
 		// Ahora 'cookies' es un objeto que contiene las cookies de la solicitud
 		//@ts-ignore-next-line
+
 		if (!cookies.token) return redirect('/');
 	}
 
@@ -36,7 +48,17 @@ export const loader = async ({
 		throw new Response('Not found', { status: 404 });
 	}
 
-	return json({ route: params.route });
+	const secret = 'Super secret value';
+
+	// @ts-ignore-next-line
+	const payload = jwt.verify(cookies.token, secret);
+
+	//validar que el rol sea el correcto
+	const { user } = payload as { user: string };
+	let usuario = JSON.parse(user) as Usuario;
+	if (usuario.persona.role !== params.route) return redirect('/');
+
+	return json({ route: params.route, userData: payload });
 };
 
 export function ErrorBoundary() {
@@ -78,15 +100,29 @@ export function ErrorBoundary() {
 	}
 }
 
+export const action: ActionFunction = async ({ request }) => {
+	const body = new URLSearchParams(await request.text());
+	console.log(body);
+};
+
 function Route() {
-	const { route } = useLoaderData<typeof loader>();
-	const errors = useRouteError();
+	const { route, userData } = useLoaderData() as {
+		route: role;
+		userData: { user: string };
+	};
+	const { user } = userData;
+	let usuario = JSON.parse(user) as Usuario;
 
 	return (
 		<>
-			<div>
-				<h1>route: {route}</h1>
-			</div>
+			<UsuarioLayout role={route}>
+				<HeaderDatos
+					role={route}
+					nombre={usuario.persona.nombre}
+					matricula={usuario.persona.matricula}
+				/>
+				<PanelCrearLista />
+			</UsuarioLayout>
 		</>
 	);
 }
