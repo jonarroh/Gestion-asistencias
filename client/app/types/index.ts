@@ -21,7 +21,32 @@ export interface Usuario {
 export interface Alumno {
 	clave: number;
 }
+export interface Docente {
+	clave: number;
+}
+export interface Especialidad {
+	clave: number;
+	nombre: string;
+}
 
+export interface Docentes {
+	docente: Docente;
+	persona: Persona;
+}
+export interface Materia {
+	clave: number;
+	nombre: string;
+	clave_periodo: number;
+	clave_especialidad: number;
+}
+
+export interface Periodo {
+	clave: number;
+	nombre: string;
+	fecha_inicio: Date;
+	fecha_fin: Date;
+	infoPeriodo: null;
+}
 export interface Persona {
 	clave: number;
 	nombre: string;

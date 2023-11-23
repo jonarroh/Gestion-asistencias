@@ -10,7 +10,15 @@ import {
 	isRouteErrorResponse,
 	Link
 } from '@remix-run/react';
-import { Usuario, role, roles } from '~/types';
+import {
+	type Docentes,
+	Usuario,
+	role,
+	roles,
+	Materia,
+	Especialidad,
+	Periodo
+} from '~/types';
 import Layout from '~/Layout/Login';
 import Footer from '~/components/login/Footer';
 import { Card, CardContent, CardHeader } from '~/components/ui/card';
@@ -43,7 +51,7 @@ export const loader = async ({
 	}
 
 	if (!params.route) return json({ route: 'no route' });
-
+	//@ts-check-next-line
 	if (!roles.includes(params.route as role)) {
 		throw new Response('Not found', { status: 404 });
 	}
@@ -58,7 +66,50 @@ export const loader = async ({
 	let usuario = JSON.parse(user) as Usuario;
 	if (usuario.persona.role !== params.route) return redirect('/');
 
-	return json({ route: params.route, userData: payload });
+	const [docentes, materias, especialidades, periodos] =
+		await Promise.all([
+			getDocentes(),
+			getMaterias(),
+			getEspecialidades(),
+			getPeriodos()
+		]);
+
+	return json({
+		route: params.route,
+		userData: payload,
+		docentes: JSON.stringify(docentes),
+		materias: JSON.stringify(materias),
+		especialidades: JSON.stringify(especialidades),
+		periodos: JSON.stringify(periodos)
+	});
+};
+
+const getDocentes = async (): Promise<Docentes[]> => {
+	const response = await fetch('http://localhost:3000/docentes');
+	const data = await response.json();
+	return data as Docentes[];
+};
+
+const getMaterias = async (): Promise<Materia[]> => {
+	const response = await fetch('http://localhost:3000/materias');
+	const data = await response.json();
+	return data as Materia[];
+};
+
+export const getEspecialidades = async (): Promise<
+	Especialidad[]
+> => {
+	const response = await fetch(
+		'http://localhost:3000/especialidades'
+	);
+	const data = await response.json();
+	return data as Especialidad[];
+};
+
+export const getPeriodos = async (): Promise<Periodo[]> => {
+	const response = await fetch('http://localhost:3000/periodos');
+	const data = await response.json();
+	return data as Periodo[];
 };
 
 export function ErrorBoundary() {
@@ -104,14 +155,45 @@ export const action: ActionFunction = async ({ request }) => {
 	const body = new URLSearchParams(await request.text());
 	console.log(body);
 };
+//TODO: Optimizar la carga de datos
+//TODO: Mover los fetch a un service
+//TODO: crear endpoint de grupo
 
 function Route() {
-	const { route, userData } = useLoaderData() as {
+	let {
+		route,
+		userData,
+		docentes,
+		materias,
+		especialidades,
+		periodos
+	} = useLoaderData() as {
 		route: role;
 		userData: { user: string };
+
+		especialidades: string | Especialidad[];
+		docentes: string | Docentes[];
+		materias: string | Materia[];
+		periodos: string | Periodo[];
 	};
+
+	console.log({
+		route,
+		userData,
+		docentes,
+		materias,
+		especialidades,
+		periodos
+	});
+
 	const { user } = userData;
 	let usuario = JSON.parse(user) as Usuario;
+	docentes = JSON.parse(docentes as string) as Docentes[];
+	materias = JSON.parse(materias as string) as Materia[];
+	especialidades = JSON.parse(
+		especialidades as string
+	) as Especialidad[];
+	periodos = JSON.parse(periodos as string) as Periodo[];
 
 	return (
 		<>
@@ -121,7 +203,13 @@ function Route() {
 					nombre={usuario.persona.nombre}
 					matricula={usuario.persona.matricula}
 				/>
-				<PanelCrearLista />
+				<PanelCrearLista
+					docentes={docentes}
+					especialidades={especialidades}
+					grupos={[]}
+					materias={materias}
+					periodos={periodos}
+				/>
 			</UsuarioLayout>
 		</>
 	);

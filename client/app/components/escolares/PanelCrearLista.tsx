@@ -2,14 +2,23 @@ import { Form, useSubmit } from '@remix-run/react';
 import { Card, CardContent } from '../ui/card';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
-import { Select, SelectTrigger, SelectValue } from '../ui/select';
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue
+} from '../ui/select';
+import { Docentes, Especialidad, Materia, Periodo } from '~/types';
 
 interface PanelCrearListaProps {
-	periodos: any[];
-	especialidades: any[];
-	materias: any[];
+	periodos: Periodo[];
+	especialidades: Especialidad[];
+	materias: Materia[];
 	grupos: any[];
-	docentes: any[];
+	docentes: Docentes[];
 }
 
 function PanelCrearLista({
@@ -51,6 +60,20 @@ function PanelCrearLista({
 								<SelectTrigger>
 									<SelectValue placeholder="Selecciona el periodo" />
 								</SelectTrigger>
+								<SelectContent>
+									<SelectGroup>
+										<SelectLabel>Periodo</SelectLabel>
+										{periodos.map((periodo: Periodo) => {
+											return (
+												<SelectItem
+													key={periodo.clave}
+													value={periodo.clave.toString()}>
+													{periodo.nombre}
+												</SelectItem>
+											);
+										})}
+									</SelectGroup>
+								</SelectContent>
 							</Select>
 						</div>
 						<div className="col-span-4">
@@ -59,6 +82,22 @@ function PanelCrearLista({
 								<SelectTrigger>
 									<SelectValue placeholder="Selecciona la especialidad" />
 								</SelectTrigger>
+								<SelectContent>
+									<SelectGroup>
+										<SelectLabel>Especialidad</SelectLabel>
+										{especialidades.map(
+											(especialidad: Especialidad) => {
+												return (
+													<SelectItem
+														key={especialidad.clave}
+														value={especialidad.nombre}>
+														{especialidad.nombre}
+													</SelectItem>
+												);
+											}
+										)}
+									</SelectGroup>
+								</SelectContent>
 							</Select>
 						</div>
 
@@ -68,6 +107,20 @@ function PanelCrearLista({
 								<SelectTrigger>
 									<SelectValue placeholder="Selecciona la materia" />
 								</SelectTrigger>
+								<SelectContent>
+									<SelectGroup>
+										<SelectLabel>Materia</SelectLabel>
+										{materias.map((materia: Materia) => {
+											return (
+												<SelectItem
+													key={materia.clave}
+													value={materia.nombre}>
+													{materia.nombre}
+												</SelectItem>
+											);
+										})}
+									</SelectGroup>
+								</SelectContent>
 							</Select>
 						</div>
 						<div className="col-span-4">
@@ -76,6 +129,18 @@ function PanelCrearLista({
 								<SelectTrigger>
 									<SelectValue placeholder="Selecciona el grupo" />
 								</SelectTrigger>
+								<SelectContent>
+									<SelectGroup>
+										<SelectLabel>Grupo</SelectLabel>
+										{grupos.map((grupo: any) => {
+											return (
+												<SelectItem key={grupo.id} value={grupo.id}>
+													{grupo.nombre}
+												</SelectItem>
+											);
+										})}
+									</SelectGroup>
+								</SelectContent>
 							</Select>
 						</div>
 						<div className="col-span-4">
@@ -84,6 +149,24 @@ function PanelCrearLista({
 								<SelectTrigger>
 									<SelectValue placeholder="Selecciona el docente" />
 								</SelectTrigger>
+								<SelectContent>
+									<SelectGroup>
+										<SelectLabel>Docente</SelectLabel>
+										{docentes.map((docente: Docentes) => {
+											return (
+												<SelectItem
+													key={docente.docente.clave}
+													value={docente.persona.matricula}>
+													{docente.persona.nombre +
+														' ' +
+														docente.persona.apellidoPaterno +
+														' ' +
+														docente.persona.apellidoMaterno}
+												</SelectItem>
+											);
+										})}
+									</SelectGroup>
+								</SelectContent>
 							</Select>
 						</div>
 

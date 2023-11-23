@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "4b694dd7-a4e0-4ca9-9cd0-1647d8ccf182",
+  "id": "4a269a64-1b3c-4ee7-b75a-0a7fd54c90a6",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "alumno": {

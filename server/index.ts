@@ -4,6 +4,10 @@ import { jwt } from '@elysiajs/jwt';
 import { cookie } from '@elysiajs/cookie';
 import { authApp } from './routes/auth';
 import { cors } from '@elysiajs/cors';
+import periodos from './routes/periodos';
+import materias from './routes/materias';
+import docentes from './routes/docentes';
+import especialidades from './routes/especialidades';
 
 const app = new Elysia()
 	.use(cors())
@@ -18,6 +22,11 @@ const app = new Elysia()
 	)
 	.use(cookie())
 	.use(authApp)
+	.use(periodos)
+	.use(materias)
+	.use(docentes)
+	.use(especialidades)
+
 	.get('/home', async ({ jwt, set, cookie: { auth } }) => {
 		const profile = await jwt.verify(auth);
 		if (!profile) {

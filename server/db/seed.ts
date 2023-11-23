@@ -56,6 +56,46 @@ await db.insert(schema.persona).values([
 	}
 ]);
 
+//agregar 3 roles de persona y unirlo a 3 docentes
+await db.insert(schema.persona).values([
+	{
+		nombre: 'Jorge',
+		apellidoMaterno: 'Gonzalez',
+		apellidoPaterno: 'Perez',
+		estatus: 'activo',
+		role: 'docente',
+		public_id: randomUUID()
+	},
+	{
+		nombre: 'Maria',
+		apellidoMaterno: 'Rodriguez',
+		apellidoPaterno: 'Lopez',
+		estatus: 'activo',
+		role: 'docente',
+		public_id: randomUUID()
+	},
+	{
+		nombre: 'Pedro',
+		apellidoMaterno: 'Martinez',
+		apellidoPaterno: 'Gomez',
+		estatus: 'activo',
+		role: 'docente',
+		public_id: randomUUID()
+	}
+]);
+
+await db.insert(schema.docente).values([
+	{
+		clave_persona: 7
+	},
+	{
+		clave_persona: 6
+	},
+	{
+		clave_persona: 8
+	}
+]);
+
 await db.insert(schema.alumno).values([
 	{
 		clave_persona: 1
@@ -65,6 +105,118 @@ await db.insert(schema.alumno).values([
 await db.insert(schema.escolares).values([
 	{
 		clave_persona: 5
+	}
+]);
+
+await db.insert(schema.especialidad).values([
+	{
+		nombre: 'Ingeniería en Sistemas Computacionales'
+	},
+	{
+		nombre: 'Enfermería'
+	},
+	{
+		nombre: 'Ingeniería en Gestión Empresarial'
+	}
+]);
+
+await db.insert(schema.periodo).values([
+	{
+		nombre: 'Semestre 1',
+		fecha_inicio: '2023-01-01',
+		fecha_fin: '2023-06-30'
+	},
+	{
+		nombre: 'Semestre 2',
+		fecha_inicio: '2023-07-01',
+		fecha_fin: '2023-12-31'
+	}
+]);
+
+await db.insert(schema.grupo).values([
+	{
+		clave_especialidad: 1,
+		nombre: 'Grupo 1'
+	},
+	{
+		clave_especialidad: 1,
+		nombre: 'Grupo 2'
+	},
+	{
+		clave_especialidad: 1,
+		nombre: 'Grupo 3'
+	},
+	{
+		clave_especialidad: 2,
+		nombre: 'Grupo 1'
+	},
+	{
+		clave_especialidad: 2,
+		nombre: 'Grupo 2'
+	},
+	{
+		clave_especialidad: 2,
+		nombre: 'Grupo 3'
+	},
+	{
+		clave_especialidad: 3,
+		nombre: 'Grupo 1'
+	},
+	{
+		clave_especialidad: 3,
+		nombre: 'Grupo 2'
+	},
+	{
+		clave_especialidad: 3,
+		nombre: 'Grupo 3'
+	}
+]);
+
+await db.insert(schema.materia).values([
+	{
+		clave_especialidad: 1,
+		clave_periodo: 1,
+		nombre: 'Matemáticas'
+	},
+	{
+		clave_especialidad: 1,
+		clave_periodo: 1,
+		nombre: 'Programación'
+	},
+	{
+		clave_especialidad: 1,
+		clave_periodo: 1,
+		nombre: 'Física'
+	},
+	{
+		clave_especialidad: 2,
+		clave_periodo: 1,
+		nombre: 'Anatomía'
+	},
+	{
+		clave_especialidad: 2,
+		clave_periodo: 1,
+		nombre: 'Química'
+	},
+	{
+		clave_especialidad: 2,
+		clave_periodo: 1,
+		nombre: 'Biología'
+	},
+	{
+		clave_especialidad: 3,
+		clave_periodo: 1,
+		nombre: 'Administración'
+	},
+	{
+		clave_especialidad: 3,
+		clave_periodo: 1,
+		nombre: 'Contabilidad'
+	},
+	{
+		clave_especialidad: 3,
+		clave_periodo: 1,
+		nombre: 'Economía'
 	}
 ]);
 
