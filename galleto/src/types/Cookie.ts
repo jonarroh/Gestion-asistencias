@@ -1,6 +1,7 @@
 export interface CookieStore {
 	currentCookie: Cookie;
 	selectedCookie: Cookie;
+	placeholder: Cookie;
 	setCurrentCookie: (cookie: Cookie) => void;
 	setSelectedCookie: (cookie: Cookie) => void;
 }

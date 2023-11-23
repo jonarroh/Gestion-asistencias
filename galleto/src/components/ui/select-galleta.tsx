@@ -11,7 +11,6 @@ import {
 } from './dialog';
 import { Button } from './button';
 import type { Cookie } from '@/types/Cookie';
-import { CloudCog } from 'lucide-react';
 const cookies: Cookie[] = [
 	'/galleta.png',
 	'/galleta(1).png',
@@ -31,9 +30,6 @@ function SelectGalleta() {
 		state => state.selectedCookie
 	);
 
-	console.log(currentCookie);
-	console.log(selectedCookie);
-
 	return (
 		<>
 			<Dialog>
@@ -42,8 +38,8 @@ function SelectGalleta() {
 						<img
 							src={currentCookie}
 							alt="Galleta seleccionada"
-							width={75}
-							height={75}
+							width={200}
+							height={200}
 						/>
 					</Button>
 				</DialogTrigger>

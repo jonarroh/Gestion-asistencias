@@ -5,6 +5,7 @@ interface Props {
 
 const { title } = Astro.props;
 
+import { Toaster } from '@/components/ui/toaster';
 import '@/styles/globals.css';
 ---
 
@@ -20,6 +21,7 @@ import '@/styles/globals.css';
 	</head>
 	<body>
 		<slot />
+		<Toaster client:only />
 	</body>
 </html>
 <style is:global>

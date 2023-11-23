@@ -7,6 +7,7 @@ export const useCookieStore = create(
 		(set, get) => ({
 			currentCookie: '/galleta.png',
 			selectedCookie: '/galleta.png',
+			placeholder: '/galleta.png',
 			setCurrentCookie: (cookie: Cookie) =>
 				set({ currentCookie: cookie }),
 			setSelectedCookie: (cookie: Cookie) =>
@@ -14,7 +15,8 @@ export const useCookieStore = create(
 		}),
 
 		{
-			name: 'cookie-store'
+			name: 'cookie-store',
+			skipHydration: true
 		}
 	)
 );

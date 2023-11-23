@@ -1,0 +1,32 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import SelectGalleta from '@/components/ui/select-galleta';
+import { RadioGroupForm } from '@/components/compra/Form';
+import { Button } from '@/components/ui/button';
+---
+
+<Layout title="Galleto">
+	<main class="grid grid-cols-8 grid-rows-8 gap-4 w-screen h-screen">
+		<section class="col-span-3 row-span-6">
+			<div class="flex flex-col justify-center items-center h-full">
+				<h2 class="text-2xl font-bold mb-8">Selecciona la Galleta</h2>
+				<SelectGalleta client:idle />
+			</div>
+		</section>
+
+		<section class="col-span-5 row-span-6">
+			<div class="flex flex-col justify-center items-center h-full">
+				<RadioGroupForm client:idle />
+			</div>
+		</section>
+
+		<section class="col-span-8 row-span-2">
+			<div class="flex justify-center items-center h-full space-x-4">
+				<Button variant={'secondary'}>Vender</Button>
+				<Button variant={'destructive'}>Cancelar</Button>
+				<Button variant={'outline_primary'}>Generar ticket</Button>
+				<Button>Factura</Button>
+			</div>
+		</section>
+	</main>
+</Layout>

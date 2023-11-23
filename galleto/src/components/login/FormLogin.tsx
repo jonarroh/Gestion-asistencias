@@ -9,11 +9,11 @@ function FormLogin() {
 		usuario: '',
 		password: ''
 	});
+	const [message, setMessage] = useState('');
 
 	const handleSubmit = async (
 		e: React.FormEvent<HTMLFormElement>
 	) => {
-		console.log('handleSubmit');
 		e.preventDefault();
 		const formData = new FormData(e.target as HTMLFormElement);
 		const response = await fetch('/api/login', {
@@ -35,6 +35,14 @@ function FormLogin() {
 					password: ''
 				});
 			}, 3000);
+
+			return;
+		}
+		if (data.message) {
+			setMessage(data.message);
+			setTimeout(() => {
+				setMessage('');
+			}, 3000);
 		}
 	};
 
@@ -52,9 +60,11 @@ function FormLogin() {
 						</div>
 					</CardHeader>
 					<CardContent className="flex flex-col items-center justify-center">
-						<div className="text-center">
+						<div className="my-5 text-center">
 							<label>Usuario</label>
 							<Input type="text" name="usuario" />
+						</div>
+						<div>
 							{errors.usuario && (
 								<p className="text-red-500 text-sm">
 									{errors.usuario}
@@ -64,17 +74,22 @@ function FormLogin() {
 						<div className="my-5 text-center">
 							<label>Contraseña</label>
 							<Input type="password" name="password" />
+						</div>
+						<div>
 							{errors.password && (
 								<p className="text-red-500 text-sm">
 									{errors.password}
 								</p>
+							)}
+							{message && (
+								<p className="text-red-500 text-sm">{message}</p>
 							)}
 						</div>
 						<Button
 							variant="secondary"
 							size="lg"
 							type="submit"
-							className="self-center">
+							className="self-center my-5">
 							Ingresar
 						</Button>
 					</CardContent>
