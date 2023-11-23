@@ -1,10 +1,14 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import SelectGalleta from '@/components/ui/select-galleta';
+import Home from '@/components/home/Home';
+import Nav from '@/components/ui/nav.astro';
 ---
 
-<Layout title="Galleto">
-	<main>
-		<SelectGalleta client:only />
+<Layout title="Galleto" >
+	<Nav></Nav>
+	<main class="h-100% w-100% flex">
+		<div class="mx-auto my-[2.5rem]">
+			<Home></Home>
+		</div>
 	</main>
 </Layout>

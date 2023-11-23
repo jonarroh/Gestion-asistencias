@@ -16,7 +16,7 @@ const buttonVariants = cva(
 				outline:
 					'border border-input bg-background hover:bg-accent hover:text-accent-foreground text-primary-foreground hover:border-primary',
 				outline_primary:
-					'border border-input bg-background hover:bg-destructive hover:text-accent-foreground text-primary-foreground hover:border-primary',
+					'border border-secondary bg-[#FF8300] hover:bg-[#FF8300]/80 hover:text-accent-foreground text-primary-foreground hover:border-primary',
 				secondary:
 					'bg-secondary text-secondary-foreground hover:bg-secondary/80',
 				ghost:
@@ -28,6 +28,7 @@ const buttonVariants = cva(
 				sm: 'h-9 rounded-md px-3',
 				lg: 'h-11 rounded-md px-8',
 				icon: 'h-10 w-10',
+				selectorFunction: 'h-[80px] w-[80px] rounded-3xl',
 				selector: 'h-[200px] w-[200px] rounded-full'
 			}
 		},
