@@ -8,7 +8,9 @@ import {
 	useLoaderData,
 	useRouteError,
 	isRouteErrorResponse,
-	Link
+	Link,
+	useFetchers,
+	useNavigation
 } from '@remix-run/react';
 import {
 	type Docentes,
@@ -24,92 +26,64 @@ import Footer from '~/components/login/Footer';
 import { Card, CardContent, CardHeader } from '~/components/ui/card';
 import UsuarioLayout from '~/Layout/Usuario';
 import HeaderDatos from '~/components/shared/HeaderDatos';
-import * as jwt from 'jsonwebtoken';
-import PanelCrearLista from '~/components/escolares/PanelCrearLista';
 
+import PanelCrearLista from '~/components/escolares/PanelCrearLista';
+import { getEspecialidades } from '~/services/especialidad';
+import { getDocentes } from '~/services/docentes';
+import { getMaterias } from '~/services/materia';
+import { getPeriodos } from '~/services/periodos';
+import {
+	parseCookies,
+	verifyTokenAndGetPayload
+} from '~/lib/cookies';
+
+// Función principal del loader
 export const loader = async ({
 	params,
 	request
 }: LoaderFunctionArgs) => {
 	const cookiesHeader = request.headers.get('Cookie');
+
 	if (!cookiesHeader) return redirect('/');
-	let cookies;
 
-	// Parsear las cookies si están presentes
-	if (cookiesHeader) {
-		cookies = cookiesHeader.split(';').reduce((acc, cookie) => {
-			const [name, value] = cookie.trim().split('=');
-			// @ts-ignore-next-line
-			acc[name] = value;
-			return acc;
-		}, {});
+	const cookies = parseCookies(cookiesHeader);
 
-		// Ahora 'cookies' es un objeto que contiene las cookies de la solicitud
-		//@ts-ignore-next-line
-
-		if (!cookies.token) return redirect('/');
-	}
-
+	if (!cookies || !cookies.token) return redirect('/');
 	if (!params.route) return json({ route: 'no route' });
-	//@ts-check-next-line
 	if (!roles.includes(params.route as role)) {
 		throw new Response('Not found', { status: 404 });
 	}
 
 	const secret = 'Super secret value';
 
-	// @ts-ignore-next-line
-	const payload = jwt.verify(cookies.token, secret);
+	try {
+		const payload = verifyTokenAndGetPayload(cookies.token, secret);
 
-	//validar que el rol sea el correcto
-	const { user } = payload as { user: string };
-	let usuario = JSON.parse(user) as Usuario;
-	if (usuario.persona.role !== params.route) return redirect('/');
+		const { user } = payload;
+		const usuario = JSON.parse(user) as Usuario;
+		if (usuario.persona.role !== params.route) return redirect('/');
 
-	const [docentes, materias, especialidades, periodos] =
-		await Promise.all([
-			getDocentes(),
-			getMaterias(),
-			getEspecialidades(),
-			getPeriodos()
-		]);
+		const [docentes, materias, especialidades, periodos] =
+			await Promise.all([
+				getDocentes(),
+				getMaterias(),
+				getEspecialidades(),
+				getPeriodos()
+			]);
 
-	return json({
-		route: params.route,
-		userData: payload,
-		docentes: JSON.stringify(docentes),
-		materias: JSON.stringify(materias),
-		especialidades: JSON.stringify(especialidades),
-		periodos: JSON.stringify(periodos)
-	});
-};
-
-const getDocentes = async (): Promise<Docentes[]> => {
-	const response = await fetch('http://localhost:3000/docentes');
-	const data = await response.json();
-	return data as Docentes[];
-};
-
-const getMaterias = async (): Promise<Materia[]> => {
-	const response = await fetch('http://localhost:3000/materias');
-	const data = await response.json();
-	return data as Materia[];
-};
-
-export const getEspecialidades = async (): Promise<
-	Especialidad[]
-> => {
-	const response = await fetch(
-		'http://localhost:3000/especialidades'
-	);
-	const data = await response.json();
-	return data as Especialidad[];
-};
-
-export const getPeriodos = async (): Promise<Periodo[]> => {
-	const response = await fetch('http://localhost:3000/periodos');
-	const data = await response.json();
-	return data as Periodo[];
+		return json({
+			route: params.route,
+			userData: payload,
+			docentes: JSON.stringify(docentes),
+			materias: JSON.stringify(materias),
+			especialidades: JSON.stringify(especialidades),
+			periodos: JSON.stringify(periodos)
+		});
+	} catch (error) {
+		// Manejar errores de verificación de token
+		console.error(error);
+		return redirect('/');
+	}
 };
 
 export function ErrorBoundary() {
@@ -152,48 +126,46 @@ export function ErrorBoundary() {
 }
 
 export const action: ActionFunction = async ({ request }) => {
-	const body = new URLSearchParams(await request.text());
+	const body = await request.json();
 	console.log(body);
+	const resp = await fetch('http://localhost:3000/lista', {
+		method: 'POST',
+		body: JSON.stringify(body),
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	});
+	console.log(resp);
+
+	return json({ status: 200 });
 };
-//TODO: Optimizar la carga de datos
-//TODO: Mover los fetch a un service
-//TODO: crear endpoint de grupo
 
 function Route() {
-	let {
+	const {
 		route,
 		userData,
-		docentes,
-		materias,
-		especialidades,
-		periodos
+		docentes: docentesData,
+		materias: materiasData,
+		especialidades: especialidadesData,
+		periodos: periodosData
 	} = useLoaderData() as {
 		route: role;
 		userData: { user: string };
-
 		especialidades: string | Especialidad[];
 		docentes: string | Docentes[];
 		materias: string | Materia[];
 		periodos: string | Periodo[];
 	};
 
-	console.log({
-		route,
-		userData,
-		docentes,
-		materias,
-		especialidades,
-		periodos
-	});
+	const navigation = useNavigation();
+	console.log(navigation);
 
 	const { user } = userData;
-	let usuario = JSON.parse(user) as Usuario;
-	docentes = JSON.parse(docentes as string) as Docentes[];
-	materias = JSON.parse(materias as string) as Materia[];
-	especialidades = JSON.parse(
-		especialidades as string
-	) as Especialidad[];
-	periodos = JSON.parse(periodos as string) as Periodo[];
+	const usuario = JSON.parse(user) as Usuario;
+	const docentes = JSON.parse(docentesData as string);
+	const materias = JSON.parse(materiasData as string);
+	const especialidades = JSON.parse(especialidadesData as string);
+	const periodos = JSON.parse(periodosData as string);
 
 	return (
 		<>
@@ -203,13 +175,15 @@ function Route() {
 					nombre={usuario.persona.nombre}
 					matricula={usuario.persona.matricula}
 				/>
-				<PanelCrearLista
-					docentes={docentes}
-					especialidades={especialidades}
-					grupos={[]}
-					materias={materias}
-					periodos={periodos}
-				/>
+				{route === 'escolares' ? (
+					<PanelCrearLista
+						docentes={docentes}
+						especialidades={especialidades}
+						grupos={[]}
+						materias={materias}
+						periodos={periodos}
+					/>
+				) : null}
 			</UsuarioLayout>
 		</>
 	);

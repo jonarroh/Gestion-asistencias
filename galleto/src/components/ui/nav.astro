@@ -1,54 +1,64 @@
+---
+import { fade } from 'astro:transitions';
+---
+
 <nav>
-    <a href="/home"><img src="/logo_dg.png" alt="Logo Don G" width="60px"></a>
-    <div>
-        <ul>
-            <li><a href="#">Tienda</a></li>
-            <li><a href="#">Inventario</a></li>
-            <li><a href="#">Ganancias</a></li>
-        </ul>
-    </div>
+	<a href="/home"
+		><img
+			src="/logo_dg.png"
+			alt="Logo Don G"
+			width="60px"
+			transition:name="hero"
+			transition:animate={fade({ duration: '0.4s' })}
+		/></a
+	>
+	<div>
+		<ul>
+			<li><a href="/compra">Tienda</a></li>
+			<li><a href="#">Inventario</a></li>
+			<li><a href="#">Ganancias</a></li>
+		</ul>
+	</div>
 </nav>
 
 <style>
-    nav {
-        background-color: #1C020C;
-        color: #FFFFFF;
-        display: flex;
-        width: 100%;
-        height: 60px;
-        padding: 0 10px;
-    }
+	nav {
+		background-color: #1c020c;
+		color: #ffffff;
+		display: flex;
+		width: 100%;
+		height: 60px;
+		padding: 0 10px;
+	}
 
-    
+	nav div {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-grow: 1;
+	}
 
-    nav div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-grow: 1;
-    }
+	nav div ul {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 
-    nav div ul {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+	nav ul li {
+		list-style: none;
+		margin: 0 10px;
+	}
 
-    nav ul li {
-        list-style: none;
-        margin: 0 10px;
-    }
+	nav ul li a {
+		text-decoration: none;
+		color: #ffffff;
+	}
 
-    nav ul li a {
-        text-decoration: none;
-        color: #FFFFFF;
-    }
+	nav ul li a:hover {
+		color: #ffb670;
+	}
 
-    nav ul li a:hover {
-        color: #FFB670;
-    }
-
-    nav ul li a:active {
-        color: #FF8300;
-    }
+	nav ul li a:active {
+		color: #ff8300;
+	}
 </style>
