@@ -58,3 +58,25 @@ export interface Persona {
 	password: string;
 	matricula: string;
 }
+
+export interface Materia {
+	clave: number;
+	nombre: string;
+	clave_periodo: number;
+	clave_especialidad: number;
+}
+export interface Grupo {
+	grupo: GrupoClass;
+	materia: Materia;
+}
+
+export interface GrupoClass {
+	clave: number;
+	nombre: string;
+	clave_especialidad: number;
+	id_alumno: null;
+	id_maestro: null;
+	clave_periodo: null;
+}
+
+export interface Materia {}

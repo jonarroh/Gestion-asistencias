@@ -6,4 +6,12 @@ export class Materias {
 		const materias = await db.select().from(schema.materia);
 		return materias;
 	};
+
+	GetMateriaByEspecialidad = async (idEspecialidad: number) => {
+		const materias = await db
+			.select()
+			.from(schema.materia)
+			.where(eq(schema.materia.clave_especialidad, idEspecialidad));
+		return materias;
+	};
 }

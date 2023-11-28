@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "4a269a64-1b3c-4ee7-b75a-0a7fd54c90a6",
+  "id": "fca6d019-e540-4e88-bcc2-00f6b8ac8034",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "alumno": {
@@ -333,10 +333,31 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        },
+        "clave_periodo": {
+          "name": "clave_periodo",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "especialidad_clave_periodo_periodo_clave_fk": {
+          "name": "especialidad_clave_periodo_periodo_clave_fk",
+          "tableFrom": "especialidad",
+          "tableTo": "periodo",
+          "columnsFrom": [
+            "clave_periodo"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
@@ -470,6 +491,151 @@
           "tableTo": "periodo",
           "columnsFrom": [
             "clave_periodo"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "lista_asistencia": {
+      "name": "lista_asistencia",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "clave_docente": {
+          "name": "clave_docente",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "clave_especialidad": {
+          "name": "clave_especialidad",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "clave_materia": {
+          "name": "clave_materia",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "dias_descanso": {
+          "name": "dias_descanso",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "dias_Vacaciones": {
+          "name": "dias_Vacaciones",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "horas_clase": {
+          "name": "horas_clase",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "dias_clase": {
+          "name": "dias_clase",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "clave_periodo": {
+          "name": "clave_periodo",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "clave_grupo": {
+          "name": "clave_grupo",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "lista_asistencia_clave_docente_docente_clave_fk": {
+          "name": "lista_asistencia_clave_docente_docente_clave_fk",
+          "tableFrom": "lista_asistencia",
+          "tableTo": "docente",
+          "columnsFrom": [
+            "clave_docente"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "lista_asistencia_clave_especialidad_especialidad_clave_fk": {
+          "name": "lista_asistencia_clave_especialidad_especialidad_clave_fk",
+          "tableFrom": "lista_asistencia",
+          "tableTo": "especialidad",
+          "columnsFrom": [
+            "clave_especialidad"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "lista_asistencia_clave_materia_materia_clave_fk": {
+          "name": "lista_asistencia_clave_materia_materia_clave_fk",
+          "tableFrom": "lista_asistencia",
+          "tableTo": "materia",
+          "columnsFrom": [
+            "clave_materia"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "lista_asistencia_clave_periodo_periodo_clave_fk": {
+          "name": "lista_asistencia_clave_periodo_periodo_clave_fk",
+          "tableFrom": "lista_asistencia",
+          "tableTo": "periodo",
+          "columnsFrom": [
+            "clave_periodo"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "lista_asistencia_clave_grupo_grupo_clave_fk": {
+          "name": "lista_asistencia_clave_grupo_grupo_clave_fk",
+          "tableFrom": "lista_asistencia",
+          "tableTo": "grupo",
+          "columnsFrom": [
+            "clave_grupo"
           ],
           "columnsTo": [
             "clave"

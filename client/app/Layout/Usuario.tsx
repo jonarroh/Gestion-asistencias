@@ -1,4 +1,5 @@
 import Nav from '~/components/shared/Nav';
+import { Toaster } from '~/components/ui/toaster';
 
 interface UsuarioProps {
 	children: React.ReactNode;
@@ -16,6 +17,7 @@ function Usuario({ children, role }: UsuarioProps) {
 				<section className="col-span-10 bg-white h-screen px-4">
 					{children}
 				</section>
+				<Toaster />
 			</main>
 		</>
 	);

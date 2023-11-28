@@ -119,7 +119,35 @@ export const docente = sqliteTable('docente', {
 
 export const especialidad = sqliteTable('especialidad', {
 	clave: integer('clave').primaryKey(),
-	nombre: text('nombre')
+	nombre: text('nombre'),
+	clave_periodo: integer('clave_periodo').references(
+		() => periodo.clave
+	)
+});
+
+export const lista_asistencia = sqliteTable('lista_asistencia', {
+	clave: integer('clave').primaryKey(),
+	clave_docente: integer('clave_docente').references(
+		() => docente.clave
+	),
+	clave_especialidad: integer('clave_especialidad').references(
+		() => especialidad.clave
+	),
+	clave_materia: integer('clave_materia').references(
+		() => materia.clave
+	),
+	dias_descanso: text('dias_descanso'),
+	dias_Vacaciones: text('dias_Vacaciones'),
+	horas_clase: text('horas_clase', {
+		mode: 'json'
+	}),
+	dias_clase: text('dias_clase', {
+		mode: 'json'
+	}),
+	clave_periodo: integer('clave_periodo').references(
+		() => periodo.clave
+	),
+	clave_grupo: integer('clave_grupo').references(() => grupo.clave)
 });
 
 export const periodo = sqliteTable('periodo', {

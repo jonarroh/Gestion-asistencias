@@ -2,14 +2,17 @@ import { Elysia } from 'elysia';
 import { swagger } from '@elysiajs/swagger';
 import { jwt } from '@elysiajs/jwt';
 import { cookie } from '@elysiajs/cookie';
-import { authApp } from './routes/auth';
+import { authApp } from './controller/auth';
 import { cors } from '@elysiajs/cors';
-import periodos from './routes/periodos';
-import materias from './routes/materias';
-import docentes from './routes/docentes';
-import especialidades from './routes/especialidades';
+import periodos from './controller/periodos';
+import materias from './controller/materias';
+import docentes from './controller/docentes';
+import especialidades from './controller/especialidades';
+import grupos from './controller/grupos';
+import lista from './controller/listaAsistencia';
 
 const app = new Elysia()
+
 	.use(cors())
 	.use(swagger({ path: '/docs' }))
 	.use(
@@ -26,24 +29,9 @@ const app = new Elysia()
 	.use(materias)
 	.use(docentes)
 	.use(especialidades)
+	.use(grupos)
+	.use(lista)
 
-	.get('/home', async ({ jwt, set, cookie: { auth } }) => {
-		const profile = await jwt.verify(auth);
-		if (!profile) {
-			set.status = 401;
-			return {
-				message: 'Unauthorized'
-			};
-		}
-		return {
-			message: 'Hello World from home'
-		};
-	})
-	.get('/', () => {
-		return {
-			message: 'Hello World'
-		};
-	})
 	.listen(3000);
 
 console.log('Server is running on port 3000');
