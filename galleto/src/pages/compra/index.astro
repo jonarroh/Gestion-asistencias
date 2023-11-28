@@ -3,30 +3,35 @@ import Layout from '@/layouts/Layout.astro';
 import SelectGalleta from '@/components/ui/select-galleta';
 import { RadioGroupForm } from '@/components/compra/Form';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import Nav from '@/components/ui/nav.astro';
+import ModalCompra from '@/components/ui/venta-modal';
 ---
 
 <Layout title="Galleto">
-	<main class="grid grid-cols-8 grid-rows-8 gap-4 w-screen h-screen">
-		<section class="col-span-3 row-span-6">
-			<div class="flex flex-col justify-center items-center h-full">
-				<h2 class="text-2xl font-bold mb-8">Selecciona la Galleta</h2>
-				<SelectGalleta client:idle />
-			</div>
-		</section>
+	<Nav></Nav>
+	<main class="h-full w-100% flex">
+		<div class="mx-auto my-[6rem] w-1/2 h-full">
+			<Card className='bg-secondary/20'>
+				<div class="flex flex-row mt-5">
+					<div class="flex flex-col justify-center items-center w-1/2 mx-5">
+						<h2 class="text-2xl font-bold mb-5">Selecciona la Galleta</h2>
+						<SelectGalleta client:idle />
+					</div>
 
-		<section class="col-span-5 row-span-6">
-			<div class="flex flex-col justify-center items-center h-full">
-				<RadioGroupForm client:idle />
-			</div>
-		</section>
+					<div class="flex flex-col justify-center items-center w-1/2 mr-10 mt-5">
+						<RadioGroupForm client:idle />
+					</div>
+				</div>
 
-		<section class="col-span-8 row-span-2">
-			<div class="flex justify-center items-center h-full space-x-4">
-				<Button variant={'secondary'}>Vender</Button>
-				<Button variant={'destructive'}>Cancelar</Button>
-				<Button variant={'outline_primary'}>Generar ticket</Button>
-				<Button>Factura</Button>
-			</div>
-		</section>
+				<div class="flex flex-row w-100% mt-10 mb-5 mx-5">
+					<div class="flex w-full ">
+						<ModalCompra />	
+						<Button className='w-1/2 ml-2' variant={'secondary'} >Cancelar</Button>
+					</div>
+				</div>	
+				
+			</Card>
+		</div>
 	</main>
 </Layout>
