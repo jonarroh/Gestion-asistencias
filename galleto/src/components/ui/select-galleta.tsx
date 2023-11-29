@@ -49,7 +49,7 @@ function SelectGalleta() {
 							Cambiar galleta
 						</DialogTitle>
 						<DialogDescription className="text-center">
-							Selecciona la galleta que quieres usar
+							Selecciona la galleta a vender
 						</DialogDescription>
 					</DialogHeader>
 					<section className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 py-4">

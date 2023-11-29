@@ -3,22 +3,14 @@ import { fade } from 'astro:transitions';
 ---
 
 <nav>
-	<a href="/home"
-		><img
-			src="/logo_dg.png"
-			alt="Logo Don G"
-			width="60px"
-			transition:name="hero"
-			transition:animate={fade({ duration: '0.4s' })}
-		/></a
-	>
-	<div>
-		<ul>
-			<li><a href="/compra">Tienda</a></li>
-			<li><a href="#">Inventario</a></li>
-			<li><a href="#">Ganancias</a></li>
-		</ul>
-	</div>
+    <a href="/home"><img src="/logo_dg.png" alt="Logo Don G" width="60px"></a>
+    <div>
+        <ul>
+            <li><a href="/compra">Compra</a></li>
+            <li><a href="#">Inventario</a></li>
+            <li><a href="#">Ganancias</a></li>
+        </ul>
+    </div>
 </nav>
 
 <style>
@@ -58,7 +50,11 @@ import { fade } from 'astro:transitions';
 		color: #ffb670;
 	}
 
-	nav ul li a:active {
-		color: #ff8300;
-	}
+    nav ul li a:hover {
+        color: #FFB670;
+    }
+
+    nav ul li a:active {
+        color: #FF8300;
+    }
 </style>

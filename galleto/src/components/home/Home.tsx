@@ -30,7 +30,7 @@ function Home() {
 								<img src="/cart.svg" alt="Galleta seleccionada" />
 							</Button>
 							<span className="-ml-3 font-bold text-md text-white">
-								Compras
+								Compra
 							</span>
 						</div>
 
