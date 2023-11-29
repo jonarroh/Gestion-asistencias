@@ -117,6 +117,12 @@ export const docente = sqliteTable('docente', {
 	)
 });
 
+export const grupo_alumno = sqliteTable('grupo_alumno', {
+	clave: integer('clave').primaryKey(),
+	clave_grupo: integer('clave_grupo').references(() => grupo.clave),
+	clave_alumno: integer('clave_alumno').references(() => alumno.clave)
+});
+
 export const especialidad = sqliteTable('especialidad', {
 	clave: integer('clave').primaryKey(),
 	nombre: text('nombre'),

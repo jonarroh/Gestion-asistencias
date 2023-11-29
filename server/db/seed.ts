@@ -64,6 +64,8 @@ await db.insert(schema.persona).values([
 		apellidoPaterno: 'Perez',
 		estatus: 'activo',
 		role: 'docente',
+		matricula: '21345',
+		password: await Bun.password.hash('21345'),
 		public_id: randomUUID()
 	},
 	{
@@ -72,6 +74,8 @@ await db.insert(schema.persona).values([
 		apellidoPaterno: 'Lopez',
 		estatus: 'activo',
 		role: 'docente',
+		matricula: '21346',
+		password: await Bun.password.hash('21346'),
 		public_id: randomUUID()
 	},
 	{
@@ -80,13 +84,15 @@ await db.insert(schema.persona).values([
 		apellidoPaterno: 'Gomez',
 		estatus: 'activo',
 		role: 'docente',
+		matricula: '21347',
+		password: await Bun.password.hash('21347'),
 		public_id: randomUUID()
 	}
 ]);
 
 await db.insert(schema.docente).values([
 	{
-		clave_persona: 7
+		clave_persona: 2
 	},
 	{
 		clave_persona: 6
@@ -217,6 +223,105 @@ await db.insert(schema.materia).values([
 		clave_especialidad: 3,
 		clave_periodo: 1,
 		nombre: 'Economía'
+	}
+]);
+
+//insetar varios personas y unirlos a varios alumnos
+await db.insert(schema.persona).values([
+	{
+		nombre: 'Carlos',
+		apellidoMaterno: 'Fernandez',
+		apellidoPaterno: 'Gutierrez',
+		estatus: 'activo',
+		role: 'alumno',
+		matricula: '12349',
+		password: await Bun.password.hash('12349'),
+		public_id: randomUUID()
+	},
+	{
+		nombre: 'angel',
+		apellidoMaterno: 'Fernandez',
+		apellidoPaterno: 'Gutierrez',
+		estatus: 'activo',
+		role: 'alumno',
+		matricula: '12350',
+		password: await Bun.password.hash('12350'),
+		public_id: randomUUID()
+	},
+	{
+		nombre: 'uriel',
+		apellidoMaterno: 'Fernandez',
+		apellidoPaterno: 'Gutierrez',
+		estatus: 'activo',
+		role: 'alumno',
+		matricula: '12351',
+		password: await Bun.password.hash('12351'),
+		public_id: randomUUID()
+	},
+	{
+		nombre: 'diana',
+		apellidoMaterno: 'Fernandez',
+		apellidoPaterno: 'Gutierrez',
+		estatus: 'activo',
+		role: 'alumno',
+		matricula: '12352',
+		password: await Bun.password.hash('12352'),
+		public_id: randomUUID()
+	},
+	{
+		nombre: 'Liz',
+		apellidoMaterno: 'Fernandez',
+		apellidoPaterno: 'Gutierrez',
+		estatus: 'activo',
+		role: 'alumno',
+		matricula: '12353',
+		password: await Bun.password.hash('12353'),
+		public_id: randomUUID()
+	}
+]);
+
+await db.insert(schema.alumno).values([
+	{
+		clave_persona: 9
+	},
+	{
+		clave_persona: 10
+	},
+	{
+		clave_persona: 11
+	},
+	{
+		clave_persona: 12
+	},
+	{
+		clave_persona: 13
+	}
+]);
+
+await db.insert(schema.grupo_alumno).values([
+	{
+		clave_grupo: 1,
+		clave_alumno: 1
+	},
+	{
+		clave_grupo: 1,
+		clave_alumno: 2
+	},
+	{
+		clave_grupo: 1,
+		clave_alumno: 3
+	},
+	{
+		clave_grupo: 4,
+		clave_alumno: 4
+	},
+	{
+		clave_grupo: 4,
+		clave_alumno: 5
+	},
+	{
+		clave_grupo: 4,
+		clave_alumno: 1
 	}
 ]);
 

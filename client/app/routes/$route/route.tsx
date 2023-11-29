@@ -10,7 +10,11 @@ import {
 	isRouteErrorResponse,
 	Link,
 	useFetchers,
-	useNavigation
+	useNavigation,
+	Outlet,
+	ScrollRestoration,
+	LiveReload,
+	Scripts
 } from '@remix-run/react';
 import {
 	type Docentes,
@@ -36,6 +40,7 @@ import {
 	parseCookies,
 	verifyTokenAndGetPayload
 } from '~/lib/cookies';
+import HeaderDocente from '~/components/docentes/HeaderDoecnte';
 
 // Función principal del loader
 export const loader = async ({
@@ -140,7 +145,7 @@ export const action: ActionFunction = async ({ request }) => {
 	return json({ status: 200 });
 };
 
-function Route() {
+function Route({ children }: { children: React.ReactNode }) {
 	const {
 		route,
 		userData,
@@ -161,7 +166,10 @@ function Route() {
 	console.log(navigation);
 
 	const { user } = userData;
-	const usuario = JSON.parse(user) as Usuario;
+	let usuario;
+	if (route === 'docente') usuario = JSON.parse(user) as Docentes;
+	else usuario = JSON.parse(user) as Usuario;
+
 	const docentes = JSON.parse(docentesData as string);
 	const materias = JSON.parse(materiasData as string);
 	const especialidades = JSON.parse(especialidadesData as string);
@@ -170,19 +178,36 @@ function Route() {
 	return (
 		<>
 			<UsuarioLayout role={route}>
-				<HeaderDatos
-					role={route}
-					nombre={usuario.persona.nombre}
-					matricula={usuario.persona.matricula}
-				/>
 				{route === 'escolares' ? (
-					<PanelCrearLista
-						docentes={docentes}
-						especialidades={especialidades}
-						grupos={[]}
-						materias={materias}
-						periodos={periodos}
-					/>
+					<>
+						<HeaderDatos
+							role={route}
+							nombre={usuario.persona.nombre}
+							matricula={usuario.persona.matricula}
+						/>
+						<PanelCrearLista
+							docentes={docentes}
+							especialidades={especialidades}
+							grupos={[]}
+							materias={materias}
+							periodos={periodos}
+						/>
+					</>
+				) : null}
+				{route === 'docente' ? (
+					<>
+						<HeaderDocente
+							role={route}
+							nombre={usuario.persona.nombre}
+							matricula={usuario.persona.matricula}
+							claveDocente={usuario.docente?.clave}
+						/>
+						<Outlet
+							context={{
+								clave: usuario.docente?.clave
+							}}
+						/>
+					</>
 				) : null}
 			</UsuarioLayout>
 		</>

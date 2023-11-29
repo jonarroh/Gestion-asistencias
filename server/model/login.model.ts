@@ -53,26 +53,36 @@ export class LoginModel {
 }
 
 async function foundUser({ matricula, password }: LoginProps) {
+	console.log(matricula);
 	try {
-		const [alumnoResult, escolaresResult] = await Promise.all([
-			db
-				.select()
-				.from(schema.persona)
-				.innerJoin(
-					schema.alumno,
-					eq(schema.alumno.clave_persona, schema.persona.clave)
-				)
-				.where(sql`matricula = ${matricula}`),
+		const [alumnoResult, escolaresResult, docentesResult] =
+			await Promise.all([
+				db
+					.select()
+					.from(schema.persona)
+					.innerJoin(
+						schema.alumno,
+						eq(schema.alumno.clave_persona, schema.persona.clave)
+					)
+					.where(sql`matricula = ${matricula}`),
 
-			db
-				.select()
-				.from(schema.persona)
-				.innerJoin(
-					schema.escolares,
-					eq(schema.escolares.clave_persona, schema.persona.clave)
-				)
-				.where(sql`matricula = ${matricula}`)
-		]);
+				db
+					.select()
+					.from(schema.persona)
+					.innerJoin(
+						schema.escolares,
+						eq(schema.escolares.clave_persona, schema.persona.clave)
+					)
+					.where(sql`matricula = ${matricula}`),
+				db
+					.select()
+					.from(schema.persona)
+					.innerJoin(
+						schema.docente,
+						eq(schema.docente.clave_persona, schema.persona.clave)
+					)
+					.where(sql`matricula = ${matricula}`)
+			]);
 
 		// Verificar si se encontró algún usuario en la primera consulta
 		if (alumnoResult.length > 0) {
@@ -82,6 +92,11 @@ async function foundUser({ matricula, password }: LoginProps) {
 		// Verificar si se encontró algún usuario en la segunda consulta
 		if (escolaresResult.length > 0) {
 			return escolaresResult;
+		}
+		console.log(docentesResult);
+		// Verificar si se encontró algún usuario en la tercera consulta
+		if (docentesResult.length > 0) {
+			return docentesResult;
 		}
 
 		// Si no se encontró en ninguna de las consultas, puedes manejarlo según tus necesidades

@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "fca6d019-e540-4e88-bcc2-00f6b8ac8034",
+  "id": "31c3056f-ddd1-407d-8bbb-5c11ca0cad7b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "alumno": {
@@ -491,6 +491,63 @@
           "tableTo": "periodo",
           "columnsFrom": [
             "clave_periodo"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "grupo_alumno": {
+      "name": "grupo_alumno",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "clave_grupo": {
+          "name": "clave_grupo",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "clave_alumno": {
+          "name": "clave_alumno",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "grupo_alumno_clave_grupo_grupo_clave_fk": {
+          "name": "grupo_alumno_clave_grupo_grupo_clave_fk",
+          "tableFrom": "grupo_alumno",
+          "tableTo": "grupo",
+          "columnsFrom": [
+            "clave_grupo"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "grupo_alumno_clave_alumno_alumno_clave_fk": {
+          "name": "grupo_alumno_clave_alumno_alumno_clave_fk",
+          "tableFrom": "grupo_alumno",
+          "tableTo": "alumno",
+          "columnsFrom": [
+            "clave_alumno"
           ],
           "columnsTo": [
             "clave"

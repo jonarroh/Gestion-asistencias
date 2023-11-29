@@ -1,23 +1,12 @@
 import Elysia from 'elysia';
-import { t } from 'elysia';
 import { Lista } from '../../model/lista.model';
+import { BoduDto } from '../../dto/lista';
 
 const lista = new Elysia({ prefix: '/lista' });
 
-const BoduDto = t.Object({
-	Docente: t.String(),
-	Especialidad: t.String(),
-	Materia: t.String(),
-	Periodo: t.String(),
-	diasClase: t.String(),
-	diasDescanso: t.String(),
-	diasVacaciones: t.String(),
-	horas: t.String(),
-	Grupo: t.String()
-});
-
-lista.get('', () => {
-	return 'Hola';
+lista.get('/docente/:clave', ({ params: { clave } }) => {
+	console.log(clave);
+	return new Lista().getListaByMaestro(clave);
 });
 
 lista.post(
