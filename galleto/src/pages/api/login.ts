@@ -67,7 +67,29 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 		});
 	}
 
-	if (username !== 'admin' || password !== 'admin') {
+	const resp = await fetch(
+		`http://localhost:3001/usuarios?nombre=${username}`
+	);
+
+	const data = await resp.json();
+
+	if (data.length === 0) {
+		return new Response(
+			JSON.stringify({
+				message: 'Usuario o contraseña incorrectos'
+			}),
+			{
+				status: 401,
+				headers: {
+					'content-type': 'application/json;charset=UTF-8'
+				}
+			}
+		);
+	}
+
+	const usuario = data[0];
+
+	if (usuario.password !== password) {
 		return new Response(
 			JSON.stringify({
 				message: 'Usuario o contraseña incorrectos'

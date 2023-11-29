@@ -12,25 +12,36 @@ import ModalCompra from '@/components/ui/venta-modal';
 	<Nav />
 	<main class="h-full w-100% flex">
 		<div class="mx-auto my-[6rem] w-1/2 h-full">
-			<Card className='bg-secondary/20'>
+			<Card className="bg-secondary/20">
 				<div class="flex flex-row mt-5">
-					<div class="flex flex-col justify-center items-center w-1/2 mx-5">
-						<h2 class="text-2xl font-bold mb-5">Selecciona la Galleta</h2>
+					<div
+						class="flex flex-col justify-center items-center w-1/2 mx-5"
+					>
+						<h2 class="text-2xl font-bold mb-5">
+							Selecciona la Galleta
+						</h2>
 						<SelectGalleta client:idle />
 					</div>
 
-					<div class="flex flex-col justify-center items-center w-1/2 mr-10 mt-5">
+					<div
+						class="flex flex-col justify-center items-center w-1/2 mr-10 mt-5"
+					>
 						<RadioGroupForm client:idle />
 					</div>
 				</div>
 
 				<div class="flex flex-row w-100% mt-10 mb-5 mx-5">
-					<div class="flex w-full ">
-						<ModalCompra />	
-						<Button className='w-1/2 ml-2' variant={'secondary'} >Cancelar</Button>
+					<div class="flex w-full">
+						<ModalCompra client:idle />
+						<Button
+							className="w-1/2 ml-2"
+							variant={'secondary'}
+							client:idle
+						>
+							Cancelar
+						</Button>
 					</div>
-				</div>	
-				
+				</div>
 			</Card>
 		</div>
 	</main>

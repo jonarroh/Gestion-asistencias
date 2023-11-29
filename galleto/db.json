@@ -5,5 +5,203 @@
 			"nombre": "galleto",
 			"password": "1234"
 		}
-	]
+	],
+	"galletas": {
+		"1": {
+			"nombre": "Galleta oreo",
+			"precio": 10,
+			"stock": 100
+		},
+		"2": {
+			"nombre": "Galleta de plana",
+			"precio": 10,
+			"stock": 100
+		},
+		"3": {
+			"nombre": "Galleta relleno fresa",
+			"precio": 10,
+			"stock": 100
+		},
+		"4": {
+			"nombre": "Galleta narajan",
+			"precio": 10,
+			"stock": 100
+		},
+		"5": {
+			"nombre": "Galleta relleno vainilla",
+			"precio": 10,
+			"stock": 100
+		},
+		"6": {
+			"nombre": "Galleta relleno naranja",
+			"precio": 10,
+			"stock": 100
+		},
+		"7": {
+			"nombre": "Galleta de decoradas",
+			"precio": 15,
+			"stock": 100
+		},
+		"8": {
+			"nombre": "Galleta de helado",
+			"precio": 10,
+			"stock": 100
+		},
+		"9": {
+			"nombre": "Galleta de oblea",
+			"precio": 10,
+			"stock": 100
+		},
+		"10": {
+			"nombre": "Galleta de chispas",
+			"precio": 10,
+			"stock": 100
+		}
+	},
+	"materialGalletas": {
+		"1": {
+			"harina": 100,
+			"mantequilla": 50,
+			"azúcar": 100,
+			"chocolate": 25,
+			"relleno": 50
+		},
+		"2": {
+			"harina": 100,
+			"mantequilla": 50,
+			"azúcar": 100,
+			"fresas": 25
+		},
+		"3": {
+			"harina": 100,
+			"mantequilla": 50,
+			"azúcar": 100,
+			"nueces": 25
+		},
+		"4": {
+			"harina": 100,
+			"mantequilla": 50,
+			"azúcar": 100,
+			"vainilla": 25
+		},
+		"5": {
+			"harina": 100,
+			"mantequilla": 50,
+			"azúcar": 100,
+			"naranja": 25
+		},
+		"6": {
+			"harina": 100,
+			"mantequilla": 50,
+			"azúcar": 100,
+			"decoraciones": 25
+		},
+		"7": {
+			"harina": 100,
+			"mantequilla": 50,
+			"azúcar": 100,
+			"helado": 25
+		},
+		"8": {
+			"oblea": 100
+		},
+		"9": {
+			"harina": 100,
+			"mantequilla": 50,
+			"azúcar": 100,
+			"chispas": 25
+		},
+		"10": {
+			"harina": 100,
+			"mantequilla": 50,
+			"azúcar": 100
+		}
+	},
+	"inventario": {
+		"harina": 1000,
+		"mantequilla": 1000,
+		"azúcar": 1000,
+		"chocolate": 1000,
+		"relleno": 1000,
+		"fresas": 1000,
+		"nueces": 1000,
+		"vainilla": 1000,
+		"naranja": 1000,
+		"decoraciones": 1000,
+		"helado": 1000,
+		"oblea": 1000,
+		"chispas": 1000
+	},
+	"ventas": {
+		"1": [
+			{
+				"fecha": "2019-01-01",
+				"cantidad": 10,
+				"total": 100
+			}
+		],
+		"2": [
+			{
+				"fecha": "2019-01-01",
+				"cantidad": 10,
+				"total": 100
+			}
+		],
+		"3": [
+			{
+				"fecha": "2019-01-01",
+				"cantidad": 10,
+				"total": 100
+			}
+		],
+		"4": [
+			{
+				"fecha": "2019-01-01",
+				"cantidad": 10,
+				"total": 100
+			}
+		],
+		"5": [
+			{
+				"fecha": "2019-01-01",
+				"cantidad": 10,
+				"total": 100
+			}
+		],
+		"6": [
+			{
+				"fecha": "2019-01-01",
+				"cantidad": 10,
+				"total": 100
+			}
+		],
+		"7": [
+			{
+				"fecha": "2019-01-01",
+				"cantidad": 10,
+				"total": 100
+			}
+		],
+		"8": [
+			{
+				"fecha": "2019-01-01",
+				"cantidad": 10,
+				"total": 100
+			}
+		],
+		"9": [
+			{
+				"fecha": "2019-01-01",
+				"cantidad": 10,
+				"total": 100
+			}
+		],
+		"10": [
+			{
+				"fecha": "2019-01-01",
+				"cantidad": 10,
+				"total": 100
+			}
+		]
+	}
 }

@@ -3,7 +3,7 @@
 	"type": "module",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "astro dev",
+		"dev": "astro dev && pnpm dev:json",
 		"dev:json": "json-server --watch db.json --port 3001",
 		"start": "astro dev",
 		"build": "astro check && astro build",
