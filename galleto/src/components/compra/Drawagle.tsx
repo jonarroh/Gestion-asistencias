@@ -18,7 +18,6 @@ function Drawagle({ children }: { children: React.ReactNode }) {
 	const { setCurrentCookie } = useCookieStore();
 	const { setTypeVentas, setCantidades, setIdUpdate, setIsUpdate } =
 		useFormState();
-	console.log(listaGalletas);
 
 	const handleDeleteByIndex = (index: number) => {
 		const newState = listaGalletas.slice(0, index);
@@ -41,7 +40,7 @@ function Drawagle({ children }: { children: React.ReactNode }) {
 			<SheetContent className="bg-white p-4 rounded-l-2xl shadow-2xl">
 				<SheetHeader>
 					<SheetTitle>Lista de compras</SheetTitle>
-					<SheetDescription>
+					<SheetDescription className="overscroll-contain overflow-y-auto max-h-[80vh]">
 						{listaGalletas.length > 0 ? (
 							listaGalletas.map((galleta, index) => (
 								<div
@@ -54,9 +53,15 @@ function Drawagle({ children }: { children: React.ReactNode }) {
 											width={50}
 											height={50}
 										/>
-										<p className="text-lg font-bold ml-2">
-											{galleta.cantidad}
-										</p>
+										<span className="text-lg font-bold ml-2">
+											{galleta.typeVenta === 'caja' ? (
+												<>{galleta.caja}</>
+											) : (
+												<>
+													{galleta.cantidad} {galleta.typeVenta}
+												</>
+											)}
+										</span>
 									</div>
 									<div className="flex space-x-2">
 										<SheetClose asChild>
@@ -83,18 +88,22 @@ function Drawagle({ children }: { children: React.ReactNode }) {
 					</SheetDescription>
 				</SheetHeader>
 				<SheetFooter>
-					<div>
-						<p>
-							Total: ${' '}
-							{listaGalletas.reduce(
-								(acc, curr) => acc + curr.total,
-								0
-							)}
-						</p>
+					<div className="flex flex-row justify-between w-full items-center  h-full ">
+						<span>
+							Total:
+							<strong>
+								{' '}
+								$
+								{listaGalletas.reduce(
+									(acc, curr) => acc + curr.total,
+									0
+								)}
+							</strong>
+						</span>
+						<button className="bg-orange-500 text-white px-4 py-2 rounded-md shadow-md">
+							Finalizar compra
+						</button>
 					</div>
-					<button className="bg-orange-500 text-white px-4 py-2 rounded-md shadow-md">
-						Finalizar compra
-					</button>
 				</SheetFooter>
 			</SheetContent>
 		</Sheet>

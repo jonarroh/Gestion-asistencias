@@ -61,7 +61,7 @@ function SelectGalleta() {
 								}`}>
 								<Button
 									variant={'link'}
-									size={'selector'}
+									size={'selector2'}
 									onClick={() =>
 										useCookieStore.setState({
 											selectedCookie: cookieItem

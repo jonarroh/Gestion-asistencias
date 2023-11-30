@@ -9,13 +9,56 @@ import {
 	DialogTrigger
 } from './dialog';
 import { Button } from './button';
+import { useVentaStore } from '@/store/ventaStore';
+import { useToast } from './use-toast';
+
+async function saveVenta(galleta: any) {
+	galleta.fecha = new Date().toISOString();
+
+	const response = await fetch('http://localhost:3001/venta', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(galleta)
+	});
+	const data = await response.json();
+	return data;
+}
 
 function ModalCompra() {
+	const { toast } = useToast();
+	const { listaGalletas } = useVentaStore();
+
+	const handleVenta = () => {
+		try {
+			listaGalletas.forEach(async galleta => {
+				const data = await saveVenta(galleta);
+				console.log({ data });
+			});
+			toast({
+				title: 'Venta exitosa',
+				description: `Se vendieron ${listaGalletas.length} galletas con exito`
+			});
+		} catch (error) {
+			toast({
+				title: 'Error',
+				description: `Ocurrio un error al guardar la venta`
+			});
+		}
+	};
+
 	return (
 		<>
 			<Dialog>
 				<DialogTrigger asChild>
-					<Button className="w-1/2 ml-2" variant={'default'}>
+					<Button
+						className="w-1/2 ml-2"
+						variant={'default'}
+						disabled={listaGalletas.length === 0}
+						onClick={() => {
+							handleVenta();
+						}}>
 						Vender
 					</Button>
 				</DialogTrigger>

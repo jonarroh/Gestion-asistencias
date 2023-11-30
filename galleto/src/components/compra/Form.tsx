@@ -19,134 +19,96 @@ import {
 } from '../ui/select';
 import { useCookieStore } from '@/store/cookieStore';
 import { useFormState } from '@/store/useFormState';
-import { ConfigLegacyKey } from 'node_modules/astro/dist/core/errors/errors-data';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import { cookieData } from '@/lib/const';
+import { useToast } from '../ui/use-toast';
 
 export function RadioGroupForm() {
 	const { typeVenta, setTypeVenta } = useTypeVenta();
 	const { currentCookie } = useCookieStore();
-	const { cantidades, typeVentas, isUpdate, idUpdate, setIsUpdate } =
-		useFormState();
+	const {
+		cantidades,
+		typeVentas,
+		isUpdate,
+		idUpdate,
+		setIsUpdate,
+		setTypeVentas,
+		precios,
+		setPrecios
+	} = useFormState();
 	const { setListaGalletas } = useVentaStore();
 
-	type dataCookie = {
-		nombre: string;
-		precio: number;
-		url: string;
-	};
-
-	const cookieData = new Map<string, dataCookie>([
-		[
-			'/galleta.png',
-			{ nombre: 'Galleta oreo', precio: 10, url: '/galleta.png' }
-		],
-		[
-			'/galleta(1).png',
-			{
-				nombre: 'Galleta de plana',
-				precio: 10,
-				url: '/galleta(1).png'
-			}
-		],
-		[
-			'/galleta(2).png',
-			{
-				nombre: 'Galleta relleno fresa',
-				precio: 10,
-				url: '/galleta(2).png'
-			}
-		],
-		[
-			'/galleta(3).png',
-			{
-				nombre: 'Galleta narajan',
-				precio: 10,
-				url: '/galleta(3).png'
-			}
-		],
-		[
-			'/galleta(4).png',
-			{
-				nombre: 'Galleta relleno vainilla',
-				precio: 10,
-				url: '/galleta(4).png'
-			}
-		],
-		[
-			'/galleta(5).png',
-			{
-				nombre: 'Galleta relleno naranja',
-				precio: 10,
-				url: '/galleta(5).png'
-			}
-		],
-		[
-			'/galletas.png',
-			{
-				nombre: 'Galleta de decoradas',
-				precio: 15,
-				url: '/galletas.png'
-			}
-		],
-		[
-			'/helado.png',
-			{ nombre: 'Galleta de helado', precio: 10, url: '/helado.png' }
-		],
-		[
-			'/oblea.png',
-			{ nombre: 'Galleta de oblea', precio: 10, url: '/oblea.png' }
-		],
-		[
-			'/pepitas-de-chocolate.png',
-			{
-				nombre: 'Galleta de chispas',
-				precio: 10,
-				url: '/pepitas-de-chocolate.png'
-			}
-		]
-	]);
-
 	const formRef = useRef<HTMLFormElement>(null);
-
+	const InputPrecio = useRef<HTMLInputElement>(null);
+	const InputVallue = useRef<HTMLInputElement>(null);
+	const { toast } = useToast();
 	const handleSumit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		if (!isUpdate) {
-			const data = new FormData(e.currentTarget);
-			const json = Object.fromEntries(data.entries());
-			//en base a la cookie seleccionada, se obtiene el precio
-			const precio = cookieData.get(currentCookie)?.precio;
+		const data = new FormData(e.currentTarget);
+		const json = Object.fromEntries(data.entries());
+		console.log({ json });
+		const precio = cookieData.get(currentCookie)?.precio;
+		const precioxgramo = cookieData.get(currentCookie)?.precioxgramo;
+		const preciobolsa = cookieData.get(currentCookie)?.precioBolsa;
+		const precioCaja = cookieData.get(currentCookie)?.precioCaja;
 
-			//en base al precio y la cantidad se obtiene el total
-			const total = precio! * Number(json.cantidad);
-			const nomnbre = cookieData.get(currentCookie)?.nombre;
-			//se agrega el total al json
-			const jsonTotal = { ...json, total, precio, nombre: nomnbre };
-			//se agrega el json al store
+		const nomnbre = cookieData.get(currentCookie)?.nombre;
+		let total;
+		console.log({ typeVentas });
+
+		// Calcular el total de la venta
+		switch (json.typeVenta) {
+			case 'caja':
+				total =
+					json.caja === 'kilo'
+						? Number(precioCaja) * 1
+						: Number(precioCaja) * 0.5;
+				break;
+			case 'dinero':
+				total = Number(precio);
+				break;
+			case 'pieza':
+				total = Number(precio) * Number(json.cantidad);
+				break;
+			case 'granel':
+				total = Number(precioxgramo) * Number(json.cantidad);
+				break;
+			case 'bolsa':
+				total = Number(preciobolsa) * Number(json.cantidad);
+				break;
+			default:
+				total = precio! * Number(json.cantidad);
+				break;
+		}
+
+		const jsonTotal = { ...json, total, precio, nombre: nomnbre };
+		console.log({ jsonTotal });
+
+		if (!isUpdate) {
 			setListaGalletas([
 				...useVentaStore.getState().listaGalletas,
 				jsonTotal
 			]);
+			toast({
+				title: 'Venta añadida',
+				description: 'Se ha añadido una venta a la lista'
+			});
 		} else {
-			const data = new FormData(e.currentTarget);
-			const json = Object.fromEntries(data.entries());
-			//en base a la cookie seleccionada, se obtiene el precio
-			const precio = cookieData.get(currentCookie)?.precio;
-
-			//en base al precio y la cantidad se obtiene el total
-			const total = precio! * Number(json.cantidad);
-			const nomnbre = cookieData.get(currentCookie)?.nombre;
-			//se agrega el total al json
-			const jsonTotal = { ...json, total, precio, nombre: nomnbre };
-			//se agrega el json al store
 			const lista = useVentaStore.getState().listaGalletas;
 			lista[idUpdate!] = jsonTotal;
 			setListaGalletas(lista);
 			setIsUpdate(false);
+			toast({
+				title: 'Venta actualizada',
+				description: 'Se ha actualizado una venta de la lista'
+			});
 		}
-		//limpiar el formulario
+
+		// Limpiar el formulario
 		formRef.current?.reset();
-		//limpiar el store de form
+
+		// Limpiar el store de form
 		useFormState.setState({
 			cantidades: null,
 			typeVentas: null,
@@ -154,6 +116,50 @@ export function RadioGroupForm() {
 		});
 	};
 
+	const handlePrecio = () => {
+		const value = InputPrecio.current?.value;
+		const precio = cookieData.get(currentCookie)?.precio;
+		const precioxgramo = cookieData.get(currentCookie)?.precioxgramo;
+		const preciobolsa = cookieData.get(currentCookie)?.precioBolsa;
+		const precioCaja = cookieData.get(currentCookie)?.precioCaja;
+
+		switch (typeVentas) {
+			case 'caja':
+				setPrecios(
+					value === 'kilo'
+						? Number(precioCaja) * 1
+						: Number(precioCaja) * 0.5
+				);
+				break;
+			case 'dinero':
+				setPrecios(Number(InputVallue.current?.value));
+				break;
+			case 'pieza':
+				setPrecios(
+					Number(InputVallue.current?.value) * Number(precio)
+				);
+				break;
+			case 'granel':
+				setPrecios(
+					Number(precioxgramo) * Number(InputVallue.current?.value)
+				);
+				break;
+			case 'bolsa':
+				setPrecios(
+					Number(preciobolsa) * Number(InputVallue.current?.value)
+				);
+				break;
+			default:
+				setPrecios(
+					Number(InputVallue.current?.value) * Number(precio)
+				);
+				break;
+		}
+	};
+
+	useEffect(() => {
+		handlePrecio();
+	}, [typeVentas, cantidades]);
 	return (
 		<>
 			<form
@@ -162,12 +168,12 @@ export function RadioGroupForm() {
 				onSubmit={handleSumit}>
 				<input name="cookie" type="hidden" value={currentCookie} />
 				<RadioGroup
-					defaultValue="bolsa"
+					defaultValue="granel"
 					name="typeVenta"
-					value={typeVenta ?? 'bolsa'}
+					value={typeVentas ?? 'pieza'}
 					onValueChange={value => {
-						console.log(value);
-						setTypeVenta(value as any);
+						console.log({ value });
+						setTypeVentas(value as any);
 					}}>
 					<div className="flex items-center space-x-2">
 						<RadioGroupItem value="bolsa" id="bolsa" />
@@ -191,14 +197,13 @@ export function RadioGroupForm() {
 					</div>
 				</RadioGroup>
 				<div className="w-full">
-					{typeVenta === 'caja' ? (
+					{typeVentas === 'caja' ? (
 						<>
 							<Label>
 								Cantidad
-								<Select>
+								<Select name="caja">
 									<SelectTrigger
 										className="w-full border-orange-400"
-										name="caja"
 										value={typeVentas ?? 'kilo'}>
 										<SelectValue placeholder="Selecciona la caja" />
 									</SelectTrigger>
@@ -223,6 +228,7 @@ export function RadioGroupForm() {
 									placeholder="Cantidad"
 									name="cantidad"
 									min={1}
+									ref={InputVallue}
 									onChange={e => {
 										const value = e.currentTarget.value;
 										useFormState.setState({
@@ -241,8 +247,10 @@ export function RadioGroupForm() {
 						<Input
 							type="number"
 							placeholder="Precio"
-							name="precio"
+							name="precioVenta"
 							readOnly
+							ref={InputPrecio}
+							value={precios ?? cookieData.get(currentCookie)?.precio}
 						/>
 					</Label>
 				</div>

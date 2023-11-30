@@ -11,6 +11,8 @@ interface FormState {
 	setIsUpdate: (isUpdate: boolean) => void;
 	idUpdate: number | null;
 	setIdUpdate: (id: number) => void;
+	precios: number | null;
+	setPrecios: (precio: number) => void;
 }
 
 export const useFormState = create<FormState>((set, get) => ({
@@ -23,5 +25,7 @@ export const useFormState = create<FormState>((set, get) => ({
 	isUpdate: false,
 	setIsUpdate: (isUpdate: boolean) => set({ isUpdate }),
 	idUpdate: null,
-	setIdUpdate: (id: number) => set({ idUpdate: id })
+	setIdUpdate: (id: number) => set({ idUpdate: id }),
+	precios: null,
+	setPrecios: (precios: number) => set({ precios })
 }));
