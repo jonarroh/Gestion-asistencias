@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.background {
+	background: url('/bg.svg');
+	background-position: center;
+	width: 100vw;
+	height: 80vh;
+	object-fit: cover;
+}

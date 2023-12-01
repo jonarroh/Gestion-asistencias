@@ -1,11 +1,12 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Nav from '@/components/ui/nav.astro';
+import Dash from '@/components/ui/Dash';
 ---
 
 <Layout title="Home">
 	<Nav />
 	<main>
-		<h1>Hello, world!</h1>
+		<Dash client:idle />
 	</main>
 </Layout>

@@ -17,6 +17,7 @@ interface FechaHabil {
 	diasDescanso: string[];
 	diasClase: string[];
 	horasClase: number[];
+	id?: number;
 }
 
 export function obtenerFechasHabiles({
@@ -56,13 +57,17 @@ export function obtenerFechasHabiles({
 				fechasHabiles.push({
 					fecha: format(fecha, 'yyyy-MM-dd'),
 					horasClase: horasClase[diasClase.indexOf(diaSemana)],
-					key: uuidv4().toString()
+					keys: uuidv4().toString(),
+					estado: 's'
 				});
 			}
 		}
 	}
 
-	return fechasHabiles;
+	return {
+		id: 0,
+		fechasHabiles
+	};
 }
 
 // Ejemplo de uso
@@ -80,6 +85,7 @@ const diasClase = ['Wednesday', 'Friday']; // Por ejemplo, lunes, miércoles y v
 const horasClase = [2, 3]; // Horas de clase correspondientes a los días de la semana
 
 const fechasHabiles = obtenerFechasHabiles({
+	id: 0,
 	fechaInicio,
 	fechaFin,
 	diasVacaciones,

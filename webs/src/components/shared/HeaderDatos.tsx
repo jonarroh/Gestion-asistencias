@@ -1,4 +1,8 @@
-import { Card, CardContent, CardHeader } from '../ui/card';
+import {
+	Card,
+	CardContent,
+	CardHeader
+} from '../../../../client/app/components/ui/card';
 
 interface HeaderDatosProps {
 	role: string;

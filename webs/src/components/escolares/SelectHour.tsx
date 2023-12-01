@@ -1,3 +1,4 @@
+'use client';
 import {
 	Select,
 	SelectContent,
@@ -6,7 +7,7 @@ import {
 	SelectLabel,
 	SelectTrigger,
 	SelectValue
-} from '../ui/select';
+} from '@/components/ui/select';
 
 function SelectHour({ k }: { k: number }) {
 	const selectValue = (value: string) => {

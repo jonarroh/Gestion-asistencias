@@ -32,6 +32,6 @@ const app = new Elysia()
 	.use(grupos)
 	.use(lista)
 
-	.listen(3000);
+	.listen(3001);
 
 console.log('Server is running on port 3000');
