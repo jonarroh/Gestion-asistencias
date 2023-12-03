@@ -14,7 +14,7 @@ function HeaderDocente({
 	claveDocente
 }: HeaderDatosProps) {
 	return (
-		<Card className="mt-2">
+		<Card className="mt-2 w-full">
 			<CardHeader>
 				<h1 className="text-2xl font-bold text-center text-gray-500">
 					Datos de {role} {claveDocente}

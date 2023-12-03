@@ -16,6 +16,7 @@ import RadioInventario from '@/components/ui/radiog-inventario';
 import {ClipboardList, Calculator} from 'lucide-react';
 import {navigate} from 'astro:transitions/client';
 
+import Dash from '@/components/ui/Dash';
 ---
 
 <Layout title="Ganancias">
@@ -113,5 +114,6 @@ import {navigate} from 'astro:transitions/client';
 
 			</div>
 		</div>
+		<Dash client:idle />
 	</main>
 </Layout>

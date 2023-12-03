@@ -1,7 +1,27 @@
-import { Form, useSubmit } from '@remix-run/react';
+'use client';
+import {
+	Docentes,
+	Especialidad,
+	Grupo,
+	Materia,
+	Periodo
+} from '@/types';
+import { useState } from 'react';
+import { useToast } from '../ui/use-toast';
+import { addDays, format } from 'date-fns';
 import { Card, CardContent } from '../ui/card';
+import { Button } from '../ui/button';
 import { Label } from '../ui/label';
-import { Input } from '../ui/input';
+import SelectHour from './SelectHour';
+import { MultiSelect } from '../ui/multipleSelect';
+import { Calendar } from '../ui/calendar';
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger
+} from '../ui/popover';
+import { CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import {
 	Select,
 	SelectContent,
@@ -11,29 +31,8 @@ import {
 	SelectTrigger,
 	SelectValue
 } from '../ui/select';
-import {
-	Docentes,
-	Especialidad,
-	Grupo,
-	Materia,
-	Periodo
-} from '~/types';
-import { FormEvent, useState } from 'react';
-import { Calendar } from '../ui/calendar';
-import { CalendarIcon } from 'lucide-react';
-import { cn } from '~/lib/utils';
-import { Button } from '../ui/button';
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger
-} from '../ui/popover';
-import { format, addDays } from 'date-fns';
-import { es } from 'date-fns/locale';
 import { DateRange } from 'react-day-picker';
-import { MultiSelect } from '../ui/multipleSelect';
-import SelectHour from './SelectHour';
-import { useToast } from '../ui/use-toast';
+import { es } from 'date-fns/locale';
 
 interface PanelCrearListaProps {
 	periodos: Periodo[];
@@ -50,15 +49,14 @@ function PanelCrearLista({
 	grupos,
 	docentes
 }: PanelCrearListaProps) {
-	const submmit = useSubmit();
 	const [materia, setmateria] = useState<Materia[]>();
 	const [grupo, setgrupos] = useState<Grupo[]>();
 	const { toast } = useToast();
 
 	const handleChangeEspecialidad = async (clave: number) => {
 		const urls = [
-			`http://localhost:3000/materias/${clave}`,
-			`http://localhost:3000/grupo/${clave}`
+			`http://localhost:3001/materias/${clave}`,
+			`http://localhost:3001/grupo/${clave}`
 		];
 
 		const requests = urls.map(url =>
@@ -82,7 +80,7 @@ function PanelCrearLista({
 		setmateria(jsons[0]);
 		setgrupos(jsons[1]);
 	};
-	const diasDeDescanso: string[] = [];
+
 	const [date, setDate] = useState<Date[] | undefined>();
 	const [diasVacaciones, setVacaciones] = useState<
 		DateRange | undefined
@@ -94,9 +92,9 @@ function PanelCrearLista({
 	const [selected, setSelected] = useState<string[]>([]);
 	return (
 		<>
-			<Card className="mt-4 p-4">
+			<Card className="mt-4 p-4 w-[80vw]">
 				<CardContent>
-					<Form
+					<form
 						className="grid w-full h-full  grid-cols-12  gap-4"
 						onSubmit={async e => {
 							e.preventDefault();
@@ -137,12 +135,12 @@ function PanelCrearLista({
 								horas: rawData.horas
 							});
 
-							submmit(cuerpo, {
-								method: 'POST',
-								action: '/escolares',
-								replace: false,
-								encType: 'application/json'
-							});
+							// submmit(cuerpo, {
+							// 	method: 'POST',
+							// 	action: '/escolares',
+							// 	replace: false,
+							// 	encType: 'application/json'
+							// });
 							toast({
 								title: 'Lista creada',
 								description: 'La lista se ha creado correctamente',
@@ -427,7 +425,7 @@ function PanelCrearLista({
 								</Button>
 							</div>
 						</div>
-					</Form>
+					</form>
 				</CardContent>
 			</Card>
 		</>

@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import {
 	json,
 	type ActionFunction,
@@ -20,28 +21,6 @@ export const meta: MetaFunction = () => {
 		{ name: 'description', content: 'Login' }
 	];
 };
-
-const bodySchema = z.object({
-	matricula: z
-		.string()
-		.min(5, { message: 'Matricula debe tener al menos 5 caracteres' })
-		.refine(data => /^\d+$/.test(data), {
-			message: 'Matricula solo puede contener numeros'
-		}),
-	password: z.string().min(5, {
-		message: 'Contraseña debe tener al menos 5 caracteres'
-	})
-});
-
-function validateBody({
-	matricula,
-	password
-}: {
-	matricula: string;
-	password: string;
-}) {
-	return bodySchema.safeParse({ matricula, password });
-}
 
 export const action: ActionFunction = async ({ request }) => {
 	const body = new URLSearchParams(await request.text());

@@ -74,11 +74,3 @@
 		@apply bg-background text-foreground;
 	}
 }
-
-.background {
-	background: url('/bg.svg');
-	background-position: center;
-	width: 100vw;
-	height: 80vh;
-	object-fit: cover;
-}

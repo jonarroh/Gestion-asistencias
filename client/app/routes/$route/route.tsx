@@ -24,7 +24,7 @@ import {
 	Materia,
 	Especialidad,
 	Periodo
-} from '~/types';
+} from '../../../../arqui/src/types';
 import Layout from '~/Layout/Login';
 import Footer from '~/components/login/Footer';
 import { Card, CardContent, CardHeader } from '~/components/ui/card';
@@ -200,10 +200,12 @@ function Route({ children }: { children: React.ReactNode }) {
 							role={route}
 							nombre={usuario.persona.nombre}
 							matricula={usuario.persona.matricula}
+							//@ts-ignore
 							claveDocente={usuario.docente?.clave}
 						/>
 						<Outlet
 							context={{
+								//@ts-ignore
 								clave: usuario.docente?.clave
 							}}
 						/>

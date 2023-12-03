@@ -123,4 +123,17 @@ export class Lista {
 			return { error: error };
 		}
 	}
+
+	async getIds() {
+		try {
+			const ids = await db
+				.select()
+				.from(schema.lista_asistencia)
+				.orderBy(sql`clave desc`)
+			return ids;
+		} catch (error) {
+			console.log(error);
+			return { error: error };
+		}
+	}
 }

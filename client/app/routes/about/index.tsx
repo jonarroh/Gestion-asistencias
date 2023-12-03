@@ -1,138 +1,10 @@
+import { LoaderFunction, json } from '@remix-run/node';
+import { useLoaderData } from '@remix-run/react';
+import AttendanceTable from '~/components/docentes/Tabla';
 import { obtenerFechasHabiles } from '~/lib/dias';
-import {
-	Table,
-	TableBody,
-	TableCaption,
-	TableCell,
-	TableFooter,
-	TableHead,
-	TableHeader,
-	TableRow
-} from '~/components/ui/table';
-import {
-	format,
-	parseISO,
-	eachDayOfInterval,
-	addDays,
-	subDays
-} from 'date-fns';
-import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
-type Alumno = {
-	clave: number;
-	persona: {
-		clave: number;
-		nombre: string;
-		apellidoPaterno: string;
-		apellidoMaterno: string;
-		estatus: string;
-		role: string;
-		public_id: string;
-		password: string;
-		matricula: string;
-	}[];
-};
-
-type AttendanceTableProps = {
-	fechasHabiles: {
-		fecha: string;
-		horasClase: number;
-	}[];
-	alumnos: Alumno[];
-};
-
-const AttendanceTable: React.FC<AttendanceTableProps> = ({
-	fechasHabiles,
-	alumnos
-}) => {
-	const fechasOrdenadas = fechasHabiles;
-
-	const [currentStartDate, setCurrentStartDate] = useState<string>(
-		fechasOrdenadas[0].fecha
-	);
-
-	const getColumnDates = () => {
-		const columnDates: Date[] = [];
-		let currentDate = parseISO(currentStartDate);
-
-		for (let i = 0; i < 12; i++) {
-			const matchingDate = fechasOrdenadas.find(
-				item =>
-					parseISO(item.fecha).getTime() === currentDate.getTime()
-			);
-
-			if (matchingDate) {
-				for (let j = 0; j < matchingDate.horasClase; j++) {
-					columnDates.push(currentDate);
-				}
-			}
-
-			currentDate = addDays(currentDate, 1);
-		}
-
-		return columnDates;
-	};
-
-	const visibleDates = getColumnDates();
-
-	const handlePrevButtonClick = () => {
-		const newStartDate = subDays(parseISO(currentStartDate), 12);
-		setCurrentStartDate(format(newStartDate, 'yyyy-MM-dd'));
-	};
-
-	const handleNextButtonClick = () => {
-		const newStartDate = addDays(parseISO(currentStartDate), 12);
-		setCurrentStartDate(format(newStartDate, 'yyyy-MM-dd'));
-	};
-
-	return (
-		<div>
-			<Table>
-				<TableCaption>
-					Lista de asistencia para las fechas seleccionadas.
-				</TableCaption>
-				<TableHeader>
-					<TableRow>
-						<TableHead className="w-[100px]">Nombre</TableHead>
-						{visibleDates.map((date, index) => (
-							<TableHead key={uuidv4()}>
-								{format(date, 'dd/MM/yyyy')}
-							</TableHead>
-						))}
-					</TableRow>
-				</TableHeader>
-				<TableBody>
-					{alumnos.map(alumno => (
-						<TableRow key={alumno.clave}>
-							<TableCell className="font-medium">{`${alumno.persona[0].nombre} ${alumno.persona[0].apellidoPaterno}`}</TableCell>
-							{visibleDates.map((date, index) => (
-								<TableCell key={uuidv4()}>
-									{/* Aquí puedes mostrar el estado de la asistencia para este alumno y fecha */}
-									{/* Puedes usar las fechas de asistencia proporcionadas y verificar si el alumno asistió */}
-								</TableCell>
-							))}
-						</TableRow>
-					))}
-				</TableBody>
-				<TableFooter>
-					<TableRow>
-						<TableCell colSpan={1}>Total</TableCell>
-						{visibleDates.map((date, index) => (
-							<TableCell key={uuidv4()}>
-								{/* Puedes mostrar aquí el total de asistencias para cada fecha */}
-							</TableCell>
-						))}
-					</TableRow>
-				</TableFooter>
-			</Table>
-
-			<div>
-				<button onClick={handlePrevButtonClick}>Anterior</button>
-				<button onClick={handleNextButtonClick}>Siguiente</button>
-			</div>
-		</div>
-	);
+export const loader: LoaderFunction = async () => {
+	return json(MockAttendanceData);
 };
 
 const MockAttendanceData = {
@@ -276,15 +148,15 @@ const MockAttendanceData = {
 };
 
 const App = () => {
-	const attendanceData = MockAttendanceData.alumnos;
-	const { fecha_inicio, fecha_fin } = MockAttendanceData.periodo[0];
-	let { dias_descanso, dias_Vacaciones } =
-		MockAttendanceData.lista[0];
+	const data = useLoaderData<typeof MockAttendanceData>();
+	console.log('data');
+	console.log(data);
+
+	const { fecha_inicio, fecha_fin } = data.periodo[0];
+	let { dias_descanso, dias_Vacaciones } = data.lista[0];
 	dias_descanso = dias_descanso.replace(/'/g, '"');
 	dias_Vacaciones = dias_Vacaciones.replace(/'/g, '"');
 
-	// Ahora, diasDescansoArray debería ser un array de objetos Date
-	console.log(JSON.parse(dias_descanso));
 	// convertir el objeto de dias vacaciones a un array string
 	const diasVacacionesArray = Object.keys(
 		JSON.parse(dias_Vacaciones)
@@ -294,8 +166,8 @@ const App = () => {
 
 	//el array de diasClase convertir 'L' a 'Monday', 'Ma' a 'Tuesday' etc
 	const diasClaseArray = JSON.parse(
-		MockAttendanceData.lista[0].dias_clase.replace(/'/g, '"')
-	).map(dia => {
+		data.lista[0].dias_clase.replace(/'/g, '"')
+	).map((dia: string) => {
 		switch (dia) {
 			case 'L':
 				return 'Monday';
@@ -315,13 +187,6 @@ const App = () => {
 				return dia;
 		}
 	});
-	console.log(diasClaseArray);
-
-	console.log(diasVacacionesArray);
-	console.log({
-		fecha_fin,
-		fecha_inicio
-	});
 
 	const fechaHabiles = obtenerFechasHabiles({
 		diasClase: diasClaseArray,
@@ -330,17 +195,21 @@ const App = () => {
 		fechaInicio: fecha_inicio,
 		fechaFin: fecha_fin,
 		horasClase: JSON.parse(
-			MockAttendanceData.lista[0].horas_clase.replace(/'/g, '"')
+			data.lista[0].horas_clase.replace(/'/g, '"')
 		)
 	});
-	console.log(fechaHabiles);
+
+	fechaHabiles.id = data.lista[0].clave;
+	const fechas = fechaHabiles.fechasHabiles;
 
 	return (
 		<div>
 			<h1>Lista de Asistencia</h1>
 			<AttendanceTable
-				alumnos={MockAttendanceData.alumnos}
-				fechasHabiles={fechaHabiles}
+				//@ts-ignore
+				alumnos={data.alumnos}
+				fechasHabiles={fechas}
+				claveLista={fechaHabiles.id}
 			/>
 		</div>
 	);

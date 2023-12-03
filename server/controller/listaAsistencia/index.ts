@@ -41,4 +41,6 @@ lista.post(
 	}
 );
 
+lista.get('/ids', () => new Lista().getIds());
+
 export default lista;

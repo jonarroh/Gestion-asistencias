@@ -1,5 +1,5 @@
-import Nav from '~/components/shared/Nav';
-import { Toaster } from '~/components/ui/toaster';
+import Nav from '@/components/shared/Nav';
+import { Toaster } from '@/components/ui/toaster';
 
 interface UsuarioProps {
 	children: React.ReactNode;
@@ -10,7 +10,7 @@ function Usuario({ children, role }: UsuarioProps) {
 	return (
 		<>
 			<Nav />
-			<main className="w-full h-full grid grid-cols-12 gap-4">
+			<main className="w-screen min-h-screen grid grid-cols-12 gap-4">
 				<aside className="col-span-2 bg-[#002D74] h-screen">
 					asides
 				</aside>
