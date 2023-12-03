@@ -10,21 +10,38 @@ import {
 	TableRow,
 	TableCell,
 	TableCaption
-	} from '@/components/ui/table';
-import {Button} from '@/components/ui/button';
+} from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
 import RadioInventario from '@/components/ui/radiog-inventario';
-import {Receipt, CircleDollarSign} from 'lucide-react';
+import { Receipt, CircleDollarSign } from 'lucide-react';
 
+export interface Inventario {
+	id: number;
+	nombre: string;
+	precio: number;
+	stock: number;
+}
+
+async function getInventario() {
+	const res = await fetch('http://localhost:3001/galletas');
+	const inventario = await res.json();
+	return inventario as Promise<Inventario[]>;
+}
+
+const inventario = await getInventario();
 ---
 
 <Layout title="Home">
 	<Nav />
 	<main class="mt-[1rem]">
-		<div class="container bg-secondary/20 border-secondary rounded-lg p-3 mb-5">
-		
+		<div
+			class="container bg-secondary/20 border-secondary rounded-lg p-3 mb-5"
+		>
 			<div class="grid grid-cols-12">
 				<div class="col-start-2 col-span-10">
-					<p class="text-[2rem] font-bold text-secondary text-center">Inventario</p>
+					<p class="text-[2rem] font-bold text-secondary text-center">
+						Inventario
+					</p>
 				</div>
 
 				<div class="col-start-1 col-span-10">
@@ -36,79 +53,34 @@ import {Receipt, CircleDollarSign} from 'lucide-react';
 								<TableHead>Precio</TableHead>
 							</TableRow>
 						</TableHeader>
-						<TableBody >
-							<TableRow>
-								<TableCell>Oreo</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>Plana</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>Relleno de fresa</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>Naranja</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>Relleno de vainilla</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>Relleno de naranja</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>Decorada</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$15.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>De helado</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>De oblea</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>De chispas</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
+						<TableBody>
+							{
+								inventario.map(galleta => (
+									<TableRow key={galleta.nombre}>
+										<TableCell>{galleta.nombre}</TableCell>
+										<TableCell>{galleta.stock}</TableCell>
+										<TableCell>{galleta.precio}</TableCell>
+									</TableRow>
+								))
+							}
 						</TableBody>
 					</Table>
 				</div>
 
 				<div class="col-start-11 col-span-2 ml-5 flex">
 					<div class="row-span-1 my-auto">
-						<RadioInventario client:idle/>
-							<Button  className='my-4 w-full '><CircleDollarSign className='me-2'/> Obtener Gasto</Button>
-							<Button variant={'secondary'} className='w-full'> <Receipt className='me-2'/>Generar recibo</Button>
+						<RadioInventario client:idle />
+						<Button className="my-4 w-full ">
+							<CircleDollarSign className="me-2" /> Obtener Gasto
+						</Button>
+						<Button variant={'secondary'} className="w-full">
+							<Receipt className="me-2" />Generar recibo
+						</Button>
 					</div>
-					
 				</div>
-
 			</div>
 		</div>
 	</main>
 </Layout>
 
-
 <!-- Oreo, Plana, Relleno de fresa, Naranja, Relleno de vainilla, Relleno de naranja, Decorada, De helado, De oblea, De chispas -->
-           
-            
-           
-           
-           

@@ -6,58 +6,68 @@
       "password": "1234"
     }
   ],
-  "galletas": {
-    "1": {
+  "galletas": [
+    {
+      "id": 1,
       "nombre": "Galleta oreo",
       "precio": 10,
       "stock": 100
     },
-    "2": {
+    {
+      "id": 2,
       "nombre": "Galleta plana",
       "precio": 10,
       "stock": 100
     },
-    "3": {
+    {
+      "id": 3,
       "nombre": "Galleta relleno fresa",
       "precio": 10,
       "stock": 100
     },
-    "4": {
+    {
+      "id": 4,
       "nombre": "Galleta naraja",
       "precio": 10,
       "stock": 100
     },
-    "5": {
+    {
+      "id": 5,
       "nombre": "Galleta relleno vainilla",
       "precio": 10,
       "stock": 100
     },
-    "6": {
+    {
+      "id": 6,
       "nombre": "Galleta relleno naranja",
       "precio": 10,
       "stock": 100
     },
-    "7": {
+    {
+      "id": 7,
       "nombre": "Galleta decorada",
       "precio": 15,
       "stock": 100
     },
-    "8": {
+    {
+      "id": 8,
       "nombre": "Galleta de helado",
       "precio": 10,
       "stock": 100
     },
-    "9": {
+    {
+      "id": 9,
       "nombre": "Galleta de oblea",
       "precio": 10,
       "stock": 100
     },
-    "10": {
+    {
+      "id": 10,
       "nombre": "Galleta de chispas",
       "precio": 10,
       "stock": 100
     }
-  },
+  ],
   "materialGalletas": {
     "1": {
       "harina": 100,
@@ -212,7 +222,7 @@
       "precio": 10,
       "total": 10,
       "nombre": "Galleta oreo",
-      "fecha": "2023-11-30T19:22:54.787Z",
+      "fecha": "2023-12-3T19:22:54.787Z",
       "id": 1
     },
     {
@@ -285,6 +295,39 @@
       "nombre": "Galleta relleno fresa",
       "fecha": "2023-11-30T19:37:46.485Z",
       "id": 8
+    },
+    {
+      "cookie": "/oreo.webp",
+      "typeVenta": "pieza",
+      "cantidad": "1",
+      "precioVenta": "10",
+      "total": 10,
+      "precio": 10,
+      "nombre": "Galleta oreo",
+      "fecha": "2023-12-03T18:54:11.175Z",
+      "id": 9
+    },
+    {
+      "cookie": "/chispas_chocolate.webp",
+      "typeVenta": "bolsa",
+      "cantidad": "1",
+      "precioVenta": "40",
+      "total": 40,
+      "precio": 10,
+      "nombre": "Galleta de chispas",
+      "fecha": "2023-12-03T19:04:57.860Z",
+      "id": 10
+    },
+    {
+      "cookie": "/galletas.webp",
+      "typeVenta": "caja",
+      "caja": "1/2kilo",
+      "precioVenta": "50",
+      "total": 50,
+      "precio": 15,
+      "nombre": "Galleta de decoradas",
+      "fecha": "2023-12-03T19:04:57.862Z",
+      "id": 11
     }
   ]
 }

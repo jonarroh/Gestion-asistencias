@@ -1,64 +1,105 @@
 ---
-
 import Nav from '@/components/ui/nav.astro';
 import Layout from '@/layouts/Layout.astro';
 import Barlist from '@/components/ui/bar-list.tsx';
-import {AreaChartCompoment} from '@/components/ui/area-chart.tsx';
-import {Button} from '@/components/ui/button';
-import {CardTremor} from '@/components/ui/card-tremor';
+import { AreaChartCompoment } from '@/components/ui/area-chart.tsx';
+import { Button } from '@/components/ui/button';
+import { CardTremor } from '@/components/ui/card-tremor';
+import DashBoardButtons from '@/components/dashBoard/';
+interface CardTremorProps {
+	title: string;
+	metric: string;
+	gallera1: string;
+	gallera2: string;
+	gallera3: string;
+	moneyGalleta1: string;
+	moneyGalleta2: string;
+	moneyGalleta3: string;
+	porcentajeGalleta1: string;
+	porcentajeGalleta2: string;
+	porcentajeGalleta3: string;
+}
 
+const mocketMetrics: CardTremorProps[] = [
+	{
+		title: 'Tremor',
+		metric: '0.5',
+		gallera1: 'Galleta 1',
+		gallera2: 'Galleta 2',
+		gallera3: 'Galleta 3',
+		moneyGalleta1: '0.5',
+		moneyGalleta2: '0.5',
+		moneyGalleta3: '0.5',
+		porcentajeGalleta1: '0.5',
+		porcentajeGalleta2: '0.5',
+		porcentajeGalleta3: '0.5'
+	},
+	{
+		title: 'Tremor',
+		metric: '0.5',
+		gallera1: 'Galleta 1',
+		gallera2: 'Galleta 2',
+		gallera3: 'Galleta 3',
+		moneyGalleta1: '0.5',
+		moneyGalleta2: '0.5',
+		moneyGalleta3: '0.5',
+		porcentajeGalleta1: '0.5',
+		porcentajeGalleta2: '0.5',
+		porcentajeGalleta3: '0.5'
+	},
+	{
+		title: 'Tremor',
+		metric: '0.5',
+		gallera1: 'Galleta 1',
+		gallera2: 'Galleta 2',
+		gallera3: 'Galleta 3',
+		moneyGalleta1: '0.5',
+		moneyGalleta2: '0.5',
+		moneyGalleta3: '0.5',
+		porcentajeGalleta1: '30',
+		porcentajeGalleta2: '0.5',
+		porcentajeGalleta3: '0.5'
+	}
+];
 ---
 
 <Layout title="Dashboard">
-    <Nav />
-    <main class="my-auto">
-        <div class="grid grid-cols-11 my-[1rem] gap-2">
+	<Nav />
+	<main class="my-auto">
+		<div class="grid grid-cols-11 my-[1rem] gap-2">
+			<!-- Buttons -->
+			<div class="col-start-2 col-span-9">
+				<DashBoardButtons client:idle />
+			</div>
 
-            <!-- Buttons -->
-            <div class="col-start-2 col-span-9">
-                <div class="flex flex-row space-x-4">
-                    <div class="basis-1/3">
-                        <Button variant={'secondary'} className="w-full">Día</Button>
-                    </div>
-                    <div class="basis-1/3">
-                        <Button variant={'destructive'} className='w-full'>Semana</Button>
-                    </div>
-                    <div class="basis-1/3">
-                        <Button  className='w-full'>Mes</Button>
-                    </div>
-                </div>
-            </div>
+			<!-- cards -->
+			<div class="col-start-2 col-span-9">
+				<div class="flex flex-row space-x-4">
+					<div class="basis-1/4">
+						<CardTremor contenido={mocketMetrics[0]} client:idle />
+					</div>
+					<div class="basis-1/4">
+						<CardTremor contenido={mocketMetrics[1]} client:idle />
+					</div>
+					<div class="basis-1/4">
+						<CardTremor contenido={mocketMetrics[2]} client:idle />
+					</div>
+					<div class="basis-1/4">
+						<CardTremor contenido={mocketMetrics[0]} client:idle />
+					</div>
+				</div>
+			</div>
 
-            <!-- cards -->
-            <div class="col-start-2 col-span-9">
-                <div class="flex flex-row space-x-4">
-                    <div class="basis-1/4">
-                        <CardTremor client:idle/>
-                    </div>
-                    <div class="basis-1/4">
-                        <CardTremor client:idle/>    
-                    </div>
-                    <div class="basis-1/4">
-                        <CardTremor client:idle/>
-                    </div>
-                    <div class="basis-1/4">
-                        <CardTremor client:idle/>
-                    </div>  
-                </div>
-            </div>
-            
-            <!-- charts -->
-            <div class="col-start-2 col-span-9">
-                <div class="flex flex-row space-x-4">
-                    <div class="basis-1/2 ">
-                        <Barlist client:idle />
-                    </div>
-                    <div class="basis-1/2 ">
-                        <AreaChartCompoment client:idle />
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </main>
+			<div class="col-start-2 col-span-9">
+				<div class="flex flex-row space-x-4">
+					<div class="basis-1/2">
+						<Barlist client:idle />
+					</div>
+					<div class="basis-1/2">
+						<AreaChartCompoment client:idle />
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
 </Layout>
