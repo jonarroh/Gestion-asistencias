@@ -9,5 +9,10 @@ export const BoduDto = t.Object({
 	diasDescanso: t.String(),
 	diasVacaciones: t.String(),
 	horas: t.String(),
-	Grupo: t.String()
+	Grupo: t.String(),
+	horarios: t.String()
+});
+
+export const ListaDto = t.Object({
+	clave: t.String()
 });

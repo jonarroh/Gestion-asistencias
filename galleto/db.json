@@ -13,7 +13,7 @@
       "stock": 100
     },
     "2": {
-      "nombre": "Galleta de plana",
+      "nombre": "Galleta plana",
       "precio": 10,
       "stock": 100
     },
@@ -23,7 +23,7 @@
       "stock": 100
     },
     "4": {
-      "nombre": "Galleta narajan",
+      "nombre": "Galleta naraja",
       "precio": 10,
       "stock": 100
     },
@@ -38,7 +38,7 @@
       "stock": 100
     },
     "7": {
-      "nombre": "Galleta de decoradas",
+      "nombre": "Galleta decorada",
       "precio": 15,
       "stock": 100
     },

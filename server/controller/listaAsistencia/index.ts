@@ -1,6 +1,6 @@
 import Elysia from 'elysia';
 import { Lista } from '../../model/lista.model';
-import { BoduDto } from '../../dto/lista';
+import { BoduDto, ListaDto } from '../../dto/lista';
 
 const lista = new Elysia({ prefix: '/lista' });
 
@@ -41,6 +41,15 @@ lista.post(
 	}
 );
 
-lista.get('/ids', () => new Lista().getIds());
+lista.post(
+	'/:ids',
+	({ body }) => {
+		const { clave } = body;
+		return new Lista().getListaBycLAve(clave);
+	},
+	{
+		body: ListaDto
+	}
+);
 
 export default lista;
