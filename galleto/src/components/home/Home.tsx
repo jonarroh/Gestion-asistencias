@@ -6,9 +6,9 @@ function Home() {
 		<>
 			<Card className="bg-[#1C020C] p-4">
 				<div className="justify-center flex flex-col items-center">
-					<h1 className="text-3xl font-bold text-center text-white my-3">
+					<p className="text-[1.5rem] font-bold text-center text-white my-3">
 						Bienvenido a la tienda de
-					</h1>
+					</p>
 					<img
 						src="/logo_dg_text.png"
 						width={'auto'}
@@ -16,9 +16,9 @@ function Home() {
 					/>
 				</div>
 				<div className="mt-5">
-					<h2 className="text-2xl font-bold text-center text-white my-3">
+					<p className="text-[1.5rem] font-bold text-center text-white my-3">
 						¿Qué deseas hacer?
-					</h2>
+					</p>
 
 					<div className="flex flex-row text-center">
 						<div className="flex flex-col items-center">
@@ -38,7 +38,9 @@ function Home() {
 							<Button
 								variant="outline_primary"
 								size={'selectorFunction'}
-								className="w-[250px] h-auto mx-5">
+								className="w-[250px] h-auto mx-5"
+								onClick={() => navigate('/inventario')}
+								>
 								<img
 									src="/inventroy.svg"
 									alt="Galleta seleccionada"
@@ -53,13 +55,29 @@ function Home() {
 							<Button
 								variant="outline_primary"
 								size={'selectorFunction'}
-								className="w-[250px] h-auto mx-5">
+								className="w-[250px] h-auto mx-5"
+								onClick={() => navigate('/ganancias')}
+								>
 								<img src="/profits.svg" alt="Galleta seleccionada" />
 							</Button>
 							<span className="font-bold text-md text-white">
 								Ganancias
 							</span>
 						</div>
+
+						{/* <div className="flex flex-col items-center">
+							<Button
+								variant="outline_primary"
+								size={'selectorFunction'}
+								className="w-[250px] h-auto mx-5">
+								<img src="/dashboard.svg" alt="Galleta seleccionada" />
+							</Button>
+							<span className="font-bold text-md text-white">
+								Dashboard
+							</span>
+						</div> */}
+
+
 					</div>
 				</div>
 			</Card>
