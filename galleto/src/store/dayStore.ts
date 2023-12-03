@@ -8,10 +8,11 @@ interface DayStore {
 	setDay: () => void;
 	setSemana: () => void;
 	setMes: () => void;
+	setDefault: () => void;
 }
 
 export const useDayStore = create<DayStore>((set, get) => ({
-	day: true,
+	day: false,
 	semana: false,
 	mes: false,
 	SelectedDate: () => {
@@ -23,5 +24,6 @@ export const useDayStore = create<DayStore>((set, get) => ({
 	},
 	setDay: () => set({ day: true, semana: false, mes: false }),
 	setSemana: () => set({ day: false, semana: true, mes: false }),
-	setMes: () => set({ day: false, semana: false, mes: true })
+	setMes: () => set({ day: false, semana: false, mes: true }),
+	setDefault: () => set({ day: false, semana: false, mes: false })
 }));
