@@ -10,7 +10,7 @@ function Home() {
 						Bienvenido a la tienda de
 					</h1>
 					<img
-						src="/logo_dg_text.png"
+						src="/logo_dg_text.webp"
 						width={'auto'}
 						alt="Logo Don G"
 					/>

@@ -206,7 +206,7 @@
   },
   "venta": [
     {
-      "cookie": "/galleta.png",
+      "cookie": "/galleta_oreo.webp",
       "typeVenta": "pieza",
       "cantidad": "1",
       "precio": 10,
@@ -216,7 +216,7 @@
       "id": 1
     },
     {
-      "cookie": "/galleta.png",
+      "cookie": "/galleta_oreo.webp",
       "typeVenta": "pieza",
       "cantidad": "3",
       "precio": 10,
@@ -226,7 +226,7 @@
       "id": 2
     },
     {
-      "cookie": "/galleta.png",
+      "cookie": "/galleta_oreo.webp",
       "typeVenta": "pieza",
       "cantidad": "3",
       "precio": 10,
@@ -236,7 +236,7 @@
       "id": 3
     },
     {
-      "cookie": "/helado.png",
+      "cookie": "/helado.webp",
       "typeVenta": "pieza",
       "cantidad": "4",
       "precio": 10,
@@ -246,7 +246,7 @@
       "id": 4
     },
     {
-      "cookie": "/helado.png",
+      "cookie": "/helado.webp",
       "typeVenta": "pieza",
       "cantidad": "4",
       "precio": 10,
@@ -256,7 +256,7 @@
       "id": 5
     },
     {
-      "cookie": "/helado.png",
+      "cookie": "/helado.webp",
       "typeVenta": "pieza",
       "cantidad": "4",
       "precio": 10,

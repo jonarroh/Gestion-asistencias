@@ -12,15 +12,15 @@ import {
 import { Button } from './button';
 import type { Cookie } from '@/types/Cookie';
 const cookies: Cookie[] = [
-	'/galleta.png',
+	'/galleta_oreo.webp',
 	'/galleta(1).png',
 	'/galleta(2).png',
 	'/galleta(3).png',
 	'/galleta(4).png',
 	'/galleta(5).png',
-	'/galletas.png',
-	'/helado.png',
-	'/oblea.png',
+	'/galletas.webp',
+	'/helado.webp',
+	'/oblea.webp',
 	'/pepitas-de-chocolate.png'
 ];
 

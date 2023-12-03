@@ -9,11 +9,11 @@ type dataCookie = {
 
 export const cookieData = new Map<string, dataCookie>([
 	[
-		'/galleta.png',
+		'/galleta_oreo.webp',
 		{
 			nombre: 'Galleta oreo',
 			precio: 10,
-			url: '/galleta.png',
+			url: '/galleta_oreo.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
 			precioCaja: 100
@@ -75,33 +75,33 @@ export const cookieData = new Map<string, dataCookie>([
 		}
 	],
 	[
-		'/galletas.png',
+		'/galletas.webp',
 		{
 			nombre: 'Galleta de decoradas',
 			precio: 15,
-			url: '/galletas.png',
+			url: '/galletas.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
 			precioCaja: 100
 		}
 	],
 	[
-		'/helado.png',
+		'/helado.webp',
 		{
 			nombre: 'Galleta de helado',
 			precio: 10,
-			url: '/helado.png',
+			url: '/helado.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
 			precioCaja: 100
 		}
 	],
 	[
-		'/oblea.png',
+		'/oblea.webp',
 		{
 			nombre: 'Galleta de oblea',
 			precio: 10,
-			url: '/oblea.png',
+			url: '/oblea.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
 			precioCaja: 100
