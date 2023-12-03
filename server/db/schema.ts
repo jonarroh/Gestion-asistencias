@@ -150,6 +150,9 @@ export const lista_asistencia = sqliteTable('lista_asistencia', {
 	dias_clase: text('dias_clase', {
 		mode: 'json'
 	}),
+	horario_clase: text('horario_clase', {
+		mode: 'json'
+	}),
 	clave_periodo: integer('clave_periodo').references(
 		() => periodo.clave
 	),

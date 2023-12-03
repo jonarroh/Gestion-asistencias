@@ -3,8 +3,11 @@ import { getDocentes } from '../services/docentes';
 import { getEspecialidades } from '../services/especialidad';
 import { getMaterias } from '../services/materia';
 import { getPeriodos } from '../services/periodos';
-// import HeaderDatos from '@/components/shared/HeaderDatos';
+import HeaderDatos from '@/components/shared/HeaderDatos';
 import PanelCrearLista from '@/components/escolares/PanelCrearLista';
+import { cookies } from 'next/headers';
+import * as jwt from 'jsonwebtoken';
+import { redirect } from 'next/navigation';
 
 async function getData() {
 	const [docentes, materias, especialidades, periodos] =
@@ -17,9 +20,40 @@ async function getData() {
 	return { docentes, materias, especialidades, periodos };
 }
 
+export const getJWT = () => {
+	const cookieStore = cookies();
+	const userToken = cookieStore.get('user-token');
+
+	if (!userToken) {
+		redirect('/');
+	}
+
+	try {
+		const decoded = jwt.decode(userToken.value) as {
+			user: string;
+			exp: number;
+		};
+		if (decoded) {
+			const role = JSON.parse(decoded.user).persona.role;
+			if (role !== 'escolares') {
+				redirect('/');
+			}
+			return decoded;
+		} else {
+			redirect('/');
+		}
+	} catch (error) {
+		redirect('/');
+	}
+};
+
 async function Role() {
 	const { docentes, materias, especialidades, periodos } =
 		await getData();
+	let route = getJWT();
+
+	//@ts-ignore
+	console.log({ route: JSON.parse(route.user).escolares.clave });
 	return (
 		<>
 			<div className="w-screen h-screen grid-cols-18 ">

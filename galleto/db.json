@@ -285,6 +285,17 @@
       "nombre": "Galleta relleno fresa",
       "fecha": "2023-11-30T19:37:46.485Z",
       "id": 8
+    },
+    {
+      "cookie": "/oblea.png",
+      "typeVenta": "bolsa",
+      "cantidad": "20",
+      "precioVenta": "800",
+      "total": 800,
+      "precio": 10,
+      "nombre": "Galleta de oblea",
+      "fecha": "2023-12-01T23:49:08.510Z",
+      "id": 9
     }
   ]
 }
