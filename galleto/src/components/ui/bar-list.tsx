@@ -7,7 +7,7 @@ const data = [
     href: "https://twitter.com/tremorlabs",
     icon: function Oreo() {
       return (
-        <img src="galleta.png" alt="oreo" className="w-5 mr-2" />
+        <img src="oreo.webp" alt="oreo" className="w-5 mr-2" />
       );
     },
   },
@@ -17,7 +17,7 @@ const data = [
     href: "https://google.com",
     icon: function Plana() {
       return (
-        <img src="galleta(1).png" alt="plana" className="w-5 mr-2" />
+        <img src="plana.webp" alt="plana" className="w-5 mr-2" />
       );
     },
   },
@@ -27,7 +27,7 @@ const data = [
     href: "https://github.com/tremorlabs/tremor",
     icon: function Relleno_fresa() {
       return (
-        <img src="galleta(2).png" alt="Relleno de fresa" className="w-5 mr-2" />
+        <img src="rellena_fresa.webp" alt="Relleno de fresa" className="w-5 mr-2" />
       );
     },
   },
@@ -37,7 +37,7 @@ const data = [
     href: "https://reddit.com",
     icon: function Naranja() {
       return (
-        <img src="/galleta(3).png" alt="Naranja" className="w-5 mr-2" />
+        <img src="/naranja.webp" alt="Naranja" className="w-5 mr-2" />
       );
     },
   },
@@ -47,7 +47,7 @@ const data = [
     href: "https://www.youtube.com/@tremorlabs3079",
     icon: function Relleno_vainilla() {
       return (
-        <img src="/galleta(4).png" alt="Relleno de vainilla" className="w-5 mr-2" />
+        <img src="/relleno_vainilla.webp" alt="Relleno de vainilla" className="w-5 mr-2" />
       );
     },
   },
@@ -57,7 +57,7 @@ const data = [
     href: "https://www.youtube.com/@tremorlabs3079",
     icon: function Relleno_naranja() {
       return (
-        <img src="/galleta(5).png" alt="Relleno de naranja" className="w-5 mr-2" />
+        <img src="/relleno_naranja.webp" alt="Relleno de naranja" className="w-5 mr-2" />
       );
     },
   },
@@ -97,7 +97,7 @@ const data = [
     href: "https://www.youtube.com/@tremorlabs3079",
     icon: function De_chispas() {
       return (
-        <img src="/pepitas-de-chocolate.png" alt="De chispas" className="w-5 mr-2" />
+        <img src="/chispas_chocolate.webp" alt="De chispas" className="w-5 mr-2" />
       );
     },
   },

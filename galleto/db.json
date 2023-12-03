@@ -206,7 +206,7 @@
   },
   "venta": [
     {
-      "cookie": "/galleta_oreo.webp",
+      "cookie": "/oreo.webp",
       "typeVenta": "pieza",
       "cantidad": "1",
       "precio": 10,
@@ -216,7 +216,7 @@
       "id": 1
     },
     {
-      "cookie": "/galleta_oreo.webp",
+      "cookie": "/oreo.webp",
       "typeVenta": "pieza",
       "cantidad": "3",
       "precio": 10,
@@ -226,7 +226,7 @@
       "id": 2
     },
     {
-      "cookie": "/galleta_oreo.webp",
+      "cookie": "/oreo.webp",
       "typeVenta": "pieza",
       "cantidad": "3",
       "precio": 10,
@@ -266,7 +266,7 @@
       "id": 6
     },
     {
-      "cookie": "/galleta(5).png",
+      "cookie": "/relleno_naranja.webp",
       "typeVenta": "caja",
       "caja": "1/2kilo",
       "precio": 10,
@@ -276,7 +276,7 @@
       "id": 7
     },
     {
-      "cookie": "/galleta(2).png",
+      "cookie": "/rellena_fresa.webp",
       "typeVenta": "bolsa",
       "cantidad": "2",
       "precioVenta": "80",

@@ -6,13 +6,13 @@ export interface CookieStore {
 	setSelectedCookie: (cookie: Cookie) => void;
 }
 export type Cookie =
-	| '/galleta_oreo.webp'
-	| '/galleta(1).png'
-	| '/galleta(2).png'
-	| '/galleta(3).png'
-	| '/galleta(4).png'
-	| '/galleta(5).png'
+	| '/oreo.webp'
+	| '/plana.webp'
+	| '/rellena_fresa.webp'
+	| '/naranja.webp'
+	| '/relleno_vainilla.webp'
+	| '/relleno_naranja.webp'
 	| '/galletas.webp'
 	| '/helado.webp'
 	| '/oblea.webp'
-	| '/pepitas-de-chocolate.png';
+	| '/chispas_chocolate.webp';

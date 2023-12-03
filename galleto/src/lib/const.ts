@@ -9,66 +9,66 @@ type dataCookie = {
 
 export const cookieData = new Map<string, dataCookie>([
 	[
-		'/galleta_oreo.webp',
+		'/oreo.webp',
 		{
 			nombre: 'Galleta oreo',
 			precio: 10,
-			url: '/galleta_oreo.webp',
+			url: '/oreo.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
 			precioCaja: 100
 		}
 	],
 	[
-		'/galleta(1).png',
+		'/plana.webp',
 		{
 			nombre: 'Galleta de plana',
 			precio: 10,
 			precioxgramo: 0.1,
-			url: '/galleta(1).png',
+			url: '/plana.webp',
 			precioBolsa: 40,
 			precioCaja: 100
 		}
 	],
 	[
-		'/galleta(2).png',
+		'/rellena_fresa.webp',
 		{
 			nombre: 'Galleta relleno fresa',
 			precio: 10,
-			url: '/galleta(2).png',
+			url: '/rellena_fresa.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
 			precioCaja: 100
 		}
 	],
 	[
-		'/galleta(3).png',
+		'/naranja.webp',
 		{
 			nombre: 'Galleta narajan',
 			precio: 10,
-			url: '/galleta(3).png',
+			url: '/naranja.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
 			precioCaja: 100
 		}
 	],
 	[
-		'/galleta(4).png',
+		'/relleno_vainilla.webp',
 		{
 			nombre: 'Galleta relleno vainilla',
 			precio: 10,
-			url: '/galleta(4).png',
+			url: '/relleno_vainilla.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
 			precioCaja: 100
 		}
 	],
 	[
-		'/galleta(5).png',
+		'/relleno_naranja.webp',
 		{
 			nombre: 'Galleta relleno naranja',
 			precio: 10,
-			url: '/galleta(5).png',
+			url: '/relleno_naranja.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
 			precioCaja: 100
@@ -108,11 +108,11 @@ export const cookieData = new Map<string, dataCookie>([
 		}
 	],
 	[
-		'/pepitas-de-chocolate.png',
+		'/chispas_chocolate.webp',
 		{
 			nombre: 'Galleta de chispas',
 			precio: 10,
-			url: '/pepitas-de-chocolate.png',
+			url: '/chispas_chocolate.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
 			precioCaja: 100
