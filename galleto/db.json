@@ -13,7 +13,7 @@
       "stock": 100
     },
     "2": {
-      "nombre": "Galleta de plana",
+      "nombre": "Galleta plana",
       "precio": 10,
       "stock": 100
     },
@@ -23,7 +23,7 @@
       "stock": 100
     },
     "4": {
-      "nombre": "Galleta narajan",
+      "nombre": "Galleta naraja",
       "precio": 10,
       "stock": 100
     },
@@ -38,7 +38,7 @@
       "stock": 100
     },
     "7": {
-      "nombre": "Galleta de decoradas",
+      "nombre": "Galleta decorada",
       "precio": 15,
       "stock": 100
     },
@@ -285,17 +285,6 @@
       "nombre": "Galleta relleno fresa",
       "fecha": "2023-11-30T19:37:46.485Z",
       "id": 8
-    },
-    {
-      "cookie": "/oblea.png",
-      "typeVenta": "bolsa",
-      "cantidad": "20",
-      "precioVenta": "800",
-      "total": 800,
-      "precio": 10,
-      "nombre": "Galleta de oblea",
-      "fecha": "2023-12-01T23:49:08.510Z",
-      "id": 9
     }
   ]
 }

@@ -1,0 +1,64 @@
+---
+
+import Nav from '@/components/ui/nav.astro';
+import Layout from '@/layouts/Layout.astro';
+import Barlist from '@/components/ui/bar-list.tsx';
+import {AreaChartCompoment} from '@/components/ui/area-chart.tsx';
+import {Button} from '@/components/ui/button';
+import {CardTremor} from '@/components/ui/card-tremor';
+
+---
+
+<Layout title="Dashboard">
+    <Nav />
+    <main class="my-auto">
+        <div class="grid grid-cols-11 my-[1rem] gap-2">
+
+            <!-- Buttons -->
+            <div class="col-start-2 col-span-9">
+                <div class="flex flex-row space-x-4">
+                    <div class="basis-1/3">
+                        <Button variant={'secondary'} className="w-full">Día</Button>
+                    </div>
+                    <div class="basis-1/3">
+                        <Button variant={'destructive'} className='w-full'>Semana</Button>
+                    </div>
+                    <div class="basis-1/3">
+                        <Button  className='w-full'>Mes</Button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- cards -->
+            <div class="col-start-2 col-span-9">
+                <div class="flex flex-row space-x-4">
+                    <div class="basis-1/4">
+                        <CardTremor client:idle/>
+                    </div>
+                    <div class="basis-1/4">
+                        <CardTremor client:idle/>    
+                    </div>
+                    <div class="basis-1/4">
+                        <CardTremor client:idle/>
+                    </div>
+                    <div class="basis-1/4">
+                        <CardTremor client:idle/>
+                    </div>  
+                </div>
+            </div>
+            
+            <!-- charts -->
+            <div class="col-start-2 col-span-9">
+                <div class="flex flex-row space-x-4">
+                    <div class="basis-1/2 ">
+                        <Barlist client:idle />
+                    </div>
+                    <div class="basis-1/2 ">
+                        <AreaChartCompoment client:idle />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</Layout>

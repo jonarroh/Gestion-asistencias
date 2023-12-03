@@ -11,12 +11,12 @@ const buttonVariants = cva(
 			variant: {
 				default: 'bg-primary text-black hover:bg-primary/80',
 				destructive:
-					'bg-destructive text-black text-bold hover:bg-destructive/80',
+					'bg-secondary/60 text-black text-bold hover:bg-secondary/50',
 				outline:
 					'border border-input bg-background hover:bg-accent hover:text-accent-foreground text-primary-foreground hover:border-primary',
 				outline_primary:
-					'border border-primary bg-[#FF8300] hover:bg-[#FF8300]/70 hover:text-accent-foreground text-black hover:border-primary',
-				secondary: 'bg-secondary/80 text-black hover:bg-secondary/60',
+					'border border-primary bg-secondary hover:bg-[#FF8300]/70 hover:text-accent-foreground text-black hover:border-primary',
+				secondary: 'bg-secondary/80 text-black hover:bg-secondary/70',
 				ghost:
 					'hover:bg-primary hover:text-accent-foreground text-primary-foreground',
 				link: 'text-primary underline-offset-4 hover:underline text-primary-foreground'
@@ -26,7 +26,7 @@ const buttonVariants = cva(
 				sm: 'h-9 rounded-md px-3',
 				lg: 'h-11 rounded-md px-8',
 				icon: 'h-10 w-10',
-				selectorFunction: 'h-[80px] w-[80px] rounded-3xl',
+				selectorFunction: 'h-[80px] w-[80px] rounded-lg',
 				selector: 'h-[200px] w-[200px] rounded-full',
 				selector2: 'h-[75px] w-[75px] rounded-full'
 			}
