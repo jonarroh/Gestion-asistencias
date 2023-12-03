@@ -22,19 +22,28 @@ export async function POST(request: Request) {
 		password: passwordString
 	});
 	if (!validation.success) {
-		return new Response(
-			JSON.stringify({
-				errorMatricula:
-					validation.error.issues.length > 0 &&
-					validation.error.issues[0].message,
-				errorPassword:
-					validation.error.issues.length > 1 &&
-					validation.error.issues[1].message
-			}),
-			{
-				status: 400
-			}
-		);
+		console.log(validation.error.issues);
+
+		if (validation.error.issues[0].message.includes('Matricula')) {
+			return new Response(
+				JSON.stringify({
+					errorMatricula: validation.error.issues[0].message
+				}),
+				{
+					status: 400
+				}
+			);
+		}
+		if (validation.error.issues[0].message.includes('Contraseña')) {
+			return new Response(
+				JSON.stringify({
+					errorPassword: validation.error.issues[0].message
+				}),
+				{
+					status: 400
+				}
+			);
+		}
 	}
 
 	const response = await fetch(`http://localhost:3001/auth/login`, {
@@ -54,4 +63,13 @@ export async function POST(request: Request) {
 			}
 		});
 	}
+
+	return new Response(
+		JSON.stringify({
+			message: 'Credenciales incorrectas'
+		}),
+		{
+			status: 400
+		}
+	);
 }

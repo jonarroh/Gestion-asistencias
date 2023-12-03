@@ -31,7 +31,12 @@ export default function Home() {
 				router.push(`/${data.user.persona.role}`);
 				return;
 			}
-			seterror(data.message);
+			seterror(data);
+			setloading(false);
+			return;
+		}
+		if (data.errorMatricula || data.errorPassword) {
+			seterror(data);
 			setloading(false);
 			return;
 		}
@@ -84,13 +89,7 @@ export default function Home() {
 										</div>
 									)}
 								</div>
-								{errors && errors.error === 'Faltan datos' && (
-									<div className="text-red-500">{errors.error}</div>
-								)}
-								{errors &&
-									errors.error === 'Credenciales incorrectas' && (
-										<div className="text-red-500">{errors.error}</div>
-									)}
+
 								{errors && errors.message && (
 									<div className="text-red-500">{errors.message}</div>
 								)}
@@ -99,7 +98,7 @@ export default function Home() {
 									<Button
 										type="submit"
 										className="bg-[#62B595] hover:bg-[#468b71] text-white font-bold py-2 px-4 rounded transition-colors duration-300 w-full">
-										{loading ? (
+										{loading == true ? (
 											<>
 												<Loader2
 													size={24}
