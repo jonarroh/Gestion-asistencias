@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "209f1079-be36-41b4-876b-e08a18c8f73b",
+  "id": "b61e209a-9da5-4c1a-90d4-e7d92326b5ff",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "alumno": {
@@ -613,6 +613,13 @@
         },
         "dias_clase": {
           "name": "dias_clase",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "horario_clase": {
+          "name": "horario_clase",
           "type": "text",
           "primaryKey": false,
           "notNull": false,

@@ -1,39 +1,18 @@
-import { z } from 'zod';
-export async function GET(request: Request) {
-	return Response.json({ message: 'Hello world' });
-}
-const bodySchema = z.object({
-	matricula: z
-		.string()
-		.min(5, { message: 'Matricula debe tener al menos 5 caracteres' })
-		.refine(data => /^\d+$/.test(data), {
-			message: 'Matricula solo puede contener numeros'
-		}),
-	password: z.string().min(5, {
-		message: 'Contraseña debe tener al menos 5 caracteres'
-	})
-});
-
-function validateBody({
-	matricula,
-	password
-}: {
-	matricula: string;
-	password: string;
-}) {
-	return bodySchema.safeParse({ matricula, password });
-}
+import { validateBody } from '@/schemas/login';
 
 export async function POST(request: Request) {
 	const formData = await request.formData();
 	const { matricula, password } = Object.fromEntries(formData);
+	console.log({ matricula, password });
 	if (!matricula || !password) {
-		return {
-			status: 400,
-			body: {
-				error: 'Faltan datos'
+		return new Response(
+			JSON.stringify({
+				error: 'Matricula y contraseña son requeridos'
+			}),
+			{
+				status: 400
 			}
-		};
+		);
 	}
 	//coverting to string
 	const matriculaString = matricula.toString();
@@ -43,17 +22,19 @@ export async function POST(request: Request) {
 		password: passwordString
 	});
 	if (!validation.success) {
-		return {
-			status: 400,
-			body: {
+		return new Response(
+			JSON.stringify({
 				errorMatricula:
 					validation.error.issues.length > 0 &&
 					validation.error.issues[0].message,
 				errorPassword:
 					validation.error.issues.length > 1 &&
 					validation.error.issues[1].message
+			}),
+			{
+				status: 400
 			}
-		};
+		);
 	}
 
 	const response = await fetch(`http://localhost:3001/auth/login`, {
@@ -63,13 +44,13 @@ export async function POST(request: Request) {
 		},
 		body: JSON.stringify({ matricula, password })
 	});
-
-	if (response.status === 200) {
-		const data = await response.json();
+	const data = await response.json();
+	if (data.cookie) {
+		console.log(data);
 		return new Response(JSON.stringify(data), {
 			status: 200,
 			headers: {
-				'Set-Cookie': `token=${data.cookie}; path=/; HttpOnly;`
+				'Set-Cookie': `user-token=${data.cookie}; path=/; HttpOnly;`
 			}
 		});
 	}

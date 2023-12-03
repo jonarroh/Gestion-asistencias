@@ -25,12 +25,16 @@ export default function Home() {
 			body: formData
 		});
 		const data = await response.json();
-		if (data.error) {
-			seterror(data.error);
+		if (data.message) {
+			if (data.cookie) {
+				setloading(false);
+				router.push(`/${data.user.persona.role}`);
+				return;
+			}
+			seterror(data.message);
+			setloading(false);
+			return;
 		}
-		setloading(false);
-		console.log(data);
-		router.push(`/${data.user.persona.role}`);
 	};
 
 	return (
@@ -87,6 +91,9 @@ export default function Home() {
 									errors.error === 'Credenciales incorrectas' && (
 										<div className="text-red-500">{errors.error}</div>
 									)}
+								{errors && errors.message && (
+									<div className="text-red-500">{errors.message}</div>
+								)}
 
 								<div className="my-4">
 									<Button

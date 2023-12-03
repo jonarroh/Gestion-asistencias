@@ -8,7 +8,7 @@ import {
 } from '@/types';
 import { useState } from 'react';
 import { useToast } from '../ui/use-toast';
-import { addDays, format } from 'date-fns';
+import { addDays, format, parseISO } from 'date-fns';
 import { Card, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
 import { Label } from '../ui/label';
@@ -33,6 +33,7 @@ import {
 } from '../ui/select';
 import { DateRange } from 'react-day-picker';
 import { es } from 'date-fns/locale';
+import SelectHora from './SelectHora';
 
 interface PanelCrearListaProps {
 	periodos: Periodo[];
@@ -52,6 +53,8 @@ function PanelCrearLista({
 	const [materia, setmateria] = useState<Materia[]>();
 	const [grupo, setgrupos] = useState<Grupo[]>();
 	const { toast } = useToast();
+
+	console.log(periodos);
 
 	const handleChangeEspecialidad = async (clave: number) => {
 		const urls = [
@@ -85,8 +88,8 @@ function PanelCrearLista({
 	const [diasVacaciones, setVacaciones] = useState<
 		DateRange | undefined
 	>({
-		from: new Date(2022, 0, 20),
-		to: addDays(new Date(2022, 0, 20), 20)
+		from: new Date(periodos[0].fecha_inicio),
+		to: addDays(new Date(periodos[0].fecha_fin), 1)
 	});
 
 	const [selected, setSelected] = useState<string[]>([]);
@@ -98,6 +101,7 @@ function PanelCrearLista({
 						className="grid w-full h-full  grid-cols-12  gap-4"
 						onSubmit={async e => {
 							e.preventDefault();
+
 							const data = new FormData(e.currentTarget);
 							data.append('diasDescanso', JSON.stringify(date));
 							data.append(
@@ -107,10 +111,10 @@ function PanelCrearLista({
 							data.append('diasClase', JSON.stringify(selected));
 							//sacar de data los item que sean hora-1, hora-2, hora-3, etc
 							//y meterlos en un array
-							const horas = [];
+							const horas: string[] = [];
 							for (const [key, value] of data.entries()) {
 								if (key.includes('horas')) {
-									horas.push(value);
+									horas.push(value.toString());
 								}
 							}
 
@@ -121,32 +125,138 @@ function PanelCrearLista({
 							}
 
 							data.append('horas', JSON.stringify(horas));
+
+							const horarios: string[] = [];
+							for (const [key, value] of data.entries()) {
+								if (key.includes('horario')) {
+									horarios.push(value.toString());
+								}
+							}
+
+							for (const [key, value] of data.entries()) {
+								if (key.includes('horario')) {
+									data.delete(key);
+								}
+							}
+
+							data.append('horarios', JSON.stringify(horarios));
+
 							const rawData = Object.fromEntries(data.entries());
 
-							const cuerpo = JSON.stringify({
-								Docente: rawData.Docente,
-								Grupo: rawData.Grupo,
-								Especialidad: rawData.Especialidad,
-								Materia: rawData.Materia,
-								Periodo: rawData.Periodo,
-								diasClase: rawData.diasClase,
-								diasDescanso: rawData.diasDescanso,
-								diasVacaciones: rawData.diasVacaciones,
-								horas: rawData.horas
-							});
+							//validar que las fecha de vacaciones esten dentro del periodo
+							//sacar el periodo del valor de data.get(periodo	)
+							const a = data.get('Periodo')?.toString().split('#');
+							if (a) {
+								const inicio = parseISO(a[1]);
+								const fin = parseISO(a[0]);
+								if (
+									diasVacaciones?.from &&
+									diasVacaciones?.to &&
+									(diasVacaciones.from < inicio ||
+										diasVacaciones.to > fin)
+								) {
+									toast({
+										title: 'Error',
+										description: `El rango de vacaciones ${format(
+											diasVacaciones.from,
+											'PPP',
+											{
+												locale: es
+											}
+										)} - ${format(diasVacaciones.to, 'PPP', {
+											locale: es
+										})} no esta dentro del periodo de las fechas ${format(
+											inicio,
+											'PPP',
+											{
+												locale: es
+											}
+										)} - ${format(fin, 'PPP', {
+											locale: es
+										})}`,
+										variant: 'destructive'
+									});
+									return;
+								}
 
-							// submmit(cuerpo, {
-							// 	method: 'POST',
-							// 	action: '/escolares',
-							// 	replace: false,
-							// 	encType: 'application/json'
-							// });
-							toast({
-								title: 'Lista creada',
-								description: 'La lista se ha creado correctamente',
-								type: 'foreground',
-								duration: 5000
-							});
+								//validar que los Dias de inhábiles esten dentro del periodo
+								date?.forEach(d => {
+									if (d < inicio || d > fin) {
+										toast({
+											title: 'Error',
+											description: `El dia ${format(d, 'PPP', {
+												locale: es
+											})} no esta dentro del periodo de las fechas ${format(
+												inicio,
+												'PPP',
+												{
+													locale: es
+												}
+											)} - ${format(fin, 'PPP', {
+												locale: es
+											})}`,
+
+											variant: 'destructive'
+										});
+										return;
+									}
+								});
+
+								//validar que las horas del horario no superen las 21 horas
+								horarios.forEach((h, index) => {
+									const hora =
+										Number(h.toString().substring(0, 2)) +
+										Number(selected[index]);
+									console.log({ hora });
+									if (hora > 21) {
+										toast({
+											title: 'Error',
+											description: `La hora ${h} no es valida, no puede ser mayor a las 21 horas`,
+											variant: 'destructive'
+										});
+										return;
+									}
+								});
+
+								const resp = await fetch(
+									'http://localhost:3001/lista',
+									{
+										method: 'POST',
+										body: JSON.stringify({
+											Docente: rawData.Docente,
+											Grupo: rawData.Grupo,
+											Especialidad: rawData.Especialidad,
+											Materia: rawData.Materia,
+											Periodo: a[2],
+											diasClase: rawData.diasClase,
+											diasDescanso: rawData.diasDescanso,
+											diasVacaciones: rawData.diasVacaciones,
+											horas: rawData.horas,
+											horarios: rawData.horarios
+										}),
+										headers: {
+											'Content-Type': 'application/json'
+										}
+									}
+								).then(res => res.json());
+
+								if (resp.message) {
+									toast({
+										title: 'Lista creada',
+										description:
+											'La lista se ha creado correctamente',
+										type: 'foreground',
+										duration: 5000
+									});
+								} else {
+									toast({
+										title: 'Error',
+										description:
+											'La lista no se ha creado correctamente',
+										variant: 'destructive'
+									});
+								}
+							}
 						}}>
 						<div className="col-span-4">
 							<Label>Periodo</Label>
@@ -161,7 +271,13 @@ function PanelCrearLista({
 											return (
 												<SelectItem
 													key={periodo.clave}
-													value={periodo.clave.toString()}>
+													value={
+														periodo.fecha_fin +
+														'#' +
+														periodo.fecha_inicio +
+														'#' +
+														periodo.clave
+													}>
 													{periodo.nombre}
 												</SelectItem>
 											);
@@ -411,6 +527,14 @@ function PanelCrearLista({
 								<div className="col-span-4" key={index}>
 									<Label>Horas de la clase {index + 1}</Label>
 									<SelectHour k={index + 1} />
+								</div>
+							);
+						})}
+						{selected.map((item, index) => {
+							return (
+								<div className="col-span-4" key={index}>
+									<Label>Inicio de la clase {index + 1}</Label>
+									<SelectHora k={index + 1} />
 								</div>
 							);
 						})}

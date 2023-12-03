@@ -285,28 +285,6 @@
       "nombre": "Galleta relleno fresa",
       "fecha": "2023-11-30T19:37:46.485Z",
       "id": 8
-    },
-    {
-      "cookie": "/galletas.png",
-      "typeVenta": "dinero",
-      "cantidad": "1",
-      "precioVenta": "1",
-      "total": 15,
-      "precio": 15,
-      "nombre": "Galleta de decoradas",
-      "fecha": "2023-12-02T15:57:07.845Z",
-      "id": 9
-    },
-    {
-      "cookie": "/galletas.png",
-      "typeVenta": "pieza",
-      "cantidad": "1",
-      "precioVenta": "15",
-      "total": 15,
-      "precio": 15,
-      "nombre": "Galleta de decoradas",
-      "fecha": "2023-12-02T15:57:07.855Z",
-      "id": 10
     }
   ]
 }
