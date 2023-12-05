@@ -21,7 +21,8 @@ lista.post(
 			diasDescanso,
 			diasVacaciones,
 			horas,
-			Grupo
+			Grupo,
+			horarios
 		} = body;
 
 		return await new Lista().insertarLista({
@@ -33,7 +34,8 @@ lista.post(
 			dias_descanso: diasDescanso,
 			dias_Vacaciones: diasVacaciones,
 			horas_clase: horas,
-			clave_grupo: Number(Grupo)
+			clave_grupo: Number(Grupo),
+			horario_clase: horarios
 		});
 	},
 	{
@@ -45,11 +47,13 @@ lista.post(
 	'/:ids',
 	({ body }) => {
 		const { clave } = body;
-		return new Lista().getListaBycLAve(clave);
+		return new Lista().getListaCompleta(Number(clave));
 	},
 	{
 		body: ListaDto
 	}
 );
+
+lista.get('', () => new Lista().getListasCompleta());
 
 export default lista;

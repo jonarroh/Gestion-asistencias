@@ -10,3 +10,8 @@ export const POST = async (request: Request) => {
 	});
 	return Response.json({ status: 200 });
 };
+
+export const PUT = async (request: Request) => {
+	const body = await request.json();
+	console.log(body);
+};

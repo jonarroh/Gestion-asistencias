@@ -5,115 +5,198 @@ import {
 	Table,
 	TableHeader,
 	TableBody,
-	TableFooter,
 	TableHead,
 	TableRow,
-	TableCell,
-	TableCaption
-	} from '@/components/ui/table';
-import {Button} from '@/components/ui/button';
+	TableCell
+} from '@/components/ui/table';
+import { Button } from '@/components/ui/button';
 import RadioInventario from '@/components/ui/radiog-inventario';
-import {ClipboardList, Calculator} from 'lucide-react';
-import {navigate} from 'astro:transitions/client';
+import {
+	ClipboardList,
+	Calculator,
+	MoveUpRight,
+	MoveDownRight
+} from 'lucide-react';
+import type { VentaData } from '@/components/dashBoard/dashFunctions';
 
-import Dash from '@/components/ui/Dash';
+interface Galleta {
+	id: number;
+	nombre: string;
+	stock: number;
+	precio: number;
+}
+interface Perdida {
+	id: number;
+	nombre: string;
+	sales: number;
+}
+
+interface TableSalesProps {
+	id: number;
+	nombre: string;
+	stock: number;
+	precio: number;
+	sales: number;
+	total: number;
+	ganacias: number;
+}
+
+const getInventario = async () => {
+	const res = await fetch('http://localhost:3001/galletas');
+	const data = await res.json();
+	return data as Promise<Galleta[]>;
+};
+const getPerdidas = async () => {
+	const res = await fetch('http://localhost:3001/perdidas');
+	const data = await res.json();
+	return data as Promise<Perdida[]>;
+};
+
+const getVentas = async () => {
+	const res = await fetch('http://localhost:3001/venta');
+	const data = await res.json();
+	return data as Promise<VentaData[]>;
+};
+
+const [ventas, inventario, perdidas] = await Promise.all([
+	getVentas(),
+	getInventario(),
+	getPerdidas()
+]);
+
+// de ventas unir todas las ventas de un mismo producto y sumarla los totales
+const infoVentas: {
+	nombre: string;
+	gananacias: number;
+	cantidad: number;
+}[] = [];
+
+ventas.forEach(venta => {
+	const index = infoVentas.findIndex(
+		infoVenta => infoVenta.nombre === venta.nombre
+	);
+	if (index === -1) {
+		infoVentas.push({
+			nombre: venta.nombre,
+			gananacias: venta.total,
+			cantidad: parseInt(venta.cantidad)
+		});
+	} else {
+		infoVentas[index].gananacias += venta.total;
+		infoVentas[index].cantidad += parseInt(venta.cantidad);
+	}
+});
+
+//unir ventas con inventario y perdidas en una sola tabla en base a nombre
+const tableSales: TableSalesProps[] = [];
+inventario.forEach(galleta => {
+	const index = infoVentas.findIndex(
+		infoVenta => infoVenta.nombre === galleta.nombre
+	);
+	const indexPerdida = perdidas.findIndex(
+		perdida => perdida.nombre === galleta.nombre
+	);
+	if (index === -1) {
+		tableSales.push({
+			id: galleta.id,
+			nombre: galleta.nombre,
+			stock: galleta.stock,
+			precio: galleta.precio,
+			sales: 0,
+			total: 0,
+			ganacias: 0
+		});
+	} else {
+		tableSales.push({
+			id: galleta.id,
+			nombre: galleta.nombre,
+			stock: galleta.stock,
+			precio: galleta.precio,
+			sales: infoVentas[index].cantidad,
+			total: infoVentas[index].gananacias,
+			ganacias:
+				infoVentas[index].gananacias -
+				galleta.precio * infoVentas[index].cantidad
+		});
+	}
+	if (indexPerdida !== -1) {
+		tableSales[tableSales.length - 1].sales -=
+			perdidas[indexPerdida].sales;
+		tableSales[tableSales.length - 1].total -=
+			perdidas[indexPerdida].sales * galleta.precio;
+		tableSales[tableSales.length - 1].ganacias -=
+			perdidas[indexPerdida].sales * galleta.precio;
+	}
+});
 ---
 
 <Layout title="Ganancias">
 	<Nav />
 	<main>
-		<div class="container bg-secondary/20 border-secondary rounded-lg p-3 my-5">
-		
-			<div class="grid grid-cols-12">
+		<div
+			class="container bg-secondary/20 border-secondary rounded-lg p-3"
+		>
+			<div class="grid grid-cols-12 w-full gap-5">
 				<div class="col-start-2 col-span-10">
-					<p class="text-[2rem] font-bold text-secondary text-center">Ganancias</p>
+					<p class="text-[2rem] font-bold text-secondary text-center">
+						Ganancias
+					</p>
 				</div>
 
-				<div class="col-start-1 col-span-10">
+				<div class="col-start-1 col-span-12">
 					<Table>
-						<TableHeader>
+						<TableHeader className="text-center">
 							<TableRow>
 								<TableHead>Galleta</TableHead>
-								<TableHead>Cantidad en inventario</TableHead>
-								<TableHead>Precio</TableHead>
+								<TableHead>Total de ventas</TableHead>
+								<TableHead>
+									Ganancias
+									<MoveUpRight
+										className="inline-block text-green-800"
+									/>
+								</TableHead>
+								<TableHead>
+									Perdidas
+									<MoveDownRight
+										className="inline-block text-red-800"
+									/>
+								</TableHead>
 							</TableRow>
 						</TableHeader>
-						<TableBody >
-							<TableRow>
-								<TableCell>Oreo</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>Plana</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>Relleno de fresa</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>Naranja</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>Relleno de vainilla</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>Relleno de naranja</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>Decorada</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$15.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>De helado</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>De oblea</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>De chispas</TableCell>
-								<TableCell>100</TableCell>
-								<TableCell>$10.00</TableCell>
-							</TableRow>
+						<TableBody>
+							{
+								tableSales.map(galleta => (
+									<TableRow>
+										<TableCell>{galleta.nombre}</TableCell>
+										<TableCell>{galleta.total}</TableCell>
+										<TableCell>
+											{Math.abs(galleta.ganacias)}
+										</TableCell>
+										<TableCell>{galleta.sales}</TableCell>
+									</TableRow>
+								))
+							}
 						</TableBody>
 					</Table>
 				</div>
 
-				<div class="col-start-11 col-span-2 ml-5 flex">
+				<!-- <div class="col-start-11 col-span-2 ml-5 flex">
 					<div class="row-span-1 my-auto">
-						<RadioInventario client:idle/>
+						<RadioInventario client:idle />
 
-						<Button className='my-4 w-full'>
-							<ClipboardList className='me-2'/>
-							Generar Reporte
+						<Button className="my-4 w-full">
+							<ClipboardList className="me-2" />
+							 Generar Reporte
 						</Button>
 						<a href="ganancias/utilidad" class="flex">
-							<Button variant={'secondary'} className='w-full'> 
-							<Calculator className='me-2'/>
-							Calcular utilidad
+							<Button variant={'secondary'} className="w-full">
+								<Calculator className="me-2" />
+								 Calcular utilidad
+							</Button>
 						</a>
-							
-						</Button>
 					</div>
-					
-				</div>
-
+				</div> -->
 			</div>
 		</div>
-		<Dash client:idle />
 	</main>
 </Layout>

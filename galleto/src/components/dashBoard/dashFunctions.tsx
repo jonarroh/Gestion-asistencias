@@ -10,6 +10,16 @@ export interface VentaData {
 	fecha: string;
 	id: number;
 }
+export interface VentaData2 {
+	cookie: string;
+	typeVenta: string;
+	cantidad: string;
+	precio: number;
+	sales: number;
+	nombre: string;
+	fecha: string;
+	id: number;
+}
 
 export const fetchData = async (): Promise<VentaData[]> => {
 	const response = await fetch('http://localhost:3001/venta');
@@ -32,14 +42,14 @@ export const filterDataByDate = (
 			const oneWeekAgo = subWeeks(today, 1);
 			return data.filter(element => {
 				const fecha = new Date(element.fecha);
-				return isAfter(fecha, oneWeekAgo) && isSameDay(fecha, today);
+				return isAfter(fecha, oneWeekAgo);
 			});
 
 		case 'mes':
 			const oneMonthAgo = subMonths(today, 1);
 			return data.filter(element => {
 				const fecha = new Date(element.fecha);
-				return isAfter(fecha, oneMonthAgo) && isSameDay(fecha, today);
+				return isAfter(fecha, oneMonthAgo);
 			});
 
 		case 'day':

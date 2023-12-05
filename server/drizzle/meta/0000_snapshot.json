@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "b61e209a-9da5-4c1a-90d4-e7d92326b5ff",
+  "id": "bff7cf75-4e71-46ad-9d64-2db15e448742",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "alumno": {
@@ -1009,6 +1009,50 @@
       },
       "indexes": {},
       "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "relleno_lista": {
+      "name": "relleno_lista",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "clave_lista": {
+          "name": "clave_lista",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "asistencia": {
+          "name": "asistencia",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "relleno_lista_clave_lista_lista_asistencia_clave_fk": {
+          "name": "relleno_lista_clave_lista_lista_asistencia_clave_fk",
+          "tableFrom": "relleno_lista",
+          "tableTo": "lista_asistencia",
+          "columnsFrom": [
+            "clave_lista"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     }

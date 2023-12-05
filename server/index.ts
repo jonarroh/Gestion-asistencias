@@ -10,6 +10,7 @@ import docentes from './controller/docentes';
 import especialidades from './controller/especialidades';
 import grupos from './controller/grupos';
 import lista from './controller/listaAsistencia';
+import relleno from './controller/relleno';
 
 const app = new Elysia()
 
@@ -31,6 +32,7 @@ const app = new Elysia()
 	.use(especialidades)
 	.use(grupos)
 	.use(lista)
+	.use(relleno)
 
 	.listen(3001);
 

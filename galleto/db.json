@@ -279,6 +279,7 @@
       "cookie": "/relleno_naranja.webp",
       "typeVenta": "caja",
       "caja": "1/2kilo",
+      "cantidad": "1",
       "precio": 10,
       "total": 50,
       "nombre": "Galleta relleno naranja",
@@ -323,11 +324,222 @@
       "typeVenta": "caja",
       "caja": "1/2kilo",
       "precioVenta": "50",
+      "cantidad": "1",
       "total": 50,
       "precio": 15,
       "nombre": "Galleta de decoradas",
       "fecha": "2023-12-03T19:04:57.862Z",
       "id": 11
+    },
+    {
+      "cookie": "/oreo.webp",
+      "typeVenta": "pieza",
+      "cantidad": "6",
+      "precioVenta": "60",
+      "total": 60,
+      "precio": 10,
+      "nombre": "Galleta oreo",
+      "fecha": "2023-12-05T00:26:00.547Z",
+      "id": 12
+    },
+    {
+      "cookie": "/oreo.webp",
+      "typeVenta": "dinero",
+      "cantidad": "30",
+      "precioVenta": "30",
+      "total": 10,
+      "precio": 10,
+      "nombre": "Galleta oreo",
+      "fecha": "2023-12-05T15:06:09.440Z",
+      "id": 13
+    },
+    {
+      "cookie": "/oblea.webp",
+      "typeVenta": "pieza",
+      "cantidad": "3",
+      "precioVenta": "30",
+      "total": 30,
+      "precio": 10,
+      "nombre": "Galleta de oblea",
+      "fecha": "2023-12-05T16:27:00.625Z",
+      "id": 14
+    },
+    {
+      "cookie": "/galletas.webp",
+      "typeVenta": "pieza",
+      "cantidad": "1",
+      "precioVenta": "10",
+      "total": 15,
+      "precio": 15,
+      "nombre": "Galleta de decoradas",
+      "fecha": "2023-12-05T16:27:00.625Z",
+      "id": 15
+    },
+    {
+      "cookie": "/oblea.webp",
+      "typeVenta": "pieza",
+      "cantidad": "6",
+      "precioVenta": "60",
+      "total": 60,
+      "precio": 10,
+      "nombre": "Galleta de oblea",
+      "fecha": "2023-12-05T16:31:51.228Z",
+      "id": 16
+    }
+  ],
+  "totalVentas": [
+    {
+      "name": "Galleta oreo",
+      "sales": 15
+    },
+    {
+      "name": "Galleta de helado",
+      "sales": 12
+    },
+    {
+      "name": "Galleta relleno naranja",
+      "sales": 10
+    },
+    {
+      "name": "Galleta relleno fresa",
+      "sales": 8
+    },
+    {
+      "name": "Galleta de chispas",
+      "sales": 1
+    },
+    {
+      "name": "Galleta de decoradas",
+      "sales": 1
+    },
+    {
+      "name": "Galleta plana",
+      "sales": 0
+    },
+    {
+      "name": "Galleta relleno vainilla",
+      "sales": 0
+    },
+    {
+      "name": "Galleta naraja",
+      "sales": 0
+    },
+    {
+      "name": "Galleta de oblea",
+      "sales": 0
+    }
+  ],
+  "perdidas": [
+    {
+      "id": 1,
+      "name": "Galleta oreo",
+      "sales": 15
+    },
+    {
+      "id": 2,
+      "name": "Galleta de helado",
+      "sales": 12
+    },
+    {
+      "id": 3,
+      "name": "Galleta relleno naranja",
+      "sales": 10
+    },
+    {
+      "id": 4,
+      "name": "Galleta relleno fresa",
+      "sales": 8
+    },
+    {
+      "id": 5,
+      "name": "Galleta de chispas",
+      "sales": 1
+    },
+    {
+      "id": 6,
+      "name": "Galleta de decoradas",
+      "sales": 1
+    },
+    {
+      "id": 7,
+      "name": "Galleta plana",
+      "sales": 0
+    },
+    {
+      "id": 8,
+      "name": "Galleta relleno vainilla",
+      "sales": 0
+    },
+    {
+      "id": 9,
+      "name": "Galleta naraja",
+      "sales": 0
+    },
+    {
+      "id": 10,
+      "name": "Galleta de oblea",
+      "sales": 0
+    }
+  ],
+  "perdida": [
+    {
+      "cookie": "/oreo.webp",
+      "typeVenta": "pieza",
+      "cantidad": "1",
+      "sales": 10,
+      "total": 10,
+      "nombre": "Galleta oreo",
+      "fecha": "2023-12-3T19:22:54.787Z",
+      "id": 1
+    },
+    {
+      "cookie": "/oreo.webp",
+      "typeVenta": "pieza",
+      "cantidad": "3",
+      "sales": 10,
+      "total": 30,
+      "nombre": "Galleta oreo",
+      "fecha": "2023-11-30T19:31:01.122Z",
+      "id": 2
+    },
+    {
+      "cookie": "/oreo.webp",
+      "typeVenta": "pieza",
+      "cantidad": "3",
+      "sales": 10,
+      "nombre": "Galleta oreo",
+      "fecha": "2023-11-30T19:31:26.938Z",
+      "id": 3
+    },
+    {
+      "cookie": "/helado.webp",
+      "typeVenta": "pieza",
+      "cantidad": "4",
+      "sales": 10,
+      "total": 40,
+      "nombre": "Galleta de helado",
+      "fecha": "2023-11-30T19:32:13.167Z",
+      "id": 4
+    },
+    {
+      "cookie": "/helado.webp",
+      "typeVenta": "pieza",
+      "cantidad": "4",
+      "sales": 10,
+      "total": 40,
+      "nombre": "Galleta de helado",
+      "fecha": "2023-11-30T19:32:27.759Z",
+      "id": 5
+    },
+    {
+      "cookie": "/helado.webp",
+      "typeVenta": "pieza",
+      "cantidad": "4",
+      "sales": 10,
+      "total": 40,
+      "nombre": "Galleta de helado",
+      "fecha": "2023-12-5T19:33:35.033Z",
+      "id": 6
     }
   ]
 }

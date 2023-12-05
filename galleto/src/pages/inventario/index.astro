@@ -33,18 +33,18 @@ const inventario = await getInventario();
 
 <Layout title="Home">
 	<Nav />
-	<main class="mt-[1rem]">
+	<main class="">
 		<div
-			class="container bg-secondary/20 border-secondary rounded-lg p-3 mb-5"
+			class="container bg-secondary/20 border-secondary rounded-lg p-3"
 		>
 			<div class="grid grid-cols-12">
-				<div class="col-start-2 col-span-10">
+				<div class="col-start-2 col-span-12">
 					<p class="text-[2rem] font-bold text-secondary text-center">
 						Inventario
 					</p>
 				</div>
 
-				<div class="col-start-1 col-span-10">
+				<div class="col-start-1 col-span-12">
 					<Table>
 						<TableHeader>
 							<TableRow>
@@ -67,7 +67,7 @@ const inventario = await getInventario();
 					</Table>
 				</div>
 
-				<div class="col-start-11 col-span-2 ml-5 flex">
+				<!-- <div class="col-start-11 col-span-2 ml-5 flex">
 					<div class="row-span-1 my-auto">
 						<RadioInventario client:idle />
 						<Button className="my-4 w-full ">
@@ -77,7 +77,7 @@ const inventario = await getInventario();
 							<Receipt className="me-2" />Generar recibo
 						</Button>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</main>

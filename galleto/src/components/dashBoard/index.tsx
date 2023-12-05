@@ -12,7 +12,6 @@ function DashBoardButtons() {
 	);
 
 	const date = useDayStore(store => store.SelectedDate);
-	const style = date() === 'hoy' ? 'primary' : 'default';
 
 	return (
 		<div className="flex flex-row space-x-4">

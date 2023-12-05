@@ -24,10 +24,11 @@ export default () => {
 
 	useEffect(() => {
 		const filtro = SelectedDate();
-		console.log(filtro);
+
 		fetchData().then(data => {
 			const filteredData = filterDataByDate(data, filtro, today);
 			const chartData = sumTotals(filteredData);
+			console.log(chartData);
 			setValuesChart(chartData);
 		});
 	}, [SelectedDate()]);
@@ -53,7 +54,16 @@ export default () => {
 				</Text>
 			</Flex>
 			{valuesChart.length === 0 ? (
-				<Text>No hay ventas hoy</Text>
+				<Text>
+					No hay ventas{' '}
+					{SelectedDate() === 'hoy'
+						? 'de hoy'
+						: SelectedDate() === 'semana'
+						? 'de la semana'
+						: SelectedDate() === 'mes'
+						? 'del mes'
+						: 'generales'}{' '}
+				</Text>
 			) : (
 				<BarList data={valuesChart} className="mt-2" />
 			)}

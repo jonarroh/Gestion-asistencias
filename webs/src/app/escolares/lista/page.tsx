@@ -112,11 +112,19 @@ export const getJWT = () => {
 async function getListasByClave() {
 	let route = getJWT();
 
-	const clave = JSON.parse(route!.user).docente.clave;
+	console.log({ route });
 
-	const response = (await fetch(
-		`http://localhost:3001/lista/docente/${clave}`
-	).then(res => res.json())) as Promise<ListaAsistencia>;
+	const clave = JSON.parse(route!.user).escolares.clave;
+
+	console.log({ clave });
+
+	const response = (await fetch(`http://localhost:3001/lista/3`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({ clave: String(clave) })
+	}).then(res => res.json())) as Promise<ListaAsistencia>;
 
 	return response;
 }
@@ -125,11 +133,15 @@ async function Page() {
 	const listas = await getListasByClave();
 
 	let route = getJWT();
+
+	console.log({ route });
+
 	const usuario = JSON.parse(route!.user).docente;
 	const rol = JSON.parse(route!.user).persona.role;
 	const nombre = JSON.parse(route!.user).persona.nombre;
 	const matricula = JSON.parse(route!.user).persona.matricula;
 
+	console.log({ usuario });
 	return (
 		<>
 			<Usuario role="docente">

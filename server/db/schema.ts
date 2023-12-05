@@ -217,3 +217,13 @@ export const materias_grupo = sqliteTable('materias_grupo', {
 	clave_grupo: integer('clave_grupo').references(() => grupo.clave),
 	horas: real('horas')
 });
+
+export const relleno_lista = sqliteTable('relleno_lista', {
+	clave: integer('clave').primaryKey(),
+	clave_lista: integer('clave_lista').references(
+		() => lista_asistencia.clave
+	),
+	asistencia: text('asistencia', {
+		mode: 'json'
+	})
+});
