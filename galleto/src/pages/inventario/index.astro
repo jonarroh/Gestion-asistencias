@@ -13,7 +13,8 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import RadioInventario from '@/components/ui/radiog-inventario';
-import { Receipt, CircleDollarSign } from 'lucide-react';
+import { Receipt, CircleDollarSign, Warehouse } from 'lucide-react';
+import { navigate } from 'astro:transitions/client';
 
 export interface Inventario {
 	id: number;
@@ -76,6 +77,14 @@ const inventario = await getInventario();
 						<Button variant={'secondary'} className="w-full">
 							<Receipt className="me-2" />Generar recibo
 						</Button>
+						<a href="/inventario/inventarioProduccion">
+							<Button 
+								variant={'default'} 
+								className='my-4 w-full'
+								>
+								<Warehouse className='me-2'/> Almacén
+							</Button>
+						</a>
 					</div>
 				</div> -->
 			</div>
