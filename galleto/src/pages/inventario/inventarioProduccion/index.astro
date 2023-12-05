@@ -1,0 +1,49 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import SelectGalleta from '@/components/ui/select-galleta';
+import { RadioGroupForm } from '@/components/compra/Form';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import Nav from '@/components/ui/nav.astro';
+import ModalCompra from '@/components/ui/venta-modal';
+import FormAlmacen from '@/components/ui/form-almacen';
+---
+
+<Layout title="Produccion">
+	<Nav />
+	<main class="h-full w-100% flex">
+		<div class="mx-auto my-[6rem] w-1/2 h-full">
+			<Card className="bg-secondary/20">
+				<div class="flex flex-row mt-5">
+					<div
+						class="flex flex-col justify-center items-center w-1/2 mx-5"
+					>
+						<p class="text-[1.5rem] font-bold mb-5">
+							Selecciona la Galleta
+						</p>
+						<SelectGalleta client:idle />
+					</div>
+
+					<div
+						class="flex flex-col justify-center items-center w-1/2 mr-10 mt-5"
+					>
+						<FormAlmacen client:idle />
+					</div>
+				</div>
+
+				<div class="flex flex-row w-100% mt-10 mb-5 mx-5">
+					<div class="flex w-full">
+						<ModalCompra client:idle />
+						<Button
+							className="w-1/2 ml-2"
+							variant={'secondary'}
+							client:idle
+						>
+							Merma
+						</Button>
+					</div>
+				</div>
+			</Card>
+		</div>
+	</main>
+</Layout>
