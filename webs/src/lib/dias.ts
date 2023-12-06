@@ -11,7 +11,7 @@ import {
 } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 
-interface FechaHabil {
+export interface FechaHabil {
 	fechaInicio: string;
 	fechaFin: string;
 	diasVacaciones: string[];
@@ -19,7 +19,6 @@ interface FechaHabil {
 	diasClase: string[];
 	horasClase: number[];
 	id?: number;
-	alumnos: Alumno[];
 }
 
 export function obtenerFechasHabiles({
@@ -28,8 +27,7 @@ export function obtenerFechasHabiles({
 	diasVacaciones,
 	diasDescanso,
 	diasClase,
-	horasClase,
-	alumnos
+	horasClase
 }: FechaHabil) {
 	const fechasHabiles = [];
 
@@ -65,13 +63,7 @@ export function obtenerFechasHabiles({
 						fecha: format(fecha, 'yyyy-MM-dd'),
 						horasClase: 1,
 						keys: uuidv4().toString(),
-						estado: 'na',
-						alumnos: alumnos.map(alumno => {
-							return {
-								...alumno,
-								estado: 'na'
-							};
-						})
+						estado: 'na'
 					});
 				}
 			}

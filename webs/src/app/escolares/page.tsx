@@ -52,17 +52,15 @@ async function Role() {
 		await getData();
 	let route = getJWT();
 
-	//@ts-ignore
-	console.log({ route: JSON.parse(route.user).escolares.clave });
 	return (
 		<>
 			<div className="w-screen h-screen grid-cols-18 ">
 				<Usuario role="escolares">
-					{/* <HeaderDatos
-							role={route}
-							nombre={usuario.persona.nombre}
-							matricula={usuario.persona.matricula}
-						/> */}
+					<HeaderDatos
+						role={JSON.parse(route.user).persona.role}
+						nombre={JSON.parse(route.user).persona.nombre}
+						matricula={JSON.parse(route.user).persona.matricula}
+					/>
 					<PanelCrearLista
 						docentes={docentes}
 						especialidades={especialidades}

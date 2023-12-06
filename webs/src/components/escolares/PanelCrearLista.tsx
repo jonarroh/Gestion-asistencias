@@ -54,8 +54,6 @@ function PanelCrearLista({
 	const [grupo, setgrupos] = useState<Grupo[]>();
 	const { toast } = useToast();
 
-	console.log(periodos);
-
 	const handleChangeEspecialidad = async (clave: number) => {
 		const urls = [
 			`http://localhost:3001/materias/${clave}`,
@@ -146,6 +144,7 @@ function PanelCrearLista({
 							//validar que las fecha de vacaciones esten dentro del periodo
 							//sacar el periodo del valor de data.get(periodo	)
 							const a = data.get('Periodo')?.toString().split('#');
+							let error = false;
 							if (a) {
 								const inicio = parseISO(a[1]);
 								const fin = parseISO(a[0]);
@@ -176,10 +175,12 @@ function PanelCrearLista({
 										})}`,
 										variant: 'destructive'
 									});
-									return;
+									error = true;
 								}
+								if (error) return;
 
 								//validar que los Dias de inhábiles esten dentro del periodo
+								let errorOccurred = false;
 								date?.forEach(d => {
 									if (d < inicio || d > fin) {
 										toast({
@@ -198,11 +199,14 @@ function PanelCrearLista({
 
 											variant: 'destructive'
 										});
-										return;
+										errorOccurred = true;
 									}
 								});
 
+								if (errorOccurred) return;
+
 								//validar que las horas del horario no superen las 21 horas
+								let errorOccurred2 = false;
 								horarios.forEach((h, index) => {
 									const hora =
 										Number(h.toString().substring(0, 2)) +
@@ -214,9 +218,11 @@ function PanelCrearLista({
 											description: `La hora ${h} no es valida, no puede ser mayor a las 21 horas`,
 											variant: 'destructive'
 										});
-										return;
+										errorOccurred2 = true;
 									}
 								});
+
+								if (errorOccurred2) return;
 
 								const resp = await fetch(
 									'http://localhost:3001/lista',
