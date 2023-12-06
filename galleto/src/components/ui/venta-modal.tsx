@@ -37,10 +37,43 @@ function ModalCompra({ pathname }: ModalCompraProps) {
 
 	const { listaGalletas } = useVentaStore();
 	const { setCantidad } = useVentaStore();
+	console.log(listaGalletas);
+	console.log(listaGalletas.length === 0);
 
 	const handleVenta = () => {
 		try {
 			listaGalletas.forEach(async galleta => {
+				const url = `http://localhost:3001/galletas?id=${galleta.id}`;
+				const urlWithParams = new URL(url);
+
+				//obtener el objeto con nombre de la galleta
+				const resp = await fetch(urlWithParams);
+				let g = await resp.json();
+				//validar que la cantidad no sea mayor al stock
+				if (Number(g[0].stock) < Number(galleta.cantidad)) {
+					toast({
+						title: 'Error',
+						description: `No hay suficiente stock de ${g[0].nombre}`,
+						variant: 'destructive'
+					});
+					return;
+				}
+
+				const newCantidad = g[0].stock - Number(galleta.cantidad);
+
+				g[0].stock = newCantidad;
+
+				const response = await fetch(
+					`http://localhost:3001/galletas/${galleta.id}`,
+					{
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify(g[0])
+					}
+				);
+
 				const data = await saveVenta(galleta);
 
 				if (data) {
@@ -127,7 +160,7 @@ function ModalCompra({ pathname }: ModalCompraProps) {
 					<Button
 						className="w-1/2 ml-2"
 						variant={'default'}
-						disabled={listaGalletas.length === 0}
+						disabled={listaGalletas.length === 0 ?? true}
 						onClick={() => {
 							// handleVenta();
 							if (pathname == null) {

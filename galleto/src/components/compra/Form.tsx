@@ -52,7 +52,7 @@ export function RadioGroupForm() {
 		const precioxgramo = cookieData.get(currentCookie)?.precioxgramo;
 		const preciobolsa = cookieData.get(currentCookie)?.precioBolsa;
 		const precioCaja = cookieData.get(currentCookie)?.precioCaja;
-
+		const id = cookieData.get(currentCookie)?.id;
 		const nomnbre = cookieData.get(currentCookie)?.nombre;
 		let total;
 
@@ -81,7 +81,7 @@ export function RadioGroupForm() {
 				break;
 		}
 
-		const jsonTotal = { ...json, total, precio, nombre: nomnbre };
+		const jsonTotal = { ...json, total, precio, nombre: nomnbre, id };
 
 		if (!isUpdate) {
 			setListaGalletas([
@@ -112,6 +112,9 @@ export function RadioGroupForm() {
 			typeVentas: null,
 			idUpdate: -1
 		});
+
+		// Limpiar el store de lista de galletas
+		setListaGalletas([]);
 	};
 
 	const handlePrecio = () => {

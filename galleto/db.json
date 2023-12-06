@@ -11,7 +11,7 @@
       "id": 1,
       "nombre": "Galleta oreo",
       "precio": 10,
-      "stock": 114
+      "stock": 94
     },
     {
       "id": 2,
@@ -291,6 +291,17 @@
       "nombre": "Galleta oreo",
       "fecha": "2023-12-06T06:37:21.441Z",
       "id": 18
+    },
+    {
+      "cookie": "/oreo.webp",
+      "typeVenta": "pieza",
+      "cantidad": "20",
+      "precioVenta": "200",
+      "total": 200,
+      "precio": 10,
+      "nombre": "Galleta oreo",
+      "id": 1,
+      "fecha": "2023-12-06T14:31:18.497Z"
     }
   ],
   "totalVentas": [
