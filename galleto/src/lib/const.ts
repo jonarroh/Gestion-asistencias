@@ -5,6 +5,7 @@ type dataCookie = {
 	precioxgramo: number;
 	precioBolsa: number;
 	precioCaja: number;
+	id: number;
 };
 
 export const cookieData = new Map<string, dataCookie>([
@@ -16,7 +17,8 @@ export const cookieData = new Map<string, dataCookie>([
 			url: '/oreo.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
-			precioCaja: 100
+			precioCaja: 100,
+			id: 1
 		}
 	],
 	[
@@ -27,7 +29,8 @@ export const cookieData = new Map<string, dataCookie>([
 			precioxgramo: 0.1,
 			url: '/plana.webp',
 			precioBolsa: 40,
-			precioCaja: 100
+			precioCaja: 100,
+			id: 2
 		}
 	],
 	[
@@ -38,7 +41,8 @@ export const cookieData = new Map<string, dataCookie>([
 			url: '/rellena_fresa.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
-			precioCaja: 100
+			precioCaja: 100,
+			id: 3
 		}
 	],
 	[
@@ -49,7 +53,8 @@ export const cookieData = new Map<string, dataCookie>([
 			url: '/naranja.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
-			precioCaja: 100
+			precioCaja: 100,
+			id: 4
 		}
 	],
 	[
@@ -60,7 +65,8 @@ export const cookieData = new Map<string, dataCookie>([
 			url: '/relleno_vainilla.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
-			precioCaja: 100
+			precioCaja: 100,
+			id: 5
 		}
 	],
 	[
@@ -71,7 +77,8 @@ export const cookieData = new Map<string, dataCookie>([
 			url: '/relleno_naranja.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
-			precioCaja: 100
+			precioCaja: 100,
+			id: 6
 		}
 	],
 	[
@@ -82,7 +89,8 @@ export const cookieData = new Map<string, dataCookie>([
 			url: '/galletas.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
-			precioCaja: 100
+			precioCaja: 100,
+			id: 7
 		}
 	],
 	[
@@ -93,7 +101,8 @@ export const cookieData = new Map<string, dataCookie>([
 			url: '/helado.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
-			precioCaja: 100
+			precioCaja: 100,
+			id: 8
 		}
 	],
 	[
@@ -104,7 +113,8 @@ export const cookieData = new Map<string, dataCookie>([
 			url: '/oblea.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
-			precioCaja: 100
+			precioCaja: 100,
+			id: 9
 		}
 	],
 	[
@@ -115,7 +125,8 @@ export const cookieData = new Map<string, dataCookie>([
 			url: '/chispas_chocolate.webp',
 			precioxgramo: 0.1,
 			precioBolsa: 40,
-			precioCaja: 100
+			precioCaja: 100,
+			id: 10
 		}
 	]
 ]);

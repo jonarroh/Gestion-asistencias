@@ -47,7 +47,7 @@ export function RadioGroupForm() {
 
 		const data = new FormData(e.currentTarget);
 		const json = Object.fromEntries(data.entries());
-		console.log({ json });
+
 		const precio = cookieData.get(currentCookie)?.precio;
 		const precioxgramo = cookieData.get(currentCookie)?.precioxgramo;
 		const preciobolsa = cookieData.get(currentCookie)?.precioBolsa;
@@ -55,7 +55,6 @@ export function RadioGroupForm() {
 
 		const nomnbre = cookieData.get(currentCookie)?.nombre;
 		let total;
-		console.log({ typeVentas });
 
 		// Calcular el total de la venta
 		switch (json.typeVenta) {
@@ -83,7 +82,6 @@ export function RadioGroupForm() {
 		}
 
 		const jsonTotal = { ...json, total, precio, nombre: nomnbre };
-		console.log({ jsonTotal });
 
 		if (!isUpdate) {
 			setListaGalletas([
@@ -172,11 +170,10 @@ export function RadioGroupForm() {
 					name="typeVenta"
 					value={typeVentas ?? 'pieza'}
 					onValueChange={value => {
-						console.log({ value });
 						setTypeVentas(value as any);
 					}}>
 					<div className="flex items-center space-x-2">
-						<RadioGroupItem value="bolsa" id="bolsa"  />
+						<RadioGroupItem value="bolsa" id="bolsa" />
 						<Label htmlFor="bolsa">Bolsa</Label>
 					</div>
 					<div className="flex items-center space-x-2">
@@ -208,10 +205,10 @@ export function RadioGroupForm() {
 										<SelectValue placeholder="Selecciona la caja" />
 									</SelectTrigger>
 									<SelectContent>
-										<SelectGroup >
+										<SelectGroup>
 											<SelectLabel>Selecciona la caja</SelectLabel>
 											<SelectItem value="kilo">Un kilo</SelectItem>
-											<SelectItem 	value="1/2kilo">
+											<SelectItem value="1/2kilo">
 												Medio kilo
 											</SelectItem>
 										</SelectGroup>

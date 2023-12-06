@@ -11,6 +11,8 @@ import {
 import { Button } from './button';
 import { useVentaStore } from '@/store/ventaStore';
 import { useToast } from './use-toast';
+import { useFormState } from '@/store/useFormState';
+import { dataMock } from '@/mockData';
 
 async function saveVenta(galleta: any) {
 	galleta.fecha = new Date().toISOString();
@@ -26,24 +28,94 @@ async function saveVenta(galleta: any) {
 	return data;
 }
 
-function ModalCompra() {
+interface ModalCompraProps {
+	pathname?: string;
+}
+
+function ModalCompra({ pathname }: ModalCompraProps) {
 	const { toast } = useToast();
+
 	const { listaGalletas } = useVentaStore();
+	const { setCantidad } = useVentaStore();
 
 	const handleVenta = () => {
 		try {
 			listaGalletas.forEach(async galleta => {
 				const data = await saveVenta(galleta);
-				console.log({ data });
-			});
-			toast({
-				title: 'Venta exitosa',
-				description: `Se vendieron ${listaGalletas.length} galletas con exito`
+
+				if (data) {
+					toast({
+						title: 'Venta exitosa',
+						description: `Se vendieron ${listaGalletas.length} galletas con exito`
+					});
+				} else {
+					toast({
+						title: 'Error',
+						description: `Ocurrio un error al guardar la venta`,
+						variant: 'destructive'
+					});
+				}
 			});
 		} catch (error) {
 			toast({
 				title: 'Error',
 				description: `Ocurrio un error al guardar la venta`
+			});
+		}
+	};
+
+	const handleGalletas2 = async () => {
+		try {
+			listaGalletas.forEach(async galleta => {
+				const url = `http://localhost:3001/galletas?id=${galleta.id}`;
+				const urlWithParams = new URL(url);
+
+				//obtener el objeto con nombre de la galleta
+				const resp = await fetch(urlWithParams);
+				let g = await resp.json();
+
+				const newCantidad = g[0].stock + Number(galleta.cantidad);
+
+				g[0].stock = newCantidad;
+
+				const response = await fetch(
+					`http://localhost:3001/galletas/${galleta.id}`,
+					{
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify(g[0])
+					}
+				);
+				const dataResponse = await response.json();
+				if (dataResponse) {
+					toast({
+						title: 'Galleta actualizada',
+						description: `Se actualizo la cantidad de ${g[0].nombre} a ${newCantidad}`
+					});
+
+					//limpiar lista de galletas
+					useVentaStore.setState({ listaGalletas: [] });
+					//limpiar input
+					useFormState.setState({
+						cantidades: null,
+						typeVentas: null,
+						idUpdate: -1
+					});
+				} else {
+					toast({
+						title: 'Error',
+						description: `Ocurrio un error al actualizar la galleta`,
+						variant: 'destructive'
+					});
+				}
+			});
+		} catch (error) {
+			toast({
+				title: 'Error',
+				description: `Ocurrio un error al actualizar la galleta`,
+				variant: 'destructive'
 			});
 		}
 	};
@@ -57,9 +129,14 @@ function ModalCompra() {
 						variant={'default'}
 						disabled={listaGalletas.length === 0}
 						onClick={() => {
-							handleVenta();
+							// handleVenta();
+							if (pathname == null) {
+								handleVenta();
+								return;
+							}
+							handleGalletas2();
 						}}>
-						Vender
+						{pathname == null ? 'Vender' : 'Guardar'}
 					</Button>
 				</DialogTrigger>
 				<DialogContent className="sm:max-w-[425px] md:max-w-[600px]">

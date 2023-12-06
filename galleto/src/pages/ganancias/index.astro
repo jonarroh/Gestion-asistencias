@@ -67,7 +67,7 @@ const [ventas, inventario, perdidas] = await Promise.all([
 // de ventas unir todas las ventas de un mismo producto y sumarla los totales
 const infoVentas: {
 	nombre: string;
-	gananacias: number;
+	ganancias: number;
 	cantidad: number;
 }[] = [];
 
@@ -78,11 +78,11 @@ ventas.forEach(venta => {
 	if (index === -1) {
 		infoVentas.push({
 			nombre: venta.nombre,
-			gananacias: venta.total,
+			ganancias: venta.total,
 			cantidad: parseInt(venta.cantidad)
 		});
 	} else {
-		infoVentas[index].gananacias += venta.total;
+		infoVentas[index].ganancias += venta.total;
 		infoVentas[index].cantidad += parseInt(venta.cantidad);
 	}
 });
@@ -112,18 +112,18 @@ inventario.forEach(galleta => {
 			nombre: galleta.nombre,
 			stock: galleta.stock,
 			precio: galleta.precio,
-			sales: infoVentas[index].cantidad,
-			total: infoVentas[index].gananacias,
+			sales: perdidas[index].sales,
+			total: infoVentas[index].ganancias,
 			ganacias:
-				infoVentas[index].gananacias -
+				infoVentas[index].ganancias +
 				galleta.precio * infoVentas[index].cantidad
 		});
 	}
 	if (indexPerdida !== -1) {
-		tableSales[tableSales.length - 1].sales -=
+		tableSales[tableSales.length - 1].sales +=
 			perdidas[indexPerdida].sales;
 		tableSales[tableSales.length - 1].total -=
-			perdidas[indexPerdida].sales * galleta.precio;
+			perdidas[indexPerdida].sales;
 		tableSales[tableSales.length - 1].ganacias -=
 			perdidas[indexPerdida].sales * galleta.precio;
 	}
@@ -169,9 +169,7 @@ inventario.forEach(galleta => {
 									<TableRow>
 										<TableCell>{galleta.nombre}</TableCell>
 										<TableCell>{galleta.total}</TableCell>
-										<TableCell>
-											{Math.abs(galleta.ganacias)}
-										</TableCell>
+										<TableCell>{galleta.ganacias}</TableCell>
 										<TableCell>{galleta.sales}</TableCell>
 									</TableRow>
 								))

@@ -22,13 +22,13 @@ export default () => {
 	}));
 	const today = new Date();
 
+	const filtro = SelectedDate();
 	useEffect(() => {
-		const filtro = SelectedDate();
-
 		fetchData().then(data => {
 			const filteredData = filterDataByDate(data, filtro, today);
+
 			const chartData = sumTotals(filteredData);
-			console.log(chartData);
+
 			setValuesChart(chartData);
 		});
 	}, [SelectedDate()]);

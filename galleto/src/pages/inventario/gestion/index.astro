@@ -1,12 +1,13 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import SelectGalleta from '@/components/ui/select-galleta';
-import { RadioGroupForm } from '@/components/compra/Form';
+import MermaButton from '@/components/compra/MermaButton';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import Nav from '@/components/ui/nav.astro';
-import ModalCompra from '@/components/ui/venta-modal';
 import FormAlmacen from '@/components/ui/form-almacen';
+import Nav from '@/components/ui/nav.astro';
+import SelectGalleta from '@/components/ui/select-galleta';
+import ModalCompra from '@/components/ui/venta-modal';
+import Layout from '@/layouts/Layout.astro';
+import { Card } from '@tremor/react';
+const pathName = Astro.url.pathname;
 ---
 
 <Layout title="Produccion">
@@ -27,20 +28,14 @@ import FormAlmacen from '@/components/ui/form-almacen';
 					<div
 						class="flex flex-col justify-center items-center w-1/2 mr-10 mt-5"
 					>
-						<FormAlmacen client:idle />
+						<FormAlmacen pathname={pathName} client:idle />
 					</div>
 				</div>
 
 				<div class="flex flex-row w-100% mt-10 mb-5 mx-5">
 					<div class="flex w-full">
-						<ModalCompra client:idle />
-						<Button
-							className="w-1/2 ml-2"
-							variant={'secondary'}
-							client:idle
-						>
-							Merma
-						</Button>
+						<ModalCompra pathname={pathName} client:idle />
+						<MermaButton client:idle />
 					</div>
 				</div>
 			</Card>

@@ -1,4 +1,10 @@
-import { isAfter, isSameDay, subMonths, subWeeks } from 'date-fns';
+import {
+	isAfter,
+	isBefore,
+	isSameDay,
+	subMonths,
+	subWeeks
+} from 'date-fns';
 
 export interface VentaData {
 	cookie: string;
@@ -42,14 +48,14 @@ export const filterDataByDate = (
 			const oneWeekAgo = subWeeks(today, 1);
 			return data.filter(element => {
 				const fecha = new Date(element.fecha);
-				return isAfter(fecha, oneWeekAgo);
+				return isAfter(fecha, oneWeekAgo) && isBefore(fecha, today);
 			});
 
 		case 'mes':
 			const oneMonthAgo = subMonths(today, 1);
 			return data.filter(element => {
 				const fecha = new Date(element.fecha);
-				return isAfter(fecha, oneMonthAgo);
+				return isAfter(fecha, oneMonthAgo) && isBefore(fecha, today);
 			});
 
 		case 'day':
@@ -66,13 +72,20 @@ export const sumTotals = (salesData: VentaData[]): any[] => {
 	salesData.forEach(element => {
 		const { nombre, total, cookie, fecha } = element;
 
+		const ganancias = salesData.reduce((acc, venta) => {
+			if (venta.nombre === nombre) {
+				acc += venta.total;
+			}
+			return acc;
+		}, 0);
+
 		if (totales[nombre]) {
 			totales[nombre] += total;
 		} else {
 			totales[nombre] = total;
 			dataReal.push({
 				name: nombre,
-				value: total,
+				value: ganancias,
 				href: '#',
 				fecha,
 				nombreIcono: cookie,
@@ -82,6 +95,5 @@ export const sumTotals = (salesData: VentaData[]): any[] => {
 			});
 		}
 	});
-
 	return dataReal;
 };

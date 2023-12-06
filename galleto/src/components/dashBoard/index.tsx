@@ -12,12 +12,13 @@ function DashBoardButtons() {
 	);
 
 	const date = useDayStore(store => store.SelectedDate);
+	const d = date();
 
 	return (
 		<div className="flex flex-row space-x-4">
 			<div className="basis-1/4">
 				<Button
-					variant={date() === 'hoy' ? 'destructive' : 'default'}
+					variant={d === 'hoy' ? 'destructive' : 'default'}
 					className="w-full"
 					onClick={() => {
 						setDay();
@@ -27,7 +28,7 @@ function DashBoardButtons() {
 			</div>
 			<div className="basis-1/4">
 				<Button
-					variant={date() === 'semana' ? 'destructive' : 'default'}
+					variant={d === 'semana' ? 'destructive' : 'default'}
 					className="w-full"
 					onClick={() => {
 						setSemana();
@@ -37,7 +38,7 @@ function DashBoardButtons() {
 			</div>
 			<div className="basis-1/4">
 				<Button
-					variant={date() === 'mes' ? 'destructive' : 'default'}
+					variant={d === 'mes' ? 'destructive' : 'default'}
 					className="w-full"
 					onClick={() => {
 						setMes();
@@ -47,7 +48,7 @@ function DashBoardButtons() {
 			</div>
 			<div className="basis-1/4">
 				<Button
-					variant={date() === 'day' ? 'destructive' : 'default'}
+					variant={d === 'day' ? 'destructive' : 'default'}
 					className="w-full"
 					onClick={() => {
 						setDefault();

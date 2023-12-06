@@ -13,7 +13,13 @@ import { useFormState } from '@/store/useFormState';
 import { useVentaStore } from '@/store/ventaStore';
 import { Pencil, Trash } from 'lucide-react';
 
-function Drawagle({ children }: { children: React.ReactNode }) {
+function Drawagle({
+	children,
+	pathname
+}: {
+	children: React.ReactNode;
+	pathname?: string;
+}) {
 	const { setListaGalletas, listaGalletas } = useVentaStore();
 	const { setCurrentCookie } = useCookieStore();
 	const { setTypeVentas, setCantidades, setIdUpdate, setIsUpdate } =
@@ -87,24 +93,26 @@ function Drawagle({ children }: { children: React.ReactNode }) {
 						)}
 					</SheetDescription>
 				</SheetHeader>
-				<SheetFooter>
-					<div className="flex flex-row justify-between w-full items-center  h-full ">
-						<span>
-							Total:
-							<strong>
-								{' '}
-								$
-								{listaGalletas.reduce(
-									(acc, curr) => acc + curr.total,
-									0
-								)}
-							</strong>
-						</span>
-						<button className="bg-orange-500 text-white px-4 py-2 rounded-md shadow-md">
-							Finalizar compra
-						</button>
-					</div>
-				</SheetFooter>
+				{pathname ? null : (
+					<SheetFooter>
+						<div className="flex flex-row justify-between w-full items-center  h-full ">
+							<span>
+								Total:
+								<strong>
+									{' '}
+									$
+									{listaGalletas.reduce(
+										(acc, curr) => acc + curr.total,
+										0
+									)}
+								</strong>
+							</span>
+							<button className="bg-orange-500 text-white px-4 py-2 rounded-md shadow-md">
+								Finalizar compra
+							</button>
+						</div>
+					</SheetFooter>
+				)}
 			</SheetContent>
 		</Sheet>
 	);

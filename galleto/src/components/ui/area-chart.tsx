@@ -3,28 +3,16 @@ import { Card, DonutChart, Title } from '@tremor/react';
 import { useEffect, useState } from 'react';
 import { filterDataByDate } from '../dashBoard/dashFunctions';
 
-const cities = [
-	{
-		name: 'New York',
-		sales: 9800
-	},
-	{
-		name: 'Zurich',
-		sales: 1398
-	}
-];
-
 export default function DonutChartUsageExample2() {
-	const [valuesChart, setValuesChart] = useState(cities);
+	const [valuesChart, setValuesChart] = useState([]);
 	const { SelectedDate } = useDayStore(store => ({
 		SelectedDate: store.SelectedDate
 	}));
 	const today = new Date();
+	const filtro = SelectedDate();
 
 	useEffect(() => {
-		const filtro = SelectedDate();
-
-		fetch('http://localhost:3001/perdidas')
+		fetch('http://localhost:3001/perdida')
 			.then(res => res.json())
 			.then(data => {
 				const dataFiltered = filterDataByDate(data, filtro, today);
@@ -59,7 +47,7 @@ export default function DonutChartUsageExample2() {
 				//@ts-ignore
 				setValuesChart(dataFiltered);
 			});
-	}, [SelectedDate()]);
+	}, [filtro]);
 
 	return (
 		<>

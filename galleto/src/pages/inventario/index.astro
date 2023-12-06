@@ -57,7 +57,7 @@ const inventario = await getInventario();
 						<TableBody>
 							{
 								inventario.map(galleta => (
-									<TableRow key={galleta.nombre}>
+									<TableRow>
 										<TableCell>{galleta.nombre}</TableCell>
 										<TableCell>{galleta.stock}</TableCell>
 										<TableCell>{galleta.precio}</TableCell>

@@ -13,6 +13,8 @@ interface VentaStore {
 	setTotal: (total: number) => void;
 	listaGalletas: any[];
 	setListaGalletas: (listaGalletas: any[]) => void;
+	id?: number;
+	setId?: (id: number) => void;
 }
 
 export const useVentaStore = create<VentaStore>((set, get) => ({
@@ -27,6 +29,8 @@ export const useVentaStore = create<VentaStore>((set, get) => ({
 	total: 0,
 	setTotal: (total: number) => set({ total }),
 	listaGalletas: [],
+	id: 0,
+	setId: (id: number) => set({ id }),
 	setListaGalletas: (listaGalletas: string[]) =>
 		set({ listaGalletas })
 }));
