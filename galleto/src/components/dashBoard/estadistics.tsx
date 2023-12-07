@@ -99,7 +99,7 @@ function Estadistics() {
 									metric: `${maxName.sales}`
 								},
 								{
-									title: 'Galleta por agotarse',
+									title: 'Galleta por agotarse o agotada',
 									metric: `${
 										galletaAgotada?.nombre ??
 										'No hay galletas agotadas'
@@ -113,6 +113,12 @@ function Estadistics() {
 	}, [SelectedDate()]);
 
 	return (
+<<<<<<< HEAD
+		<div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 sm:grid-cols-1 '>
+			<div className='col-start-1 col-span-12 md:col-start-1 md:col-span-12 '>
+				<div className="flex flex-row md:flex-row md:flex">
+					<Grid numItemsSm={3} numItemsLg={3} numItemsMd={3} className="w-full gap-4">
+=======
 		<div className="grid grid-cols-12">
 			<div className="col-start-1 col-span-12 ">
 				<div className="flex flex-row">
@@ -120,6 +126,7 @@ function Estadistics() {
 						numItemsSm={4}
 						numItemsLg={3}
 						className="w-full gap-4">
+>>>>>>> 7d6f5895b68ea81bd588cabf7a98357c644584f5
 						{Stadistics.map(item => (
 							<Card key={item.title}>
 								<Text>{item.title}</Text>

@@ -12,6 +12,7 @@ import { useCookieStore } from '@/store/cookieStore';
 import { useFormState } from '@/store/useFormState';
 import { useVentaStore } from '@/store/ventaStore';
 import { Pencil, Trash } from 'lucide-react';
+import ModalCompra from '@/components/ui/venta-modal';
 
 function Drawagle({
 	children,
@@ -107,20 +108,7 @@ function Drawagle({
 									)}
 								</strong>
 							</span>
-							<button 
-								className="bg-orange-500 text-white px-4 py-2 rounded-md shadow-md"
-								onClick={() => {
-									setListaGalletas([]);
-									setCantidades(1);
-									setTypeVentas('pieza');
-									setCurrentCookie('/oreo.webp');
-									setIdUpdate(-1);
-									setIsUpdate(false);	
-								}
-								}
-								>
-								Limpiar lista
-							</button>
+							<ModalCompra  />
 						</div>
 					</SheetFooter>
 				)}
