@@ -243,6 +243,7 @@ function ModalCompra({ pathname }: ModalCompraProps) {
 					<Button
 						className="w-1/2 ml-2"
 						variant={'default'}
+						type="submit"
 						disabled={listaGalletas.length === 0 ?? true}
 						onClick={() => {
 							if (pathname == null) {
@@ -272,6 +273,7 @@ function ModalCompra({ pathname }: ModalCompraProps) {
 						</DialogClose>
 						<DialogClose asChild>
 							<Button
+								type="button"
 								className="w-1/2 mx-2"
 								variant={'outline_primary'}>
 								Factura

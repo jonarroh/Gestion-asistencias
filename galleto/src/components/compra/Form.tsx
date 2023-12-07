@@ -19,7 +19,7 @@ import {
 } from '../ui/select';
 import { useCookieStore } from '@/store/cookieStore';
 import { useFormState } from '@/store/useFormState';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { cookieData } from '@/lib/const';
 import { useToast } from '../ui/use-toast';
 
@@ -36,6 +36,7 @@ export function RadioGroupForm() {
 		setPrecios
 	} = useFormState();
 	const { setListaGalletas, listaGalletas } = useVentaStore();
+	const [kilo, setKilo] = useState('kilo');
 
 	const formRef = useRef<HTMLFormElement>(null);
 	const InputPrecio = useRef<HTMLInputElement>(null);
@@ -126,11 +127,12 @@ export function RadioGroupForm() {
 
 		switch (typeVentas) {
 			case 'caja':
-				setPrecios(
-					value === 'kilo'
-						? Number(precioCaja) * 1
-						: Number(precioCaja) * 0.5
-				);
+				console.log(value);
+				if (kilo === 'kilo') {
+					setPrecios(Number(precioCaja) * 1);
+				} else {
+					setPrecios(Number(precioCaja) * 0.5);
+				}
 				break;
 			case 'dinero':
 				setPrecios(Number(InputVallue.current?.value));
@@ -160,7 +162,7 @@ export function RadioGroupForm() {
 
 	useEffect(() => {
 		handlePrecio();
-	}, [typeVentas, cantidades]);
+	}, [typeVentas, cantidades, kilo]);
 	return (
 		<>
 			<form
@@ -201,10 +203,17 @@ export function RadioGroupForm() {
 						<>
 							<Label>
 								Cantidad
-								<Select name="caja">
+								<Select
+									name="caja"
+									onValueChange={e => {
+										console.log({
+											e
+										});
+										setKilo(e);
+									}}>
 									<SelectTrigger
-										className="w-full border-orange-400"
-										value={typeVentas ?? 'kilo'}>
+										value={kilo}
+										className="w-full border-orange-400">
 										<SelectValue placeholder="Selecciona la caja" />
 									</SelectTrigger>
 									<SelectContent>

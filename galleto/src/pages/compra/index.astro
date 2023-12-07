@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import Nav from '@/components/ui/nav.astro';
 import ModalCompra from '@/components/ui/venta-modal';
+import NombreGalleta from '@/components/compra/NombreGalleta';
 ---
 
 <Layout title="Venta">
@@ -21,6 +22,7 @@ import ModalCompra from '@/components/ui/venta-modal';
 							Selecciona la Galleta
 						</p>
 						<SelectGalleta client:idle />
+						<NombreGalleta client:idle />
 					</div>
 
 					<div
@@ -34,6 +36,7 @@ import ModalCompra from '@/components/ui/venta-modal';
 					<div class="flex w-full">
 						<ModalCompra client:idle />
 						<Button
+							type="button"
 							className="w-1/2 ml-2"
 							variant={'secondary'}
 							client:idle
