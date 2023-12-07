@@ -239,7 +239,7 @@ function ModalCompra({ pathname }: ModalCompraProps) {
 	return (
 		<>
 			<Dialog>
-				<DialogTrigger asChild>
+				{/* <DialogTrigger asChild>
 					<Button
 						className="w-1/2 ml-2"
 						variant={'default'}
@@ -254,7 +254,32 @@ function ModalCompra({ pathname }: ModalCompraProps) {
 						}}>
 						{pathname == null ? 'Vender' : 'Guardar'}
 					</Button>
-				</DialogTrigger>
+				</DialogTrigger> */}
+				{pathname == null ? (
+					<DialogTrigger asChild>
+						<Button
+							className="w-1/2 ml-2"
+							variant={'default'}
+							type="submit"
+							disabled={listaGalletas.length === 0 ?? true}
+							onClick={() => {
+								handleVenta();
+							}}>
+							Vender
+						</Button>
+					</DialogTrigger>
+				) : (
+					<Button
+						className="w-1/2 ml-2"
+						variant={'default'}
+						type="button"
+						disabled={listaGalletas.length === 0 ?? true}
+						onClick={() => {
+							handleGalletas2();
+						}}>
+						Guardar
+					</Button>
+				)}
 				<DialogContent className="sm:max-w-[425px] md:max-w-[600px]">
 					<DialogHeader>
 						<DialogTitle className="text-2xl text-bold text-center">
