@@ -19,7 +19,7 @@ import {
 } from '../ui/select';
 import { useCookieStore } from '@/store/cookieStore';
 import { useFormState } from '@/store/useFormState';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { cookieData } from '@/lib/const';
 import { useToast } from '../ui/use-toast';
 
@@ -36,6 +36,7 @@ export function RadioGroupForm() {
 		setPrecios
 	} = useFormState();
 	const { setListaGalletas, listaGalletas } = useVentaStore();
+	const [kilo, setKilo] = useState('kilo');
 
 	const formRef = useRef<HTMLFormElement>(null);
 	const InputPrecio = useRef<HTMLInputElement>(null);
@@ -55,6 +56,7 @@ export function RadioGroupForm() {
 		const id = cookieData.get(currentCookie)?.id;
 		const nomnbre = cookieData.get(currentCookie)?.nombre;
 		let total;
+		let cantidad;
 
 		// Calcular el total de la venta
 		switch (json.typeVenta) {
@@ -67,25 +69,53 @@ export function RadioGroupForm() {
 				// 	json.caja === '1/2kilo'
 				// 		? Number(precioCaja) * 0.5
 				// 		: (Number(precioCaja) * 1);
+
+				cantidad = json.caja === 'kilo' ? 30 : 15;
 				break;
 			case 'dinero':
 				total = Number(precio);
+				//cuando es dinero calcular la cantidad en base al precio
+				json.cantidad = (Number(json.cantidad) /
+					Number(precio)) as any;
+
 				break;
 			case 'pieza':
 				total = Number(precio) * Number(json.cantidad);
+				cantidad = String(json.cantidad);
 				break;
 			case 'granel':
 				total = Number(precioxgramo) * Number(json.cantidad);
+				//calcular la cantidad en base a los gramos
+				cantidad = String(Number(json.cantidad) / 1000);
 				break;
 			case 'bolsa':
 				total = Number(preciobolsa) * Number(json.cantidad);
+				cantidad = String(Number(json.cantidad) * 12);
 				break;
 			default:
 				total = precio! * Number(json.cantidad);
+
 				break;
 		}
-
-		const jsonTotal = { ...json, total, precio, nombre: nomnbre, id };
+		let jsonTotal;
+		if (json.cantidad) {
+			jsonTotal = {
+				...json,
+				total,
+				precio,
+				nombre: nomnbre,
+				id
+			};
+		} else {
+			jsonTotal = {
+				...json,
+				total,
+				precio,
+				nombre: nomnbre,
+				id,
+				cantidad: String(cantidad)
+			};
+		}
 
 		if (!isUpdate) {
 			console.log('añadir');
@@ -120,6 +150,9 @@ export function RadioGroupForm() {
 			typeVentas: null,
 			idUpdate: -1
 		});
+		useCookieStore.setState({
+			currentCookie: '/oreo.webp'
+		});
 	};
 
 	const handlePrecio = () => {
@@ -131,15 +164,18 @@ export function RadioGroupForm() {
 		const precioCaja2 = Number(cookieData.get(currentCookie)?.precioCaja)*.5;
 
 		switch (typeVentas) {
-			// value === 'kilo'
-					// 	? Number(precioCaja) * 0.5
-					// 	: (Number(precioCaja) * 1)
 			case 'caja':
-				setPrecios(
-					value === '1/2kilo'
-						? Number(precioCaja2)/2
-						: Number(precioCaja)
-				);
+				// setPrecios(
+				// 	value === '1/2kilo'
+				// 		? Number(precioCaja2)/2
+				// 		: Number(precioCaja)
+				// );
+				console.log(value);
+				if (kilo === 'kilo') {
+					setPrecios(Number(precioCaja) * 1);
+				} else {
+					setPrecios(Number(precioCaja) * 0.5);
+				}
 				break;
 			case 'dinero':
 				setPrecios(Number(InputVallue.current?.value));
@@ -169,7 +205,7 @@ export function RadioGroupForm() {
 
 	useEffect(() => {
 		handlePrecio();
-	}, [typeVentas, cantidades]);
+	}, [typeVentas, cantidades, kilo]);
 	return (
 		<>
 			<form
@@ -211,10 +247,17 @@ export function RadioGroupForm() {
 						<>
 							<Label>
 								Cantidad
-								<Select name="caja">
+								<Select
+									name="caja"
+									onValueChange={e => {
+										console.log({
+											e
+										});
+										setKilo(e);
+									}}>
 									<SelectTrigger
-										className="w-full border-orange-400"
-										value={typeVentas ?? 'kilo'}>
+										value={kilo}
+										className="w-full border-orange-400">
 										<SelectValue placeholder="Selecciona la caja" />
 									</SelectTrigger>
 									<SelectContent>

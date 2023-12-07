@@ -10,56 +10,89 @@ function MermaButton() {
 
 	const handleGalletas2 = async () => {
 		try {
-			listaGalletas.forEach(async galleta => {
-				const url = `http://localhost:3001/galletas?id=${galleta.id}`;
-				const urlWithParams = new URL(url);
+			await Promise.all(
+				listaGalletas.map(async galleta => {
+					const url = `http://localhost:3001/galletas?id=${galleta.id}`;
+					const urlWithParams = new URL(url);
 
-				//obtener el objeto con nombre de la galleta
-				const resp = await fetch(urlWithParams);
-				let g = await resp.json();
+					try {
+						const resp = await fetch(urlWithParams);
+						const g = await resp.json();
 
-				g[0].sales = Number(galleta.cantidad);
-				g[0].fecha = new Date().toISOString();
-				g[0].cantidad = String(Number(galleta.cantidad));
-				g[0].id = new Date().toISOString() + g[0].id;
+						if (Number(g[0].stock) < Number(galleta.cantidad)) {
+							throw new Error(
+								`La cantidad de merma es mayor a la existencia para ${g[0].nombre}`
+							);
+						}
 
-				const response = await fetch(
-					`http://localhost:3001/perdida`,
-					{
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json'
-						},
-						body: JSON.stringify(g[0])
+						g[0].stock -= Number(galleta.cantidad);
+
+						const urlUpdate = `http://localhost:3001/galletas/${g[0].id}`;
+						const urlWithParamsUpdate = new URL(urlUpdate);
+
+						const responseUpdate = await fetch(urlWithParamsUpdate, {
+							method: 'PUT',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify(g[0])
+						});
+
+						if (!responseUpdate.ok) {
+							throw new Error(
+								`Ocurrió un error al actualizar la galleta ${g[0].nombre}`
+							);
+						}
+
+						g[0].fecha = new Date().toISOString();
+						g[0].cantidad = String(Number(galleta.cantidad));
+						g[0].id = new Date().toISOString() + g[0].id;
+						g[0].sales = Number(galleta.cantidad);
+
+						const response = await fetch(
+							`http://localhost:3001/perdida`,
+							{
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json'
+								},
+								body: JSON.stringify(g[0])
+							}
+						);
+
+						const dataResponse = await response.json();
+
+						if (dataResponse) {
+							toast({
+								title: 'Galleta actualizada',
+								description: `Se actualizó la merma de ${g[0].nombre}`
+							});
+
+							useVentaStore.setState({ listaGalletas: [] });
+							useFormState.setState({
+								cantidades: null,
+								typeVentas: null,
+								idUpdate: -1
+							});
+						} else {
+							throw new Error(
+								`Ocurrió un error al actualizar la galleta ${g[0].nombre}`
+							);
+						}
+					} catch (error) {
+						toast({
+							title: 'Error',
+							//@ts-ignore
+							description: error.message,
+							variant: 'destructive'
+						});
 					}
-				);
-				const dataResponse = await response.json();
-				if (dataResponse) {
-					toast({
-						title: 'Galleta actualizada',
-						description: `Se actualizo la merma de ${g[0].nombre}`
-					});
-
-					//limpiar lista de galletas
-					useVentaStore.setState({ listaGalletas: [] });
-					//limpiar input
-					useFormState.setState({
-						cantidades: null,
-						typeVentas: null,
-						idUpdate: -1
-					});
-				} else {
-					toast({
-						title: 'Error',
-						description: `Ocurrio un error al actualizar la galleta`,
-						variant: 'destructive'
-					});
-				}
-			});
+				})
+			);
 		} catch (error) {
 			toast({
 				title: 'Error',
-				description: `Ocurrio un error al actualizar la galleta`,
+				description: 'Ocurrió un error al actualizar las galletas',
 				variant: 'destructive'
 			});
 		}
@@ -69,6 +102,7 @@ function MermaButton() {
 		<Button
 			className="w-1/2 ml-2"
 			variant={'secondary'}
+			type="button"
 			disabled={listaGalletas.length === 0}
 			onClick={handleGalletas2}>
 			Merma

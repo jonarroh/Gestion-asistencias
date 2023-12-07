@@ -1,6 +1,10 @@
 import * as React from "react"
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { format } from 'date-fns';
 
 import { cn } from "@/lib/utils"
+import { da, de } from "date-fns/locale";
 
 const Table = React.forwardRef<
   HTMLTableElement,
@@ -8,6 +12,7 @@ const Table = React.forwardRef<
 >(({ className, ...props }, ref) => (
   
     <table
+      id="table_inventario_export"
       ref={ref}
       className={cn("w-full text-sm", className)}
       {...props}
@@ -105,6 +110,40 @@ const TableCaption = React.forwardRef<
 ))
 TableCaption.displayName = "TableCaption"
 
+const handleExport = () => {
+  // Fecha y formato
+  const dateNow = new Date();
+  const dateFormat = format(dateNow, 'yyyy-MM-dd HH:mm');
+
+  // Crear un nuevo documento PDF
+  const doc = new jsPDF();
+
+  // Obtener la tabla por su ID o cualquier otro selector
+  const table = document.getElementById('historial_facturacion');
+
+  // Generar el PDF a partir de la tabla y su print
+  autoTable(doc, { html: '#historial_facturacion' });
+  doc.autoPrint();
+
+  // Generar PDF personalizado
+  doc.save(`historial_facturacion-` + dateFormat + '.pdf');
+};
+
+export default handleExport;
+
+const ButtonExp = React.forwardRef<
+  HTMLButtonElement,
+  React.ButtonHTMLAttributes<HTMLButtonElement>
+>(({ className, ...props }, ref) => (
+  <button
+    ref={ref}
+    onClick={handleExport}
+    className={cn("bg-primary hover:bg-primary/90 text-white font-bold py-2 px-4 rounded", className)}
+    {...props}
+  />
+))
+ButtonExp.displayName = "ButtonExp"
+
 export {
   Table,
   TableHeader,
@@ -114,4 +153,5 @@ export {
   TableRow,
   TableCell,
   TableCaption,
+  ButtonExp
 }
