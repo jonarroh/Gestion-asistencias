@@ -17,7 +17,7 @@
       "id": 2,
       "nombre": "Galleta plana",
       "precio": 10,
-      "stock": 0
+      "stock": 14
     },
     {
       "id": 3,
@@ -620,6 +620,24 @@
       "sales": 6,
       "fecha": "2023-12-06T04:30:10.189Z",
       "cantidad": "6"
+    },
+    {
+      "id": "2023-12-06T21:07:46.952Z2",
+      "nombre": "Galleta plana",
+      "precio": 10,
+      "stock": 14,
+      "sales": 14,
+      "fecha": "2023-12-06T21:07:46.942Z",
+      "cantidad": "14"
+    },
+    {
+      "id": "2023-12-06T21:09:12.127Z1",
+      "nombre": "Galleta oreo",
+      "precio": 10,
+      "stock": 94,
+      "sales": 14,
+      "fecha": "2023-12-06T21:09:12.127Z",
+      "cantidad": "14"
     }
   ]
 }

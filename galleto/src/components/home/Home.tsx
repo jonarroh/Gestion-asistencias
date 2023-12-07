@@ -30,7 +30,7 @@ function Home() {
 								<img src="/cart.svg" alt="Galleta seleccionada" />
 							</Button>
 							<span className="-ml-3 font-bold text-md text-white">
-								Compra
+								Venta
 							</span>
 						</div>
 
@@ -64,20 +64,7 @@ function Home() {
 								Ganancias
 							</span>
 						</div>
-
-						{/* <div className="flex flex-col items-center">
-							<Button
-								variant="outline_primary"
-								size={'selectorFunction'}
-								className="w-[250px] h-auto mx-5">
-								<img src="/dashboard.svg" alt="Galleta seleccionada" />
-							</Button>
-							<span className="font-bold text-md text-white">
-								Dashboard
-							</span>
-						</div> */}
-
-
+						
 					</div>
 				</div>
 			</Card>

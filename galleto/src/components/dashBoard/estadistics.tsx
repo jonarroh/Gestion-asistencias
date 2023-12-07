@@ -1,9 +1,12 @@
-import { Card, Grid, Metric, Text } from '@tremor/react';
+import { Card, Grid, Metric, Text, Col } from '@tremor/react';
 import { CardTremor } from '../ui/card-tremor';
 import { useEffect, useState } from 'react';
 import { useDayStore } from '@/store/dayStore';
 import { filterDataByDate, type VentaData } from './dashFunctions';
 import type { Inventario } from '@/pages/inventario/index.astro';
+import { CircleDollarSign } from 'lucide-react';
+
+
 interface CardTremorProps {
 	title: string;
 	metric: string;
@@ -119,15 +122,19 @@ function Estadistics() {
 	}, [SelectedDate()]);
 
 	return (
-		<div className="flex flex-row space-x-4 justify-center w-full">
-			<Grid numItemsSm={4} numItemsLg={4} className="gap-6">
-				{Stadistics.map(item => (
-					<Card key={item.title}>
-						<Text>{item.title}</Text>
-						<Metric>{item.metric}</Metric>
-					</Card>
-				))}
-			</Grid>
+		<div className='grid grid-cols-12'>
+			<div className='col-start-1 col-span-12 '>
+				<div className="flex flex-row">
+					<Grid numItemsSm={4} numItemsLg={3} className="w-full gap-4">
+						{Stadistics.map(item => (
+							<Card key={item.title} >
+								<Text>{item.title}</Text>
+								<Metric>{item.metric}</Metric>
+							</Card>
+						))}
+					</Grid>
+				</div>
+			</div>
 		</div>
 	);
 }
