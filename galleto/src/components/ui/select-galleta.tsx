@@ -11,6 +11,8 @@ import {
 } from './dialog';
 import { Button } from './button';
 import type { Cookie } from '@/types/Cookie';
+import { useEffect, useState } from 'react';
+import { cookieData } from '@/lib/const';
 const cookies: Cookie[] = [
 	'/oreo.webp',
 	'/plana.webp',
@@ -29,6 +31,12 @@ function SelectGalleta() {
 	const selectedCookie = useCookieStore(
 		state => state.selectedCookie
 	);
+	const [nombre, setnombre] = useState('/oreo.webp');
+
+	useEffect(() => {
+		const n = cookieData.get(currentCookie)?.url;
+		if (n) setnombre(n);
+	}, [currentCookie]);
 
 	return (
 		<>
@@ -36,7 +44,7 @@ function SelectGalleta() {
 				<DialogTrigger asChild>
 					<Button variant="link" size={'selector'}>
 						<img
-							src={currentCookie}
+							src={nombre}
 							alt="Galleta seleccionada"
 							width={200}
 							height={200}

@@ -55,6 +55,7 @@ export function RadioGroupForm() {
 		const id = cookieData.get(currentCookie)?.id;
 		const nomnbre = cookieData.get(currentCookie)?.nombre;
 		let total;
+		let cantidad;
 
 		// Calcular el total de la venta
 		switch (json.typeVenta) {
@@ -63,25 +64,53 @@ export function RadioGroupForm() {
 					json.caja === 'kilo'
 						? Number(precioCaja) * 1
 						: Number(precioCaja) * 0.5;
+
+				cantidad = json.caja === 'kilo' ? 30 : 15;
 				break;
 			case 'dinero':
 				total = Number(precio);
+				//cuando es dinero calcular la cantidad en base al precio
+				json.cantidad = (Number(json.cantidad) /
+					Number(precio)) as any;
+
 				break;
 			case 'pieza':
 				total = Number(precio) * Number(json.cantidad);
+				cantidad = String(json.cantidad);
 				break;
 			case 'granel':
 				total = Number(precioxgramo) * Number(json.cantidad);
+				//calcular la cantidad en base a los gramos
+				cantidad = String(Number(json.cantidad) / 1000);
 				break;
 			case 'bolsa':
 				total = Number(preciobolsa) * Number(json.cantidad);
+				cantidad = String(Number(json.cantidad) * 12);
 				break;
 			default:
 				total = precio! * Number(json.cantidad);
+
 				break;
 		}
-
-		const jsonTotal = { ...json, total, precio, nombre: nomnbre, id };
+		let jsonTotal;
+		if (json.cantidad) {
+			jsonTotal = {
+				...json,
+				total,
+				precio,
+				nombre: nomnbre,
+				id
+			};
+		} else {
+			jsonTotal = {
+				...json,
+				total,
+				precio,
+				nombre: nomnbre,
+				id,
+				cantidad: String(cantidad)
+			};
+		}
 
 		if (!isUpdate) {
 			console.log('añadir');
@@ -115,6 +144,9 @@ export function RadioGroupForm() {
 			cantidades: null,
 			typeVentas: null,
 			idUpdate: -1
+		});
+		useCookieStore.setState({
+			currentCookie: '/oreo.webp'
 		});
 	};
 

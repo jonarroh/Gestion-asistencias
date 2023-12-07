@@ -6,14 +6,9 @@ import { filterDataByDate, type VentaData } from './dashFunctions';
 import type { Inventario } from '@/pages/inventario/index.astro';
 import { CircleDollarSign } from 'lucide-react';
 
-
-interface CardTremorProps {
-	title: string;
-	metric: string;
-}
 const stadistic = [
 	{
-		title: 'Ganacias',
+		title: 'Perdida',
 		metric: '0.5'
 	},
 	{
@@ -22,10 +17,6 @@ const stadistic = [
 	},
 	{
 		title: 'Ganancia',
-		metric: '0.5'
-	},
-	{
-		title: 'Gananc',
 		metric: '0.5'
 	}
 ];
@@ -122,12 +113,15 @@ function Estadistics() {
 	}, [SelectedDate()]);
 
 	return (
-		<div className='grid grid-cols-12'>
-			<div className='col-start-1 col-span-12 '>
+		<div className="grid grid-cols-12">
+			<div className="col-start-1 col-span-12 ">
 				<div className="flex flex-row">
-					<Grid numItemsSm={4} numItemsLg={3} className="w-full gap-4">
+					<Grid
+						numItemsSm={4}
+						numItemsLg={3}
+						className="w-full gap-4">
 						{Stadistics.map(item => (
-							<Card key={item.title} >
+							<Card key={item.title}>
 								<Text>{item.title}</Text>
 								<Metric>{item.metric}</Metric>
 							</Card>
