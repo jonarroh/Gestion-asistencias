@@ -9,10 +9,11 @@ import Estadistics from '@/components/dashBoard/estadistics';
 
 <Layout title="Dashboard">
 	<Nav />
-	<main class="my-auto">
-		<div class="grid grid-cols-12 my-[1rem] gap-2">
+	<main>
+		<div class="grid grid-cols-12 my-[3.5rem] mx-[10rem] gap-2">
+
 			<!-- Buttons -->
-			<div class="col-start-2 col-span-10">
+			<div class="col-start-1 col-span-12">
 				<DashBoardButtons client:idle />
 			</div>
 
@@ -21,7 +22,7 @@ import Estadistics from '@/components/dashBoard/estadistics';
 				<Estadistics client:idle />
 			</div>
 
-			<div class="col-start-2 col-span-9">
+			<div class="col-start-1 col-span-12">
 				<div class="flex flex-row space-x-4">
 					<div class="basis-1/2">
 						<Barlist client:idle />
@@ -31,6 +32,7 @@ import Estadistics from '@/components/dashBoard/estadistics';
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</main>
 </Layout>

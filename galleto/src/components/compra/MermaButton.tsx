@@ -37,7 +37,7 @@ function MermaButton() {
 				if (dataResponse) {
 					toast({
 						title: 'Galleta actualizada',
-						description: `Se actualizo la merma de ${g[0].nombre}}`
+						description: `Se actualizo la merma de ${g[0].nombre}`
 					});
 
 					//limpiar lista de galletas
