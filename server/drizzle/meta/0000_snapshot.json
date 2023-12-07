@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "bff7cf75-4e71-46ad-9d64-2db15e448742",
+  "id": "b7387620-5646-425d-8002-c9c41871eb85",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "alumno": {
@@ -700,6 +700,57 @@
           "tableTo": "grupo",
           "columnsFrom": [
             "clave_grupo"
+          ],
+          "columnsTo": [
+            "clave"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "listav2": {
+      "name": "listav2",
+      "columns": {
+        "clave": {
+          "name": "clave",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "clave_lista": {
+          "name": "clave_lista",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "estado": {
+          "name": "estado",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "key": {
+          "name": "key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "listav2_clave_lista_lista_asistencia_clave_fk": {
+          "name": "listav2_clave_lista_lista_asistencia_clave_fk",
+          "tableFrom": "listav2",
+          "tableTo": "lista_asistencia",
+          "columnsFrom": [
+            "clave_lista"
           ],
           "columnsTo": [
             "clave"

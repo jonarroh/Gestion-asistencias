@@ -54,6 +54,12 @@ function FormAlmacen({ pathname }: FormAlmacenProps) {
 				title: 'Venta añadida',
 				description: 'Se ha añadido una venta a la lista'
 			});
+
+			formRef.current?.reset();
+
+			useFormState.setState({
+				cantidades: 1
+			});
 		} else {
 			const lista = useVentaStore.getState().listaGalletas;
 			lista[idUpdate!] = jsonTotal;

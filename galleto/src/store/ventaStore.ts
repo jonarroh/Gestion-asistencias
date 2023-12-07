@@ -15,6 +15,8 @@ interface VentaStore {
 	setListaGalletas: (listaGalletas: any[]) => void;
 	id?: number;
 	setId?: (id: number) => void;
+	lastListaGalletas: any[];
+	setLastListaGalletas: (lastListaGalletas: any[]) => void;
 }
 
 export const useVentaStore = create<VentaStore>((set, get) => ({
@@ -32,5 +34,8 @@ export const useVentaStore = create<VentaStore>((set, get) => ({
 	id: 0,
 	setId: (id: number) => set({ id }),
 	setListaGalletas: (listaGalletas: string[]) =>
-		set({ listaGalletas })
+		set({ listaGalletas }),
+	lastListaGalletas: [],
+	setLastListaGalletas: (lastListaGalletas: string[]) =>
+		set({ lastListaGalletas })
 }));

@@ -227,3 +227,12 @@ export const relleno_lista = sqliteTable('relleno_lista', {
 		mode: 'json'
 	})
 });
+
+export const listav2 = sqliteTable('listav2', {
+	clave: integer('clave').primaryKey(),
+	clave_lista: integer('clave_lista').references(
+		() => lista_asistencia.clave
+	),
+	estado: text('estado'),
+	key: text('key')
+});

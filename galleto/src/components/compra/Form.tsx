@@ -24,7 +24,6 @@ import { cookieData } from '@/lib/const';
 import { useToast } from '../ui/use-toast';
 
 export function RadioGroupForm() {
-	const { typeVenta, setTypeVenta } = useTypeVenta();
 	const { currentCookie } = useCookieStore();
 	const {
 		cantidades,
@@ -36,7 +35,7 @@ export function RadioGroupForm() {
 		precios,
 		setPrecios
 	} = useFormState();
-	const { setListaGalletas } = useVentaStore();
+	const { setListaGalletas, listaGalletas } = useVentaStore();
 
 	const formRef = useRef<HTMLFormElement>(null);
 	const InputPrecio = useRef<HTMLInputElement>(null);
@@ -84,6 +83,8 @@ export function RadioGroupForm() {
 		const jsonTotal = { ...json, total, precio, nombre: nomnbre, id };
 
 		if (!isUpdate) {
+			console.log('añadir');
+			console.log(jsonTotal);
 			setListaGalletas([
 				...useVentaStore.getState().listaGalletas,
 				jsonTotal
@@ -92,6 +93,8 @@ export function RadioGroupForm() {
 				title: 'Venta añadida',
 				description: 'Se ha añadido una venta a la lista'
 			});
+
+			console.log(listaGalletas);
 		} else {
 			const lista = useVentaStore.getState().listaGalletas;
 			lista[idUpdate!] = jsonTotal;
@@ -112,9 +115,6 @@ export function RadioGroupForm() {
 			typeVentas: null,
 			idUpdate: -1
 		});
-
-		// Limpiar el store de lista de galletas
-		setListaGalletas([]);
 	};
 
 	const handlePrecio = () => {
