@@ -11,7 +11,7 @@ import { useVentaStore } from '@/store/ventaStore';
 const styles = StyleSheet.create({
 	page: {
 		flexDirection: 'row',
-		backgroundColor: '#E4E4E4'
+		backgroundColor: 'secondary'
 	},
 	section: {
 		margin: 10,
@@ -37,13 +37,16 @@ function Ticket() {
 						<Text>{galleta.typeVenta}</Text>
 					</View>
 				))}
-				<Text>
-					Total:{' '}
-					{lastListaGalletas.reduce(
-						(acc, curr) => acc + Number(curr.total),
-						0
-					)}
-				</Text>
+				<Tspan className="text-right">
+					<Text >
+						Total:{' '}
+						{lastListaGalletas.reduce(
+							(acc, curr) => acc + Number(curr.total),
+							0
+						)}
+					</Text>
+				</Tspan>
+				
 			</Page>
 		</Document>
 	);

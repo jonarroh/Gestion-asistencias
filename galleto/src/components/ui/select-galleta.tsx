@@ -33,13 +33,13 @@ function SelectGalleta() {
 	return (
 		<>
 			<Dialog>
-				<DialogTrigger asChild>
+				<DialogTrigger className="sm:min-w-[120px] md:min-w-auto lg:min-w-[100px]" asChild>
 					<Button variant="link" size={'selector'}>
 						<img
 							src={currentCookie}
 							alt="Galleta seleccionada"
-							width={200}
-							height={200}
+							width={"auto"}
+							height={'auto'}
 						/>
 					</Button>
 				</DialogTrigger>
@@ -73,6 +73,7 @@ function SelectGalleta() {
 										width={75}
 										height={75}
 									/>
+									
 								</Button>
 							</div>
 						))}

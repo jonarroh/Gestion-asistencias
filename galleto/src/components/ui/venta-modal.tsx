@@ -242,7 +242,7 @@ function ModalCompra({ pathname }: ModalCompraProps) {
 				<DialogTrigger asChild>
 					<Button
 						className="w-1/2 ml-2"
-						variant={'default'}
+						variant={'secondary'}
 						disabled={listaGalletas.length === 0 ?? true}
 						onClick={() => {
 							if (pathname == null) {

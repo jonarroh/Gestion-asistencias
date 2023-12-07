@@ -51,6 +51,7 @@ export function RadioGroupForm() {
 		const precioxgramo = cookieData.get(currentCookie)?.precioxgramo;
 		const preciobolsa = cookieData.get(currentCookie)?.precioBolsa;
 		const precioCaja = cookieData.get(currentCookie)?.precioCaja;
+		const precioCaja2 = Number(cookieData.get(currentCookie)?.precioCaja) * .5;
 		const id = cookieData.get(currentCookie)?.id;
 		const nomnbre = cookieData.get(currentCookie)?.nombre;
 		let total;
@@ -58,10 +59,14 @@ export function RadioGroupForm() {
 		// Calcular el total de la venta
 		switch (json.typeVenta) {
 			case 'caja':
-				total =
-					json.caja === 'kilo'
-						? Number(precioCaja) * 1
-						: Number(precioCaja) * 0.5;
+				total = 
+					json.caja === 'kilo' 
+						? Number(precioCaja)*.5 
+						: precioCaja2*.5;
+				// total =
+				// 	json.caja === '1/2kilo'
+				// 		? Number(precioCaja) * 0.5
+				// 		: (Number(precioCaja) * 1);
 				break;
 			case 'dinero':
 				total = Number(precio);
@@ -122,14 +127,18 @@ export function RadioGroupForm() {
 		const precio = cookieData.get(currentCookie)?.precio;
 		const precioxgramo = cookieData.get(currentCookie)?.precioxgramo;
 		const preciobolsa = cookieData.get(currentCookie)?.precioBolsa;
-		const precioCaja = cookieData.get(currentCookie)?.precioCaja;
+		const precioCaja = Number(cookieData.get(currentCookie)?.precioCaja)*.5;
+		const precioCaja2 = Number(cookieData.get(currentCookie)?.precioCaja)*.5;
 
 		switch (typeVentas) {
+			// value === 'kilo'
+					// 	? Number(precioCaja) * 0.5
+					// 	: (Number(precioCaja) * 1)
 			case 'caja':
 				setPrecios(
-					value === 'kilo'
-						? Number(precioCaja) * 1
-						: Number(precioCaja) * 0.5
+					value === '1/2kilo'
+						? Number(precioCaja2)/2
+						: Number(precioCaja)
 				);
 				break;
 			case 'dinero':
@@ -165,38 +174,39 @@ export function RadioGroupForm() {
 		<>
 			<form
 				ref={formRef}
-				className="w-full h-full flex flex-col space-y-4 justify-center items-center"
+				className="w-full h-full flex flex-col space-y-4 justify-center items-center md:items-start sm:items-start"
 				onSubmit={handleSumit}>
 				<input name="cookie" type="hidden" value={currentCookie} />
 				<RadioGroup
+					className='lg:flex lg:flex-row lg:justify-start lg:items-center lg:space-x-1 lg:w-full lg:gap-1 lg:text-[1rem] sm:w-full sm:flex sm:flex-col sm:cols-2 sm:ml-1 md:grid md:grid-cols-2 md:gap-4 md:items-center md:justify-center md:space-x-0 md:space-y-0 md:text-[1.3rem] '
 					defaultValue="granel"
 					name="typeVenta"
 					value={typeVentas ?? 'pieza'}
 					onValueChange={value => {
 						setTypeVentas(value as any);
 					}}>
-					<div className="flex items-center space-x-2">
-						<RadioGroupItem value="bolsa" id="bolsa" />
+					<div className="flex items-center space-x-1 md:justify-start lg:justify-start">
+						<RadioGroupItem value="bolsa" id="bolsa " />
 						<Label htmlFor="bolsa">Bolsa</Label>
 					</div>
-					<div className="flex items-center space-x-2">
+					<div className="flex items-center space-x-1 ">
 						<RadioGroupItem value="granel" id="granel" />
 						<Label htmlFor="granel">Gramaje</Label>
 					</div>
-					<div className="flex items-center space-x-2">
-						<RadioGroupItem value="pieza" id="pieza" />
-						<Label htmlFor="pieza">Piezas</Label>
+					<div className="flex items-center lg:justify-center sm:justify-start md:justify-start">
+						<RadioGroupItem value="pieza" className='sm:mr-2 md:ml-0 lg:ml-0' id="pieza" />
+						<Label className='md:ml-0 lg:ml-0' htmlFor="pieza">Piezas</Label>
 					</div>
-					<div className="flex items-center space-x-2">
+					<div className="flex items-center space-x-1">
 						<RadioGroupItem value="dinero" id="dinero" />
 						<Label htmlFor="dinero">Dinero</Label>
 					</div>
-					<div className="flex items-center space-x-2">
+					<div className="flex items-center space-x-1 md:col-span-2 md:justify-start ">
 						<RadioGroupItem value="caja" id="caja" />
 						<Label htmlFor="caja">Caja</Label>
 					</div>
 				</RadioGroup>
-				<div className="w-full">
+				<div className="w-full sm:min-w-[120px]  sm:justify-start ">
 					{typeVentas === 'caja' ? (
 						<>
 							<Label>
@@ -241,7 +251,7 @@ export function RadioGroupForm() {
 						</>
 					)}
 				</div>
-				<div className="w-full">
+				<div className="lg:w-full md:w-full sm:min-w-[120px] ">
 					<Label>
 						Precio
 						<Input
@@ -255,17 +265,17 @@ export function RadioGroupForm() {
 					</Label>
 				</div>
 
-				<div className="flex space-x-4">
-					{isUpdate ? (
-						<Button type="submit">Actualizar </Button>
-					) : (
-						<Button type="submit">Añadir </Button>
-					)}
-					<Drawagle>
-						<Button variant={'secondary'} type="button">
-							Ver lista
-						</Button>
-					</Drawagle>
+				<div className="lg:flex lg:grid lg:grid-rows-1 lg:grid-cols-2 lg:w-full lg:space-x-4 sm:grid sm:grid-cols-1 md:flex md:w-full sm:space-y-2 md:space-y-0">
+						{isUpdate ? (
+							<Button className="" type="submit">Actualizar </Button>
+						) : (
+							<Button type="submit">Añadir </Button>
+						)}
+						<Drawagle>
+							<Button className='lg:ml-4 lg:col-start-2 md:ml-4 md:space-x-2 sm:w-full md:w-full' variant={'secondary'} type="button">
+								Ver lista
+							</Button>
+						</Drawagle>
 				</div>
 			</form>
 		</>

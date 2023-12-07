@@ -34,12 +34,12 @@ const inventario = await getInventario();
 
 <Layout title="Inventario">
 	<Nav />
-	<main class="my-4">
+	<main class=" md:mx-4 sm:mx-6">
 		<div
-			class="container bg-secondary/20 rounded-lg p-3"
+			class="sm:my-6 my-6 container bg-secondary/20 rounded-lg p-3 sm:p-4 md:p-6"
 		>
-			<div class="grid grid-cols-12 w-full gap-5">
-				<div class="flex flex-row col-span-3 col-start-6">
+			<div class="grid grid-cols-12 w-full sm:grid-cols-12">
+				<div class="flex flex-row col-span-3 col-start-6 sm:col-span-6 sm:col-start-6">
 					<div class="">
 						<p class="text-[2rem] font-bold text-[#824000] text-center">
 							Inventario
