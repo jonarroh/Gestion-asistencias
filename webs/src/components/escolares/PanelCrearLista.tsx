@@ -97,8 +97,6 @@ function PanelCrearLista({
 		to: addDays(new Date(periodos[0].fecha_fin), 1)
 	});
 
-	// Jona perame tantito que me hablaron
-
 	const [selected, setSelected] = useState<string[]>([]);
 	return (
 		<>
