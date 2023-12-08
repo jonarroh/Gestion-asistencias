@@ -8,6 +8,7 @@ import PanelCrearLista from '@/components/escolares/PanelCrearLista';
 import { cookies } from 'next/headers';
 import * as jwt from 'jsonwebtoken';
 import { redirect } from 'next/navigation';
+import { Card, CardHeader } from '@/components/ui/card';
 
 async function getData() {
 	const [docentes, materias, especialidades, periodos] =
@@ -61,6 +62,20 @@ async function Role() {
 						nombre={JSON.parse(route.user).persona.nombre}
 						matricula={JSON.parse(route.user).persona.matricula}
 					/>
+					<Card>
+						<CardHeader className="flex flex-col  w-full">
+							<div className="flex flex-row items-center justify-between w-full">
+								<p className="text-2xl font-bold">Bienvenido</p>
+								<p className="text-xl text-gray-500">
+									<span>
+										{' '}
+										{JSON.parse(route.user).persona.nombre}
+									</span>
+								</p>
+								<p>Crea tus listas de asistencia para los docentes</p>
+							</div>
+						</CardHeader>
+					</Card>
 					<PanelCrearLista
 						docentes={docentes}
 						especialidades={especialidades}

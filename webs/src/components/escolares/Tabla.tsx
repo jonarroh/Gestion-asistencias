@@ -9,7 +9,7 @@ import {
 	TableRow
 } from '../ui/table';
 import { Alumno } from '@/app/docente/page';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { DateRange } from 'react-day-picker';
 import { cn } from '@/lib/utils';
@@ -19,14 +19,26 @@ import {
 	PopoverTrigger
 } from '../ui/popover';
 import { Button } from '../ui/button';
-import { CalendarIcon } from 'lucide-react';
+import { CalendarIcon, Cloud } from 'lucide-react';
 import { Calendar } from '../ui/calendar';
+import { Card, CardHeader } from '../ui/card';
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue
+} from '../ui/select';
+import { useToast } from '../ui/use-toast';
 
 interface TablaProps {
 	fechas: string[];
 	alumnos: Alumno[];
 	calificaciones?: Calificaciones;
 	idLista: string;
+	role?: string;
 }
 type Calificaciones = Record<string, string>;
 
@@ -34,11 +46,11 @@ function Tabla({
 	fechas,
 	alumnos,
 	calificaciones,
-	idLista
+	idLista,
+	role
 }: TablaProps) {
-	console.log({
-		idLista: Number(idLista)
-	});
+	const { toast } = useToast();
+	const icon = useRef(null);
 	const [cali, setcali] = useState(calificaciones);
 	const searchParams = useSearchParams();
 	const [date, setDate] = useState<DateRange | undefined>({
@@ -64,13 +76,30 @@ function Tabla({
 		fechaIndex: number,
 		value: string
 	) => {
-		// console.log(alumno, fecha, fechaIndex, value);
-		// const calificaciones = {
-		// 	[`${alumno}-${fecha}-${fechaIndex}`]: value
-		// };
-		// console.log(calificaciones);
-		// hacer un objeto con las calificaciones de la tabla
-		// y enviarlo al backend
+		// validar que si el valor actual es 'j' no se pueda cambiar a otro valor
+
+		// de icon cambiar el fill a #62B595
+		//@ts-ignore
+		icon.current.style.fill = '#62B595';
+
+		if (
+			cali &&
+			cali[`${alumno}-${fecha}-${fechaIndex}`]! === 'j' &&
+			role === 'docente'
+		) {
+			//remover la el #62B595 del icono
+			//@ts-ignore
+			icon.current.style.fill = '';
+			toast({
+				title:
+					'No puedes cambiar el valor de una asistencia justificada',
+				variant: 'destructive',
+				description:
+					'Los valores justificados no pueden ser cambiados.'
+			});
+			return;
+		}
+
 		const lista = {
 			clave_lista: Number(idLista),
 			estado: value,
@@ -88,20 +117,35 @@ function Tabla({
 			body: JSON.stringify(lista)
 		});
 
-		//hacer un objeto con {key:estado}
-		//enviarlo al backend
-		// const calificaciones = {
-		// 	[`${alumno}-${fecha}-${fechaIndex}`]: value
-		// };
-		// console.log(calificaciones);
+		//remover la el #62B595 del icono
+		//@ts-ignore
+		icon.current.style.fill = '';
 	};
 	if (!cali) return null;
 	console.log(cali);
 
 	return (
-		<div>
-			<section className="flex flex-row justify-between w-full">
-				<p>Filtrar por fecha </p>
+		<Card>
+			<CardHeader className="flex flex-col  w-full">
+				<div className="flex flex-row items-center justify-between w-full">
+					<p className="text-2xl font-bold">Bienvenido</p>
+					<p className="text-xl text-gray-500">
+						<span>
+							Listas de asistencia del{' '}
+							{format(new Date(fechas[0]), 'dd/MM/yyyy')} -{' '}
+							{format(
+								new Date(fechas[fechas.length - 1]),
+								'dd/MM/yyyy'
+							)}
+						</span>
+					</p>
+
+					<Cloud
+						size={24}
+						className="text-gray-500 float-letf"
+						ref={icon}
+					/>
+				</div>
 				<div className={cn('grid gap-2')}>
 					<Popover>
 						<PopoverTrigger asChild>
@@ -109,7 +153,7 @@ function Tabla({
 								id="date"
 								variant={'outline'}
 								className={cn(
-									'w-[300px] justify-start text-left font-normal',
+									' justify-start text-left font-normal w-11/12 ',
 									!date && 'text-muted-foreground'
 								)}>
 								<CalendarIcon className="mr-2 h-4 w-4" />
@@ -144,6 +188,7 @@ function Tabla({
 					</Popover>
 				</div>
 				<Button
+					className="bg-[#62B595]"
 					onClick={() =>
 						setDate({
 							from: new Date(fechas[0]),
@@ -152,8 +197,8 @@ function Tabla({
 					}>
 					Restablecer fecha
 				</Button>
-			</section>
-			<Table>
+			</CardHeader>
+			<Table className=" rounded-md w-full overflow-x-scroll">
 				<TableCaption>
 					Lista de asistencia para las fechas seleccionadas.
 				</TableCaption>
@@ -197,33 +242,45 @@ function Tabla({
 								.map((fecha, fechaIndex) => (
 									<TableHead
 										key={`${alumno.persona[0].clave}-${fecha.fecha}-${fecha.index}`}>
-										<select
+										<Select
 											value={
 												cali[
 													`${alumno.persona[0].clave}-${fecha.fecha}-${fecha.index}`
 												] || 'na'
 											}
-											onChange={e =>
+											onValueChange={e =>
 												handleSelectChange(
 													alumno.persona[0].clave,
 													fecha.fecha,
 													fecha.index,
-													e.target.value
+													e
 												)
 											}>
-											<option value="f">Falta</option>
-											<option value="a">Asistencia</option>
-											<option value="r">Retardo</option>
-											<option value="j">Justificado</option>
-											<option value="na">N/A</option>
-										</select>
+											<SelectTrigger className="w-[180px]">
+												<SelectValue placeholder="Selecciona un valor" />
+											</SelectTrigger>
+											<SelectContent>
+												<SelectGroup>
+													<SelectLabel>Agregar valor</SelectLabel>
+													<SelectItem value="f">Falta</SelectItem>
+													<SelectItem value="a">
+														Asistencia
+													</SelectItem>
+													<SelectItem value="r">Retardo</SelectItem>
+													<SelectItem value="j">
+														Justificado
+													</SelectItem>
+													<SelectItem value="na">N/A</SelectItem>
+												</SelectGroup>
+											</SelectContent>
+										</Select>
 									</TableHead>
 								))}
 						</TableRow>
 					))}
 				</tbody>
 			</Table>
-		</div>
+		</Card>
 	);
 }
 

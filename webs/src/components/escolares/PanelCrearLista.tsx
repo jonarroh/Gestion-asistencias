@@ -52,6 +52,13 @@ function PanelCrearLista({
 }: PanelCrearListaProps) {
 	const [materia, setmateria] = useState<Materia[]>();
 	const [grupo, setgrupos] = useState<Grupo[]>();
+	const [fechaPeriodo, setFechaPeriodo] = useState<
+		[Date, Date] | undefined
+	>([
+		new Date(periodos[0].fecha_inicio),
+		addDays(new Date(periodos[0].fecha_fin), 1)
+	]);
+	console.log({ fechaPeriodo });
 	const { toast } = useToast();
 
 	const handleChangeEspecialidad = async (clave: number) => {
@@ -89,6 +96,8 @@ function PanelCrearLista({
 		from: new Date(periodos[0].fecha_inicio),
 		to: addDays(new Date(periodos[0].fecha_fin), 1)
 	});
+
+	// Jona perame tantito que me hablaron
 
 	const [selected, setSelected] = useState<string[]>([]);
 	return (
@@ -266,7 +275,20 @@ function PanelCrearLista({
 						}}>
 						<div className="col-span-4">
 							<Label>Periodo</Label>
-							<Select name="Periodo">
+							<Select
+								name="Periodo"
+								onValueChange={e => {
+									const a = e.split('#');
+									setFechaPeriodo([parseISO(a[1]), parseISO(a[0])]);
+									setDate([
+										parseISO(a[1]),
+										addDays(parseISO(a[0]), 7)
+									]);
+									setVacaciones({
+										from: parseISO(a[1]),
+										to: addDays(parseISO(a[0]), 7)
+									});
+								}}>
 								<SelectTrigger>
 									<SelectValue placeholder="Selecciona el periodo" />
 								</SelectTrigger>
@@ -437,6 +459,14 @@ function PanelCrearLista({
 										selected={date}
 										onSelect={setDate}
 										initialFocus
+										disabled={d => {
+											if (fechaPeriodo) {
+												return (
+													d < fechaPeriodo[0] || d > fechaPeriodo[1]
+												);
+											}
+											return false;
+										}}
 									/>
 								</PopoverContent>
 							</Popover>

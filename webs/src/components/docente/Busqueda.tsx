@@ -14,7 +14,7 @@ import { Alumno, ListaAsistencia } from '@/app/docente/page';
 import Link from 'next/link';
 
 // Define the search options
-type busqueda = 'periodo' | 'alumno' | 'fecha' | 'lista';
+type busqueda = 'periodo' | 'alumno' | 'grupo' | 'lista';
 
 interface Props {
 	listaAsistencia: ListaAsistencia;
@@ -68,10 +68,11 @@ function Busqueda({ listaAsistencia }: Props) {
 				// If no matching alumnos, return false to filter out this item
 				return false;
 
-			case 'fecha':
-				// Add logic for filtering based on fecha
-				// Replace the condition below with the actual logic
-				return null;
+			case 'grupo':
+				return listaAsistencia.grupo
+					.find(grupo => grupo.clave === lista.clave_grupo)
+					?.nombre.toLowerCase()
+					.includes(searchTerm.toLowerCase());
 
 			case 'lista':
 				// Return the original list as is
@@ -105,8 +106,7 @@ function Busqueda({ listaAsistencia }: Props) {
 							<SelectLabel>Busqueda</SelectLabel>
 							<SelectItem value="periodo">Periodo</SelectItem>
 							<SelectItem value="alumno">Alumno</SelectItem>
-							<SelectItem value="fecha">Fecha</SelectItem>
-							<SelectItem value="lista">Lista</SelectItem>
+							<SelectItem value="grupo">Grupo</SelectItem>
 						</SelectGroup>
 					</SelectContent>
 				</Select>
@@ -151,10 +151,30 @@ function Busqueda({ listaAsistencia }: Props) {
 											<Link
 												href={`/docente/lista/${filteredItem.clave}?alumno=${alumno.persona[0].clave}`}
 												className="mb-2 hover:text-blue-500 transition-colors duration-200">
-												Alumno: {alumno.persona[0].nombre}
+												Alumno:{' '}
+												<span className="font-bold">
+													{alumno.persona[0].nombre}{' '}
+													{alumno.persona[0].apellidoPaterno}{' '}
+													{alumno.persona[0].apellidoMaterno}
+												</span>
 											</Link>
 										</li>
 									))}
+								</>
+							)}
+							{busquedaBy === 'grupo' && (
+								<>
+									<Link
+										href={`/docente/lista/${filteredItem.clave}`}
+										className="mb-2 hover:text-blue-500 transition-colors duration-200">
+										{' Lista del grupo '}
+										{
+											listaAsistencia.materia.find(
+												materia =>
+													materia.clave === filteredItem.clave_materia
+											)?.nombre
+										}{' '}
+									</Link>
 								</>
 							)}
 						</ul>

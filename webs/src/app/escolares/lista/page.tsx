@@ -144,12 +144,13 @@ async function Page() {
 	console.log({ usuario });
 	return (
 		<>
-			<Usuario role="docente">
+			<Usuario role="escolares">
 				<HeaderDatos
 					role={rol}
 					nombre={nombre}
 					matricula={matricula}
 				/>
+				<Card></Card>
 				<Card className="w-full h-auto flex flex-col items-center">
 					<CardHeader>
 						<CardTitle>Lista de asistencia</CardTitle>
