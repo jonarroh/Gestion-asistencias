@@ -41,6 +41,14 @@ export class Alumno {
 					Number(grupo[0].clave_especialidad)
 				)
 			);
+		const periodos = [];
+		for (const mat of materia) {
+			const periodo = await db
+				.select()
+				.from(schema.periodo)
+				.where(eq(schema.periodo.clave, Number(mat.clave_periodo)));
+			periodos.push(periodo[0]);
+		}
 
 		const periodo = await db
 			.select()
@@ -72,15 +80,26 @@ export class Alumno {
 				relleno: []
 			};
 
-		const lista = await db
-			.select()
-			.from(schema.listav2)
-			.where(
-				eq(
-					schema.listav2.clave_lista,
-					Number(relleno_alumno[0].clave_lista)
-				)
-			);
+		// let lista = await db
+		// 	.select()
+		// 	.from(schema.lista_asistencia)
+		// 	.where(
+		// 		eq(
+		// 			schema.lista_asistencia.clave_materia,
+		// 			Number(
+		// 		)
+		// 	);
+
+		let listas = [];
+		for (const mat of materia) {
+			const lista = await db
+				.select()
+				.from(schema.lista_asistencia)
+				.where(
+					eq(schema.lista_asistencia.clave_materia, Number(mat.clave))
+				);
+			listas.push(lista);
+		}
 
 		return {
 			...alumno[0],
@@ -88,7 +107,7 @@ export class Alumno {
 			especialidad: especialidad[0],
 			materia: materia,
 			periodo: periodo,
-			lista: lista,
+			lista: listas,
 			relleno: relleno_alumno
 		};
 	}
