@@ -5,13 +5,12 @@ import Nav from '@/components/ui/nav.astro';
 ---
 
 <Layout title="Home">
-	<!-- <Nav/> -->
-	<main class="grid grid-cols-10 ">
-		<div class="flex col-start-3 my-[5rem] ">
+	<Nav />
+	<main class="grid grid-cols-10">
+		<div class="flex col-start-3 my-[5rem]">
 			<div class="">
 				<Home client:idle />
 			</div>
 		</div>
 	</main>
 </Layout>
-

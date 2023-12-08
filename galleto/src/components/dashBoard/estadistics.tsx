@@ -92,7 +92,7 @@ function Estadistics() {
 							setStadistics([
 								{
 									title: 'Ganancias',
-									metric: `${ganancias}`
+									metric: `$ ${ganancias} MXN`
 								},
 								{
 									title: `${maxName.title}`,
@@ -113,9 +113,16 @@ function Estadistics() {
 	}, [SelectedDate()]);
 
 	return (
+		<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 sm:grid-cols-1 ">
+			<div className="col-start-1 col-span-12 md:col-start-1 md:col-span-12 ">
 		<div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 sm:grid-cols-1 '>
 			<div className='col-start-1 col-span-12 md:col-start-1 md:col-span-12 '>
 				<div className="flex flex-row md:flex-row md:flex">
+					<Grid
+						numItemsSm={3}
+						numItemsLg={3}
+						numItemsMd={3}
+						className="w-full gap-4">
 					<Grid numItemsSm={3} numItemsLg={3} numItemsMd={3} className="w-full gap-4">
 						{Stadistics.map(item => (
 							<Card key={item.title}>

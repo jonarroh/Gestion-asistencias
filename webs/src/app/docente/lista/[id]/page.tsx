@@ -1,9 +1,7 @@
 import Usuario from '@/Layout/Usuario';
 import Tabla from '@/components/escolares/Tabla';
-import AttendanceTable from '@/components/shared/TablaReportes';
 import { obtenerFechasHabiles } from '@/lib/dias';
 import { Alumno, Listas } from '@/types/listas';
-import { id } from 'date-fns/locale';
 
 const getListasByID = async (id: string) => {
 	const response = await fetch(`http://localhost:3001/lista/${id}`, {
@@ -80,7 +78,6 @@ async function page({ params }: { params: { id: string } }) {
 
 	fechaHabiles.id = listas.lista[0].clave;
 	fechas = fechaHabiles.fechasHabiles as any;
-	console.log(params.id);
 
 	return (
 		<>

@@ -242,12 +242,9 @@ function ModalCompra({ pathname }: ModalCompraProps) {
 				{/* <DialogTrigger asChild>
 					<Button
 						className="w-1/2 ml-2"
-<<<<<<< HEAD
-						variant={'secondary'}
-=======
+
 						variant={'default'}
 						type="submit"
->>>>>>> 7d6f5895b68ea81bd588cabf7a98357c644584f5
 						disabled={listaGalletas.length === 0 ?? true}
 						onClick={() => {
 							if (pathname == null) {

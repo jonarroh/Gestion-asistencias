@@ -31,11 +31,15 @@ const inventario = await getInventario();
 
 <Layout title="Inventario">
 	<Nav />
+	<main class="md:mx-4 sm:mx-6">
 	<main class=" md:mx-4 sm:mx-6">
 		<div
 			class="sm:my-6 my-6 container bg-secondary/20 rounded-lg p-3 sm:p-4 md:p-6"
 		>
 			<div class="grid grid-cols-12 w-full sm:grid-cols-12">
+				<div
+					class="flex flex-row col-span-3 col-start-6 sm:col-span-6 sm:col-start-6"
+				>
 				<div class="flex flex-row col-span-3 col-start-6 sm:col-span-6 sm:col-start-6">
 					<div class="">
 						<p
@@ -64,8 +68,8 @@ const inventario = await getInventario();
 								inventario.map(galleta => (
 									<TableRow>
 										<TableCell>{galleta.nombre}</TableCell>
-										<TableCell>{galleta.stock}</TableCell>
-										<TableCell>{galleta.precio}</TableCell>
+										<TableCell>{galleta.stock} galletas</TableCell>
+										<TableCell>$ {galleta.precio} MXN</TableCell>
 									</TableRow>
 								))
 							}

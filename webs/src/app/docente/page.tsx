@@ -11,6 +11,8 @@ import {
 	CardHeader,
 	CardTitle
 } from '@/components/ui/card';
+import Busqueda from '@/components/docente/Busqueda';
+import { InfoAlumno } from '@/types/alumno';
 
 export interface ListaAsistencia {
 	lista: Lista[];
@@ -154,7 +156,10 @@ async function Page() {
 								</p>
 							</>
 						)}
-						{listas.lista?.map((lista, index) => {
+
+						<Busqueda listaAsistencia={listas} />
+
+						{/* {listas.lista?.map((lista, index) => {
 							return (
 								<div key={index} className="[text-wrap:balance]">
 									<Link
@@ -184,7 +189,7 @@ async function Page() {
 									</Link>
 								</div>
 							);
-						})}
+						})} */}
 					</CardContent>
 				</Card>
 			</Usuario>
