@@ -1,25 +1,25 @@
-import Elysia, { t } from 'elysia';
-import { Relleno } from '../../model/relleno';
-import { rellenoDTO, rellenoPutDTO } from '../../dto/Materia';
+import Elysia, { t } from "elysia";
+import { Relleno } from "../../model/relleno";
+import { rellenoDTO, rellenoPutDTO } from "../../dto/Materia";
 
-const relleno = new Elysia({ prefix: '/relleno' });
+const relleno = new Elysia({ prefix: "/relleno" });
 
-relleno.get(':id', ({ params: { id } }) => {
+relleno.get(":id", ({ params: { id } }) => {
 	return new Relleno().getRellenoByLista(Number(id));
 });
 
 relleno.post(
-	'',
+	"",
 	async ({ body }) => {
 		try {
 			const { clave_lista, asistencia } = body;
-			console.log('insertar relleno', {
+			console.log("insertar relleno", {
 				clave_lista: Number(clave_lista),
-				asistencia: asistencia
+				asistencia: asistencia,
 			});
 			return await new Relleno().insertarRelleno({
 				clave_lista: Number(clave_lista),
-				asistencia: asistencia
+				asistencia: asistencia,
 			});
 		} catch (error) {
 			console.log(error);
@@ -27,31 +27,31 @@ relleno.post(
 		}
 	},
 	{
-		body: rellenoDTO
-	}
+		body: rellenoDTO,
+	},
 );
 
 relleno.put(
-	'',
+	"",
 	async ({ body }) => {
 		const { clave_lista, asistencia, clave } = body;
 		return await new Relleno().overWriteRelleno({
 			clave_lista: Number(clave_lista),
 			asistencia: asistencia,
-			clave: Number(clave)
+			clave: Number(clave),
 		});
 	},
 	{
-		body: rellenoPutDTO
-	}
+		body: rellenoPutDTO,
+	},
 );
 
-relleno.delete('', async () => {
+relleno.delete("", async () => {
 	return await new Relleno().deleteAllRelleno();
 });
 
 relleno.post(
-	'/v2',
+	"/v2",
 	async ({ body }) => {
 		return await new Relleno().insertarRellenoV2(body);
 	},
@@ -59,16 +59,16 @@ relleno.post(
 		body: t.Object({
 			clave_lista: t.Number(),
 			estado: t.String(),
-			key: t.String()
-		})
-	}
+			key: t.String(),
+		}),
+	},
 );
 
-relleno.get('/v2', async () => {
+relleno.get("/v2", async () => {
 	//por cada resgistro hacer un hacer un objeto con {key:estado}
 	const registro = await new Relleno().getRellenoV2();
 
-	const objeto = registro.map(item => {
+	const objeto = registro.map((item) => {
 		//@ts-ignore
 		return { [item.key]: item.estado };
 	});

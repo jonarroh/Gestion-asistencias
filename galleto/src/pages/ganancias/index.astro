@@ -136,8 +136,8 @@ inventario.forEach(galleta => {
 		<div
 			class="container bg-secondary/20 rounded-lg p-3 sm:p-4 md:p-6"
 		>
-			<div class=" grid grid-cols-12 w-full sm:grid-cols-12">
-				<div class=" col-span-12">
+			<div class="grid grid-cols-12 w-full sm:grid-cols-12">
+				<div class="col-span-12">
 					<p class="text-[2rem] font-bold text-[#824000] text-center">
 						Ganancias
 					</p>
@@ -168,9 +168,9 @@ inventario.forEach(galleta => {
 								tableSales.map(galleta => (
 									<TableRow>
 										<TableCell>{galleta.nombre}</TableCell>
-										<TableCell>{galleta.total}</TableCell>
-										<TableCell>{galleta.ganacias}</TableCell>
-										<TableCell>{galleta.sales}</TableCell>
+										<TableCell>{galleta.total} galletas</TableCell>
+										<TableCell>$ {galleta.ganacias} MXN</TableCell>
+										<TableCell>{galleta.sales} galletas</TableCell>
 									</TableRow>
 								))
 							}

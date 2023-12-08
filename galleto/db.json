@@ -11,57 +11,37 @@
       "id": 1,
       "nombre": "Galleta oreo",
       "precio": 10,
-<<<<<<< HEAD
-      "stock": 199
-=======
-      "stock": 111
->>>>>>> 7d6f5895b68ea81bd588cabf7a98357c644584f5
+      "stock": 106
     },
     {
       "id": 2,
       "nombre": "Galleta plana",
       "precio": 10,
-<<<<<<< HEAD
-      "stock": 100
-=======
-      "stock": 5
->>>>>>> 7d6f5895b68ea81bd588cabf7a98357c644584f5
+      "stock": 4
     },
     {
       "id": 3,
       "nombre": "Galleta relleno fresa",
       "precio": 10,
-<<<<<<< HEAD
-      "stock": 200
-=======
-      "stock": 79
->>>>>>> 7d6f5895b68ea81bd588cabf7a98357c644584f5
+      "stock": 64
     },
     {
       "id": 4,
       "nombre": "Galleta naraja",
       "precio": 10,
-      "stock": 100
+      "stock": 79
     },
     {
       "id": 5,
       "nombre": "Galleta relleno vainilla",
       "precio": 10,
-<<<<<<< HEAD
-      "stock": 92
-=======
-      "stock": 85
->>>>>>> 7d6f5895b68ea81bd588cabf7a98357c644584f5
+      "stock": 77
     },
     {
       "id": 6,
       "nombre": "Galleta relleno naranja",
       "precio": 10,
-<<<<<<< HEAD
-      "stock": 100
-=======
-      "stock": 36
->>>>>>> 7d6f5895b68ea81bd588cabf7a98357c644584f5
+      "stock": 35
     },
     {
       "id": 7,
@@ -73,11 +53,7 @@
       "id": 8,
       "nombre": "Galleta de helado",
       "precio": 10,
-<<<<<<< HEAD
-      "stock": 100
-=======
-      "stock": 56
->>>>>>> 7d6f5895b68ea81bd588cabf7a98357c644584f5
+      "stock": 54
     },
     {
       "id": 9,
@@ -89,11 +65,7 @@
       "id": 10,
       "nombre": "Galleta de chispas",
       "precio": 10,
-<<<<<<< HEAD
-      "stock": 88
-=======
-      "stock": 34
->>>>>>> 7d6f5895b68ea81bd588cabf7a98357c644584f5
+      "stock": 43
     }
   ],
   "materialGalletas": {
@@ -488,128 +460,6 @@
     {
       "cookie": "/oreo.webp",
       "typeVenta": "pieza",
-<<<<<<< HEAD
-      "cantidad": "1",
-      "precioVenta": "10",
-      "total": 10,
-      "precio": 10,
-      "nombre": "Galleta oreo",
-      "fecha": "2023-12-07T07:10:12.807Z",
-      "id": 30
-    },
-    {
-      "cookie": "/oreo.webp",
-      "typeVenta": "caja",
-      "caja": "kilo",
-      "precioVenta": "50",
-      "total": 50,
-      "precio": 10,
-      "nombre": "Galleta oreo",
-      "fecha": "2023-12-07T07:12:00.831Z",
-      "id": 31
-    },
-    {
-      "cookie": "/oreo.webp",
-      "typeVenta": "caja",
-      "caja": "1/2kilo",
-      "precioVenta": "50",
-      "total": 25,
-      "precio": 10,
-      "nombre": "Galleta oreo",
-      "fecha": "2023-12-07T07:12:00.853Z",
-      "id": 32
-    },
-    {
-      "cookie": "/naranja.webp",
-      "typeVenta": "caja",
-      "caja": "1/2kilo",
-      "precioVenta": "50",
-      "total": 25,
-      "precio": 10,
-      "nombre": "Galleta narajan",
-      "fecha": "2023-12-07T07:15:36.059Z",
-      "id": 33
-    },
-    {
-      "cookie": "/naranja.webp",
-      "typeVenta": "caja",
-      "caja": "kilo",
-      "precioVenta": "50",
-      "total": 50,
-      "precio": 10,
-      "nombre": "Galleta narajan",
-      "fecha": "2023-12-07T07:15:36.073Z",
-      "id": 34
-    },
-    {
-      "cookie": "/oreo.webp",
-      "typeVenta": "caja",
-      "caja": "1/2kilo",
-      "precioVenta": "50",
-      "total": 25,
-      "precio": 10,
-      "nombre": "Galleta oreo",
-      "fecha": "2023-12-07T07:23:13.564Z",
-      "id": 35
-    },
-    {
-      "cookie": "/oreo.webp",
-      "typeVenta": "caja",
-      "caja": "kilo",
-      "precioVenta": "50",
-      "total": 50,
-      "precio": 10,
-      "nombre": "Galleta oreo",
-      "fecha": "2023-12-07T07:23:13.574Z",
-      "id": 36
-    },
-    {
-      "cookie": "/oreo.webp",
-      "typeVenta": "caja",
-      "caja": "1/2kilo",
-      "precioVenta": "50",
-      "total": 25,
-      "precio": 10,
-      "nombre": "Galleta oreo",
-      "fecha": "2023-12-07T07:23:13.567Z",
-      "id": 37
-    },
-    {
-      "cookie": "/chispas_chocolate.webp",
-      "typeVenta": "caja",
-      "caja": "kilo",
-      "precioVenta": "50",
-      "total": 50,
-      "precio": 10,
-      "nombre": "Galleta de chispas",
-      "fecha": "2023-12-07T07:26:11.911Z",
-      "id": 38
-    },
-    {
-      "cookie": "/chispas_chocolate.webp",
-      "typeVenta": "dinero",
-      "cantidad": "10",
-      "precioVenta": "10",
-      "total": 10,
-      "precio": 10,
-      "nombre": "Galleta de chispas",
-      "fecha": "2023-12-07T07:26:11.925Z",
-      "id": 39
-    },
-    {
-      "cookie": "/naranja.webp",
-      "typeVenta": "granel",
-      "cantidad": "100",
-      "precioVenta": "10",
-      "total": 10,
-      "precio": 10,
-      "nombre": "Galleta narajan",
-      "fecha": "2023-12-07T14:13:56.664Z",
-      "id": 40
-    },
-    {
-      "cookie": "/naranja.webp",
-=======
       "cantidad": "6",
       "precioVenta": "60",
       "total": 60,
@@ -620,94 +470,11 @@
     },
     {
       "cookie": "/plana.webp",
->>>>>>> 7d6f5895b68ea81bd588cabf7a98357c644584f5
       "typeVenta": "pieza",
       "cantidad": "10",
       "precioVenta": "100",
       "total": 100,
       "precio": 10,
-<<<<<<< HEAD
-      "nombre": "Galleta narajan",
-      "fecha": "2023-12-07T14:13:56.662Z",
-      "id": 41
-    },
-    {
-      "cookie": "/rellena_fresa.webp",
-      "typeVenta": "caja",
-      "caja": "1/2kilo",
-      "precioVenta": "50",
-      "total": 25,
-      "precio": 10,
-      "nombre": "Galleta relleno fresa",
-      "fecha": "2023-12-07T14:19:05.738Z",
-      "id": 42
-    },
-    {
-      "cookie": "/relleno_naranja.webp",
-      "typeVenta": "dinero",
-      "cantidad": "10",
-      "precioVenta": "10",
-      "total": 10,
-      "precio": 10,
-      "nombre": "Galleta relleno naranja",
-      "fecha": "2023-12-07T14:38:30.850Z",
-      "id": 43
-    },
-    {
-      "cookie": "/relleno_naranja.webp",
-      "typeVenta": "granel",
-      "cantidad": "100",
-      "precioVenta": "10",
-      "total": 10,
-      "precio": 10,
-      "nombre": "Galleta relleno naranja",
-      "fecha": "2023-12-07T14:38:30.871Z",
-      "id": 44
-    },
-    {
-      "cookie": "/relleno_vainilla.webp",
-      "typeVenta": "bolsa",
-      "cantidad": "1",
-      "precioVenta": "40",
-      "total": 40,
-      "precio": 10,
-      "nombre": "Galleta relleno vainilla",
-      "fecha": "2023-12-07T14:42:53.475Z",
-      "id": 45
-    },
-    {
-      "cookie": "/relleno_vainilla.webp",
-      "typeVenta": "pieza",
-      "cantidad": "5",
-      "precioVenta": "50",
-      "total": 50,
-      "precio": 10,
-      "nombre": "Galleta relleno vainilla",
-      "fecha": "2023-12-07T14:42:53.483Z",
-      "id": 46
-    },
-    {
-      "cookie": "/oreo.webp",
-      "typeVenta": "bolsa",
-      "cantidad": "1",
-      "precioVenta": "40",
-      "total": 40,
-      "precio": 10,
-      "nombre": "Galleta oreo",
-      "fecha": "2023-12-07T15:34:51.764Z",
-      "id": 47
-    },
-    {
-      "cookie": "/chispas_chocolate.webp",
-      "typeVenta": "bolsa",
-      "cantidad": "1",
-      "precioVenta": "40",
-      "total": 40,
-      "precio": 10,
-      "nombre": "Galleta de chispas",
-      "fecha": "2023-12-07T15:35:45.385Z",
-      "id": 48
-=======
       "nombre": "Galleta de plana",
       "fecha": "2023-12-07T14:35:43.528Z",
       "id": 31
@@ -746,7 +513,96 @@
       "cantidad": "15",
       "fecha": "2023-12-07T16:30:11.692Z",
       "id": 34
->>>>>>> 7d6f5895b68ea81bd588cabf7a98357c644584f5
+    },
+    {
+      "cookie": "/oreo.webp",
+      "typeVenta": "caja",
+      "caja": "1/2kilo",
+      "precioVenta": "25",
+      "total": 25,
+      "precio": 10,
+      "nombre": "Galleta oreo",
+      "cantidad": "15",
+      "fecha": "2023-12-08T00:06:18.459Z",
+      "id": 35
+    },
+    {
+      "cookie": "/relleno_vainilla.webp",
+      "typeVenta": "pieza",
+      "cantidad": "8",
+      "precioVenta": "80",
+      "total": 80,
+      "precio": 10,
+      "nombre": "Galleta relleno vainilla",
+      "fecha": "2023-12-08T00:06:18.457Z",
+      "id": 36
+    },
+    {
+      "cookie": "/relleno_naranja.webp",
+      "typeVenta": "bolsa",
+      "cantidad": "1",
+      "precioVenta": "40",
+      "total": 40,
+      "precio": 10,
+      "nombre": "Galleta relleno naranja",
+      "fecha": "2023-12-08T00:06:18.459Z",
+      "id": 37
+    },
+    {
+      "cookie": "/plana.webp",
+      "typeVenta": "bolsa",
+      "cantidad": "2",
+      "precioVenta": "80",
+      "total": 80,
+      "precio": 10,
+      "nombre": "Galleta de plana",
+      "fecha": "2023-12-08T00:12:17.202Z",
+      "id": 38
+    },
+    {
+      "cookie": "/plana.webp",
+      "typeVenta": "bolsa",
+      "cantidad": "1",
+      "precioVenta": "40",
+      "total": 40,
+      "precio": 10,
+      "nombre": "Galleta de plana",
+      "fecha": "2023-12-08T00:12:17.213Z",
+      "id": 39
+    },
+    {
+      "cookie": "/chispas_chocolate.webp",
+      "typeVenta": "pieza",
+      "cantidad": "1",
+      "precioVenta": "10",
+      "total": 10,
+      "precio": 10,
+      "nombre": "Galleta de chispas",
+      "fecha": "2023-12-08T01:50:36.432Z",
+      "id": 40
+    },
+    {
+      "cookie": "/helado.webp",
+      "typeVenta": "pieza",
+      "cantidad": "1",
+      "precioVenta": "10",
+      "total": 10,
+      "precio": 10,
+      "nombre": "Galleta de helado",
+      "fecha": "2023-12-08T01:50:36.430Z",
+      "id": 41
+    },
+    {
+      "cookie": "/rellena_fresa.webp",
+      "typeVenta": "caja",
+      "caja": "1/2kilo",
+      "precioVenta": "25",
+      "total": 25,
+      "precio": 10,
+      "nombre": "Galleta relleno fresa",
+      "cantidad": "15",
+      "fecha": "2023-12-08T02:42:20.223Z",
+      "id": 42
     }
   ],
   "totalVentas": [
@@ -1091,6 +947,24 @@
       "fecha": "2023-12-07T16:38:55.929Z",
       "cantidad": "12",
       "sales": 12
+    },
+    {
+      "id": "2023-12-07T23:52:50.712Z4",
+      "nombre": "Galleta naraja",
+      "precio": 10,
+      "stock": 81,
+      "fecha": "2023-12-07T23:52:50.711Z",
+      "cantidad": "13",
+      "sales": 13
+    },
+    {
+      "id": "2023-12-08T02:40:56.853Z10",
+      "nombre": "Galleta de chispas",
+      "precio": 10,
+      "stock": 43,
+      "fecha": "2023-12-08T02:40:56.853Z",
+      "cantidad": "10",
+      "sales": 10
     }
   ]
 }

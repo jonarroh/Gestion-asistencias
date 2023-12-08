@@ -12,6 +12,7 @@ import {
 	CardTitle
 } from '@/components/ui/card';
 import Busqueda from '@/components/docente/Busqueda';
+import { InfoAlumno } from '@/types/alumno';
 
 export interface ListaAsistencia {
 	lista: Lista[];
