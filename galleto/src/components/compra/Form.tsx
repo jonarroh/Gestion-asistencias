@@ -65,10 +65,6 @@ export function RadioGroupForm() {
 					json.caja === 'kilo' 
 						? Number(precioCaja)*.5 
 						: precioCaja2*.5;
-				// total =
-				// 	json.caja === '1/2kilo'
-				// 		? Number(precioCaja) * 0.5
-				// 		: (Number(precioCaja) * 1);
 
 				cantidad = json.caja === 'kilo' ? 30 : 15;
 				break;
