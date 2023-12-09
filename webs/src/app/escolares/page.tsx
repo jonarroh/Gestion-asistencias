@@ -51,6 +51,12 @@ export const getJWT = () => {
 async function Role() {
 	const { docentes, materias, especialidades, periodos } =
 		await getData();
+	console.log({
+		docentes,
+		materias,
+		especialidades,
+		periodos
+	});
 	let route = getJWT();
 
 	return (

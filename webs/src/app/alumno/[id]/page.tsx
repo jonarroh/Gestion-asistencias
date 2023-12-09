@@ -1,9 +1,9 @@
 import Usuario from '@/Layout/Usuario';
-import Tabla from '@/components/escolares/Tabla';
+import { getJWT } from '@/app/docente/lista/page';
+import Tabla2 from '@/components/escolares/Tabla2';
 import HeaderDatos from '@/components/shared/HeaderDatos';
 import { obtenerFechasHabiles } from '@/lib/dias';
 import { Alumno, Listas } from '@/types/listas';
-import { getJWT } from '../../page';
 
 const getListasByID = async (id: string) => {
 	const response = await fetch(`http://localhost:3001/lista/${id}`, {
@@ -81,21 +81,21 @@ async function page({ params }: { params: { id: string } }) {
 	fechaHabiles.id = listas.lista[0].clave;
 	fechas = fechaHabiles.fechasHabiles as any;
 	let route = getJWT();
-	const usuario = JSON.parse(route!.user).escolares;
+	const usuario = JSON.parse(route!.user).alumno;
 	const rol = JSON.parse(route!.user).persona.role;
 	const nombre = JSON.parse(route!.user).persona.nombre;
 	const matricula = JSON.parse(route!.user).persona.matricula;
 
 	return (
 		<>
-			<Usuario role="escolares">
+			<Usuario role="alumno">
 				<HeaderDatos
 					role={rol}
 					nombre={nombre}
 					matricula={matricula}
 				/>
 
-				<Tabla
+				<Tabla2
 					fechas={fechas.map(fecha => fecha.fecha)}
 					alumnos={listas.alumnos}
 					idLista={params.id}

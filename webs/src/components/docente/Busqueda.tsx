@@ -14,7 +14,7 @@ import { Alumno, ListaAsistencia } from '@/app/docente/page';
 import Link from 'next/link';
 
 // Define the search options
-type busqueda = 'periodo' | 'alumno' | 'grupo' | 'lista';
+export type busqueda = 'periodo' | 'alumno' | 'grupo' | 'lista';
 
 interface Props {
 	listaAsistencia: ListaAsistencia;
@@ -22,6 +22,7 @@ interface Props {
 
 // Define and export the Busqueda component
 function Busqueda({ listaAsistencia }: Props) {
+	console.log({ listaAsistencia });
 	const [busquedaBy, setBusquedaBy] = useState<busqueda>('periodo');
 	const [searchTerm, setSearchTerm] = useState<string>('');
 	let matchingAlumnos: Alumno[] = [];
@@ -119,7 +120,7 @@ function Busqueda({ listaAsistencia }: Props) {
 							{busquedaBy === 'periodo' && (
 								<li>
 									<Link
-										href={`/docente/lista/${filteredItem.clave}`}
+										href={`/docente/lista/${filteredItem.clave}?materia=${filteredItem.clave_materia}`}
 										className="mb-2 hover:text-blue-500 transition-colors duration-200">
 										{' Lista de '}
 										{
@@ -149,13 +150,28 @@ function Busqueda({ listaAsistencia }: Props) {
 									{matchingAlumnos.map((alumno, alumnoIndex) => (
 										<li key={alumnoIndex}>
 											<Link
-												href={`/docente/lista/${filteredItem.clave}?alumno=${alumno.persona[0].clave}`}
+												href={`/docente/lista/${filteredItem.clave}?alumno=${alumno.persona[0].clave}?materia=${filteredItem.clave_materia}`}
 												className="mb-2 hover:text-blue-500 transition-colors duration-200">
 												Alumno:{' '}
 												<span className="font-bold">
 													{alumno.persona[0].nombre}{' '}
 													{alumno.persona[0].apellidoPaterno}{' '}
-													{alumno.persona[0].apellidoMaterno}
+													{alumno.persona[0].apellidoMaterno}{' '}
+													{
+														listaAsistencia.grupo.find(
+															grupo =>
+																grupo.clave ===
+																filteredItem.clave_grupo
+														)?.nombre
+													}{' '}
+													{' periodo '}
+													{
+														listaAsistencia.periodo.find(
+															periodo =>
+																periodo.clave ===
+																filteredItem.clave_periodo
+														)?.nombre
+													}
 												</span>
 											</Link>
 										</li>

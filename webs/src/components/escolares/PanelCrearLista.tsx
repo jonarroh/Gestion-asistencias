@@ -6,7 +6,7 @@ import {
 	Materia,
 	Periodo
 } from '@/types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useToast } from '../ui/use-toast';
 import { addDays, format, parseISO } from 'date-fns';
 import { Card, CardContent } from '../ui/card';
@@ -98,6 +98,11 @@ function PanelCrearLista({
 	});
 
 	const [selected, setSelected] = useState<string[]>([]);
+
+	useEffect(() => {
+		console.log({ e: date });
+	}, [date]);
+
 	return (
 		<>
 			<Card className="mt-4 p-4 w-[80vw]">
@@ -280,7 +285,7 @@ function PanelCrearLista({
 									setFechaPeriodo([parseISO(a[1]), parseISO(a[0])]);
 									setDate([
 										parseISO(a[1]),
-										addDays(parseISO(a[0]), 7)
+										addDays(parseISO(a[1]), 1)
 									]);
 									setVacaciones({
 										from: parseISO(a[1]),
@@ -432,7 +437,7 @@ function PanelCrearLista({
 							</Select>
 						</div>
 						<div className="col-span-4">
-							<Label>Dias de inhábiles</Label>
+							<Label>Dias inhábiles</Label>
 							<Popover>
 								<PopoverTrigger asChild>
 									<Button

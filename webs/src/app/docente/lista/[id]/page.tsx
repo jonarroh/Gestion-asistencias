@@ -81,7 +81,7 @@ async function page({ params }: { params: { id: string } }) {
 	fechaHabiles.id = listas.lista[0].clave;
 	fechas = fechaHabiles.fechasHabiles as any;
 	let route = getJWT();
-	const usuario = JSON.parse(route!.user).docente;
+	const usuario = JSON.parse(route!.user).escolares;
 	const rol = JSON.parse(route!.user).persona.role;
 	const nombre = JSON.parse(route!.user).persona.nombre;
 	const matricula = JSON.parse(route!.user).persona.matricula;
@@ -100,6 +100,7 @@ async function page({ params }: { params: { id: string } }) {
 					alumnos={listas.alumnos}
 					idLista={params.id}
 					calificaciones={asistencia}
+					claveMateria={listas.lista[0].clave_materia}
 					role="docente"
 				/>
 			</Usuario>

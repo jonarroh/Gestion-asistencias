@@ -18,7 +18,7 @@ function Usuario({ children, role }: UsuarioProps) {
 						</div>
 					</header>
 				</aside>
-				<section className="col-span-10 bg-white h-screen px-4">
+				<section className="col-span-10 bg-white h-screen px-4 overflow-y-scroll">
 					{children}
 				</section>
 				<Toaster />

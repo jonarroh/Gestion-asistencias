@@ -13,7 +13,7 @@ function Nav({ role, path }: { role: string; path: string }) {
 					<ul className="flex flex-col w-full justify-start items-start">
 						<li className="flex items-center rounded-md hover:bg-blue-950  transition-colors duration-200 flex-row">
 							<Link
-								href="/docente/lista"
+								href="/docente"
 								className="w-full flex items-center">
 								<CalendarDays size={24} className="my-4" />{' '}
 								<span>Revisar listas</span>

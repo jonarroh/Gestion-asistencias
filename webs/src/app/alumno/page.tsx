@@ -4,6 +4,7 @@ import * as jwt from 'jsonwebtoken';
 import { InfoAlumno } from '@/types/alumno';
 import Usuario from '@/Layout/Usuario';
 import HeaderDatos from '@/components/shared/HeaderDatos';
+import BusquedaAlumno from '@/components/docente/BusquedaAlumno';
 
 export const getJWT = () => {
 	const cookieStore = cookies();
@@ -66,7 +67,7 @@ async function page() {
 					nombre={nombre}
 					matricula={matricula}
 				/>
-				<section>{JSON.stringify(infoAlumno)}</section>
+				<BusquedaAlumno info={infoAlumno!} />
 			</Usuario>
 		</>
 	);

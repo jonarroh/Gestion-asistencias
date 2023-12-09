@@ -82,7 +82,7 @@ function Tabla(props: TablaProps) {
 		if (materias) {
 			setClaveMaterias(Number(materias));
 		}
-		console.log({ claveMateria });
+		console.log({ claveMaterias });
 	}, []);
 
 	const handleSelectChange = async (
@@ -267,14 +267,7 @@ function Tabla(props: TablaProps) {
 													`${alumno.persona[0].clave}-${fecha.fecha}-${fecha.index}-${claveMaterias}`
 												] || 'na'
 											}
-											onValueChange={e =>
-												handleSelectChange(
-													alumno.persona[0].clave,
-													fecha.fecha,
-													fecha.index,
-													e
-												)
-											}>
+											disabled={true}>
 											<SelectTrigger className="w-[180px]">
 												<SelectValue placeholder="Selecciona un valor" />
 											</SelectTrigger>

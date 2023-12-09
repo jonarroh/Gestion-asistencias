@@ -158,38 +158,6 @@ async function Page() {
 						)}
 
 						<Busqueda listaAsistencia={listas} />
-
-						{/* {listas.lista?.map((lista, index) => {
-							return (
-								<div key={index} className="[text-wrap:balance]">
-									<Link
-										href={`/docente/lista/${lista.clave}`}
-										className="mb-2 hover:text-blue-500 transition-colors duration-200">
-										<li>
-											{' Lista de '}
-											{
-												listas.materia.find(
-													materia =>
-														materia.clave === lista.clave_materia
-												)?.nombre
-											}{' '}
-											{
-												listas.grupo.find(
-													grupo => grupo.clave === lista.clave_grupo
-												)?.nombre
-											}
-											{' periodo '}
-											{
-												listas.periodo.find(
-													periodo =>
-														periodo.clave === lista.clave_periodo
-												)?.nombre
-											}
-										</li>
-									</Link>
-								</div>
-							);
-						})} */}
 					</CardContent>
 				</Card>
 			</Usuario>

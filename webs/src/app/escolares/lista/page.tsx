@@ -2,7 +2,6 @@ import Usuario from '@/Layout/Usuario';
 import { cookies } from 'next/headers';
 // import { getJWT } from '@/app/escolares/page';
 import * as jwt from 'jsonwebtoken';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import HeaderDatos from '@/components/shared/HeaderDatos';
 import {
@@ -11,6 +10,9 @@ import {
 	CardHeader,
 	CardTitle
 } from '@/components/ui/card';
+import BusquedaEscolares, {
+	type ListoAsistencia
+} from '@/components/docente/BusquedaEscolares';
 
 export interface ListaAsistencia {
 	lista: Lista[];
@@ -118,25 +120,22 @@ async function getListasByClave() {
 
 	console.log({ clave });
 
-	const response = (await fetch(`http://localhost:3001/lista/3`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify({ clave: String(clave) })
-	}).then(res => res.json())) as Promise<ListaAsistencia>;
+	const response = (await fetch(`http://localhost:3001/lista`).then(
+		res => res.json()
+	)) as Promise<ListoAsistencia>;
 
 	return response;
 }
 
 async function Page() {
 	const listas = await getListasByClave();
+	console.log({ listas });
 
 	let route = getJWT();
 
 	console.log({ route });
 
-	const usuario = JSON.parse(route!.user).docente;
+	const usuario = JSON.parse(route!.user).escolares;
 	const rol = JSON.parse(route!.user).persona.role;
 	const nombre = JSON.parse(route!.user).persona.nombre;
 	const matricula = JSON.parse(route!.user).persona.matricula;
@@ -167,37 +166,8 @@ async function Page() {
 								</p>
 							</>
 						)}
-						{listas.lista?.map((lista, index) => {
-							return (
-								<div key={index} className="[text-wrap:balance]">
-									<Link
-										href={`/docente/lista/${lista.clave}`}
-										className="mb-2 hover:text-blue-500 transition-colors duration-200">
-										<li>
-											{' Lista de '}
-											{
-												listas.materia.find(
-													materia =>
-														materia.clave === lista.clave_materia
-												)?.nombre
-											}{' '}
-											{
-												listas.grupo.find(
-													grupo => grupo.clave === lista.clave_grupo
-												)?.nombre
-											}
-											{' periodo '}
-											{
-												listas.periodo.find(
-													periodo =>
-														periodo.clave === lista.clave_periodo
-												)?.nombre
-											}
-										</li>
-									</Link>
-								</div>
-							);
-						})}
+
+						<BusquedaEscolares listas={listas} />
 					</CardContent>
 				</Card>
 			</Usuario>
