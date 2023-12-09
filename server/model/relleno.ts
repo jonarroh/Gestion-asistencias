@@ -1,6 +1,6 @@
-import { db } from "../db/db";
-import { eq, sql } from "drizzle-orm";
-import * as schema from "../db/schema";
+import { db } from '../db/db';
+import { eq, sql } from 'drizzle-orm';
+import * as schema from '../db/schema';
 
 type relleno = typeof schema.relleno_lista.$inferSelect;
 type rellenoV2 = typeof schema.listav2.$inferSelect;
@@ -38,8 +38,10 @@ export class Relleno {
 		asistencia: string;
 	}) {
 		try {
-			const insert = await db.insert(schema.relleno_lista).values(relleno);
-			return insert;
+			const insert = await db
+				.insert(schema.relleno_lista)
+				.values(relleno);
+			return 'relleno insertado';
 		} catch (error) {
 			console.log(error);
 			return { error: error };
@@ -50,7 +52,7 @@ export class Relleno {
 		const update = await db
 			.update(schema.relleno_lista)
 			.set({
-				asistencia: relleno.asistencia,
+				asistencia: relleno.asistencia
 			})
 			.where(eq(schema.relleno_lista.clave_lista, relleno.clave));
 		return update;
